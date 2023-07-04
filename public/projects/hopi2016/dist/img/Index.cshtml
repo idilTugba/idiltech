@@ -1,0 +1,512 @@
+@model IEnumerable<HopiApplication.Campaign>
+
+@{
+    Layout = null;
+    int index = 0;
+    int sliderIndex = 0;
+    int mobileIndex = 0;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html class="no-js hidden" lang="tr" xmlns="http://www.w3.org/1999/xhtml">
+ <!-- lang="en"-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta name="googlebot" content="noindex" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" /> <!-- Apple larda telefon numarısının şekillenmemesi için -->
+    <meta name='yandex-verification' content='668b81a736039683' />
+    <meta name="apple-itunes-app" content="app-id=983886691" />
+    <meta name="google-play-app" content="app-id=com.boynergrup.hopi" />
+    <meta name="msApplication-ID" content="App" />
+    <meta name="msApplication-PackageFamilyName" content="HuluLLC.HuluPlus_fphbd361v8tya" />
+    <meta name="msApplication-PackageEdgeName" content="9WZDNCRFJ3L1" />
+    <link href="dist/img/favicon/favicon.png" rel="Shortcut icon" />
+    <title>HOPİ</title>
+
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="js/html5shiv.js"></script>
+      <script type="text/javascript" src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <![endif]-->
+    <!-- fonts -->
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <link rel="stylesheet" href="dist/css/jquery.smartbanner.css" />
+    <script type="text/javascript" src="dist/js/jquery-1.11.1.min.js"></script>
+    <script src="https://f.vimeocdn.com/js/froogaloop2.min.js"></script>
+    <script type="text/javascript" src="dist/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="dist/js/slick.js"></script>
+    <script type="text/javascript" src="dist/js/classie.js"></script>
+    <script type="text/javascript" src="dist/js/jquery.mCustomScrollbar.js"></script>
+    <script type="text/javascript" src="dist/js/video.js"></script>
+    <script type="text/javascript" src="dist/js/maskedinput.min.js"></script>
+    <script type="text/javascript" src="dist/js/bigvideo.js"></script>
+    <script type="text/javascript" src="dist/js/jquery.smartbanner.js"></script>
+    <script type="text/javascript" src="dist/js/appear.js"></script>
+    <script type="text/javascript" src="dist/js/parallax.js"></script>
+    <script type="text/javascript" src="dist/js/localscroll.js"></script>
+    <script type="text/javascript" src="dist/js/scrollTo.js"></script>
+    <script type="text/javascript" src="dist/js/fastclick.js"></script>
+    <script type="text/javascript" src="dist/js/main.js"></script>
+    <style type="text/css">
+        @@media only screen and (max-width: 767px) {
+            .owl-carousel {
+                display: block !important;
+            }
+
+            #home-slider-2 {
+                display: block !important;
+            }
+
+            #smartbanner {
+                opacity: 0;
+            }
+        }
+
+        @@media only screen and (min-width: 769px) {
+            .owl-carousel {
+                display: block !important;
+            }
+
+            #home-slider-2 {
+                display: none !important;
+            }
+        }
+    </style>
+    <script teype="text/javascript">
+
+        $(window).scroll(function (e) {
+            if ($('#smartbanner').hasClass('shown')) {
+                if (parseInt($('.entry-header.fixed').css('top')) > 0 || $('body').scrollTop() < 78) {
+                    $('.entry-header.fixed').css('top', 78 - $('body').scrollTop());
+
+                    if (parseInt($('.entry-header.fixed').css('top')) < 0) {
+                        $('.entry-header.fixed').css('top', 0);
+                    }
+
+                }
+            }
+        });
+        if (window.innerWidth < 769) {
+            $(function () {
+                $.smartbanner({});
+            });
+        }
+
+
+        $("document").ready(function () {
+
+            $('#header nav li').click(function () {
+                $('#big-video-wrap').css({ 'display': 'none' });
+            });
+
+            $('#app-button').click(function () {
+                $('html,body').animate({
+                    scrollTop: $('#page1').offset().top
+                }, 1000);
+                event.preventDefault();
+            });
+
+            window.onload = function () {
+                $(function () {
+                    if (window.innerWidth > 769) {
+                        var BV = new $.BigVideo();
+                        BV.init();
+                        BV.show('dist/video/mavi.mp4');
+                    }
+                    setTimeout(function () {
+                        $(".loading-page").css({ 'z-index': '-999', 'opacity': '0' });
+                        $("body, html").removeClass('hidden');
+                        if (window.innerWidth > 769) {
+                            new WOW().init();
+                            $('#smartbanner').css({ 'opacity': '1' });
+                        }
+                    }, 100);
+                    setTimeout(function () {
+                        $('#page1').addClass('active');
+                    }, 2500);
+                });
+
+            };
+
+
+            var owl = $('#home-slider-2');
+            owl.owlCarousel({
+                autoPlay: 2000,
+                loop: true,
+                margin: 10,
+                items: 1,
+                nav: true,
+                smartSpeed: 1000
+            });
+
+
+
+
+
+            owl.on('changed.owl.carousel', function (e) {
+                hrefId = $('#home-slider-2 .owl-item.active').find('a').attr('href-id');
+                console.log(hrefId)
+                $('.slider-text .text-item').fadeOut(0);
+                $('.slider-text #' + hrefId).fadeIn(900);
+            });
+
+            $('#home-slider .owl-item.active').eq(2).addClass('slider-active');
+            var indx = $('#home-slider .owl-item.active').eq(2).index();
+
+
+
+            $("#home-slider").slick({
+                dots: true,
+                infinite: true,
+                centerMode: true,
+                draggable: false,
+                autoplay: 2000,
+                speed: 1000,
+                slidesToShow: 5,
+                responsive: [
+                  {
+                      breakpoint: 769,
+                      settings: {
+                          autoplay: false,
+                          draggable: true,
+                          slidesToShow: 3,
+                          infinite: true,
+                          dots: true
+                      }
+                  },
+                ]
+            });
+
+            $('#home-slider').on('afterChange', function (event, slick, currentSlide, nextSlide) {
+                hrefId = $('#home-slider .slick-center').find('a').attr('href-id');
+                $('.slider-text .text-item').fadeOut(0);
+                $('.slider-text #' + hrefId).fadeIn(0);
+            });
+
+            if (window.innerWidth > 769) {
+                $('#page3').parallax("50%", 0);
+            }
+
+            $(window).scroll(function (e) {
+                var browserW = window.innerWidth;
+                var browserH = window.innerHeight;
+                var hight = $(this).scrollTop();
+                if (browserW <= 769 && hight > browserH - 100) {
+                    $('#mobile-head-icon').addClass('active')
+                } else {
+                    $('#mobile-head-icon').removeClass('active')
+                }
+                return false
+            })
+
+            $(".content-popup .content").mCustomScrollbar({
+                axis: "y" // horizontal scrollbar
+            });
+
+            $("#social-page .twitscroll").mCustomScrollbar({
+                axis: "y" // horizontal scrollbar
+            });
+        });
+    </script>
+</head>
+<body class="hidden">
+    <div class="page-content">
+        <div id="wrap" class="wrap">
+
+            @Html.Partial("Header")
+
+            <div class="wall">
+                <div class="loading-page mavi">
+                    <div class="logo">
+                        <img class="anim" src="dist/img/loading/top1.png" alt="" />
+                        <img class="anim anim1" src="dist/img/loading/top2.png" alt="" />
+                        <img class="anim anim2" src="dist/img/loading/top3.png" alt="" />
+                        <img class="anim anim3" src="dist/img/loading/top4.png" alt="" />
+                        <img src="dist/img/loading/hopi.png" alt="" />
+                    </div>
+                </div>
+                <section id="page1" class="page1 page poster">
+
+                    <div class="content-holder">
+                        <div id="img-holder" data-wow-delay="0.2s" class="img-holder wow fadeInLeft animated3">
+                            <img src="dist/img/stage1_phone.png" alt="" />
+                        </div> <!-- img-holder -->
+                        <div id="text-holder1" class="text-holder">
+                            <h1>
+                                <p data-wow-delay="0.4s" class="h1 wow fadeInUp animated3">HOPİ</p>
+                            </h1>
+                            <img src="dist/img/logo_hopi3.png" alt="" class="logo" />
+                            <h2>
+                                <p class="h2 wow fadeInUp animated3" data-wow-delay="0.5s">ALIŞVERİŞİN APP'İ</p>
+                            </h2>
+                            <p class="standart wow fadeInUp animated3" data-wow-delay="0.6s">Hopi, <strong>alışveriş alışkanlıklarına göre seni tanır,</br></strong> zevklerine ve ilgi alanlarına göre <strong>sana özel </br>kampanyalar sunar. </strong><a href="/HopiNedir">Daha fazla bilgi</a></p>
+                            <p class="standart mobile">Hopi, <strong>seni zamanla tanıyıp sana özel</strong> avantajlarıyla hiçbir yerde bulamayacağın <strong>kampanyalar sunar. </strong></strong> <a href="hopi-nedir.html">Daha fazla bilgi</a></p>
+
+                            <div style="visibility: hidden;" class="wow fadeInUp animated3 visible" data-wow-delay="0.7s">
+                                <a href="#" href-id="iframe-video1" onclick="ga('send', 'event', 'Anasayfa Video İzle Click', 'Anasayfa Video İzle Click');" class="video-watch button button-nback"><img src="dist/img/icon1.png" alt="" /><img class="hover" src="dist/img/icon1-2.png" alt="" /><img class="mobile" src="dist/img/micon1-1.png" alt="" /> <p>VİDEOYU <i>İZLE</i></p></a>
+                                <a href="#" href-id="sms" class="button-down popup-link"><p><strong>İNDİRME LİNKİNİ </strong>SMS İLE ALMAK İÇİN TIKLA</p> <span class="icon icon-right"></span></a>
+                            </div>
+                            <a target="_blank" href="https://app.adjust.com/csyjum_ts2qyk?campaign=HOPIANASAYFAMOBIL" class="button-down mobile"><strong>ÜCRETSİZ İNDİR</strong> </a>
+                            <div class="app-link">
+                                <p class="mobile"><strong>ücretsiz indirmek için</strong></p>
+                                <p class="wow fadeInUp animated3" data-wow-delay="0.9s"><strong>Hopi</strong> Mobil Uygulamasını <strong>ücretsiz indirmek için:</strong></p>
+                                <a target="_blank" onclick="ga('send', 'event', 'Index Apple Store Click', 'Index Apple Store Click');" href="https://itunes.apple.com/app/id983886691?mt=8" class="button-app wow fadeInUp animated3" data-wow-delay="1s"><img src="dist/img/app-store.png" alt="" /></a>
+                                <a target="_blank" onclick="ga('send', 'event', 'Index Google Store Click', 'Index Google Store Click');" href="https://play.google.com/store/apps/details?id=com.boynergrup.hopi&referrer=adjust_reftag%3Dcx8DswuRAjM1E%26utm_source%3DHopi%2BWebsite%26utm_campaign%3DHOPIANASAYFA" data-wow-delay="1s" class="button-play wow fadeInUp animated3"><img src="dist/img/googleplay.png" alt="" /></a>
+                            </div>
+                            <div id="scroll-icon" class="scroll"><a href-id="page2" href="#"><img src="dist/img/scroll.png" alt="" /></a></div>
+                        </div> <!-- text-holder -->
+                    </div>
+                    <div id="scroll-icon2" class="scroll2 scroll"><a href-id="page2" href="#"><img src="dist/img/ok.png" alt="" /></a></div>
+                    <div class="social-link wow fadeInUp animated3" data-wow-delay="1.2s">
+                        <ul>
+                            <li><a target="_blank" onclick="ga('send', 'event', 'Index Facebook Page Click', 'Index Facebook Page Click');" href="https://www.facebook.com/HopiApp"><span class="icon-circle-fb"></span></a></li>
+                            <li><a target="_blank" onclick="ga('send', 'event', 'Index Twitter Page Click', 'Index Twitter Page Click');" href="https://twitter.com/HopiApp"><span class="icon-circle-tt"></span></a></li>
+                            <li><a target="_blank" onclick="ga('send', 'event', 'Index Instagram Page Click', 'Index Instagram Page Click');" href="https://www.instagram.com/hopiapp"><span class="icon-circle-inst"></span></a></li>
+                        </ul>
+                    </div>
+                </section><!-- PAGE# -->
+
+                <section id="page2" class="page2 page">
+                    <div class="bg bg5"></div>
+                    <div class="content-holder">
+                        <div id="img-holder" class="img-holder  wow fadeInUp animated3">
+                        </div> <!-- img-holder -->
+                        <div id="text-holder2" class="text-holder">
+                            <div class="wow fadeInUp animated3">
+                                <h3>
+                                    <p class="h3">PARACIK</p>
+                                </h3>
+                                <p class="h2">İNDİRİMDEN <span>İYİSİ</span></p>
+                                <p class="h1">PARACIK</p>
+                            </div>
+                            <div class="wow fadeInUp animated3 delay2">
+                                <p class="standart">Hopi’nle yaptığın alışverişlerde <strong>Paracık kazanır,</strong>  kazandığın Paracık’ları başka alışverişlerinde <strong>katlaya katlaya</strong> kullanırsın. </p>
+                                <p class="standart mobile">Hopi’nle yaptığın alışverişlerde <strong>Paracık kazanır,</strong> kazandığın Paracık’ları başka alışverişlerinde <strong>katlaya katlaya</strong> kullanırsın. </p>
+                                <p class="line">Mesela bir alışverişinden  <strong>kazandığın 40 Paracık’ı, </strong> başka bir alışverişinde <strong>4 kat değerli </strong> kullanarak <strong>160 liralık</strong> bir ayakkabıyı <strong>bedavaya alabilirsin.</strong></p>
+                                <div class="button-holder">
+                                    <a href="/ParacikNedir" class="button button-back"><img src="dist/img/icon2.png" alt="" /><img class="hover" src="dist/img/icon2-1.png" alt="" /><img class="mobile" src="dist/img/micon2.png" /><p>DETAYLI <i>BİLGİ</i></p></a>
+                                    <a href="#" href-id="iframe-video2" onclick="ga('send', 'event', 'Paracık Video İzle Click', 'Paracık Video İzle Click');" class="video-watch button button-nback"><img src="dist/img/icon1-2.png" alt="" /><img class="hover" src="dist/img/icon1.png" alt="" /><img class="mobile" src="dist/img/micon1-2.png" alt="" /> <p>VİDEOYU <i>İZLE</i></p></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section><!-- PAGE2 -->
+
+                <section id="page3" class="page3 page" style="display:none;">
+                    <div class=" content-holder">
+                        <div id="text-holder3" class="text-holder wow fadeInUp animated3">
+                            <p class="h3 wow fadeInUp animated3">HOPİPAY</p>
+                            <!--<div class="title">
+                              <p>KREDİ KARTLARI <i>ARTIK</i> <strong>HOPİ^DE</strong></p>
+                            </div>-->
+                            <img class="text wow fadeInUp animated3" src="dist/img/page3content.png" alt="" />
+                            <img class="text mobile" src="dist/img/mpage3content.png" alt="" />
+                            <div class="wow fadeInUp animated3 delay2">
+                                <p class="standart">Kredi kartlarını kolayca Hopi’ne ekleyebilirsin.</br> Ödemelerini  <strong>MasterPass güvencesiyle</strong></br> cüzdanını çıkartmadan  <strong>Hopi’nle yapabilirsin.</strong></p>
+                                <p class="standart mobile">Kredi kartlarını kolayca Hopi’ne ekleyebilirsin. Ödemelerini <strong>MasterPass güvencesiyle</strong> cüzdanını çıkartmadan <strong>Hopi’nle yapabilirsin.</strong></p>
+                                <div class="button-holder">
+                                    <a href="/MobilOdeme" class="button button-back"><img src="dist/img/icon2.png" alt="" /><img class="hover" src="dist/img/icon2-1.png" alt="" /><img class="mobile" src="dist/img/micon2.png" alt="" /><p>DETAYLI <i>BİLGİ</i></p></a>
+                                    <a href="#" href-id="iframe-video3" onclick="ga('send', 'event', 'HopiPay Video İzle Click', 'HopiPay Video İzle Click');" class="video-watch button button-nback"><img src="dist/img/icon1.png" alt="" /><img class="hover" src="dist/img/icon1-2.png" alt="" /><img class="mobile" src="dist/img/micon1-1.png" alt="" /> <p>VİDEOYU <i>İZLE</i></p></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section><!-- PAGE3 -->
+
+                <section id="page4" class="page4 page" style="display:none;">
+                    <div class="content-holder">
+                        <div id="img-holder" class="img-holder">
+                            <img class="text" src="dist/img/stage4_phone.png" alt="" />
+                            <img class="text mobile" src="dist/img/mstage4_phone.png" alt="" />
+                        </div> <!-- img-holder -->
+                        <div id="text-holder4" class="text-holder">
+                            <p class="h3">AKILLI ARAMA</p>
+                            <p class="h2">HANGİ ÜRÜN NEREDE,</br><strong>HOPİ'NDEN ÖĞREN.</strong></p>
+                            <p class="standart"><span>Her yerde arayıp da bulamadığın elbise,</span> numarası kalmamış ayakkabı ve daha <span>binlerce ürün <strong>artık Hopi’de!</strong></span></p>
+                            <ul class="options">
+                                <li>
+                                    <div class="icon-set">
+                                        <img src="dist/img/page4-icon1.png" alt="" />
+                                        <img class="mobile" src="dist/img/mpage4-icon1.png" alt="" />
+                                    </div>
+                                    <p>Yazarak ara</p>
+                                </li>
+                                <li>
+                                    <div class="icon-set">
+                                        <img src="dist/img/page4-icon2.png" alt="" />
+                                        <img class="mobile" src="dist/img/mpage4-icon2.png" alt="" />
+                                    </div>
+                                    <p>Fotoğraf Çekerek <span>Ara</span></p>
+                                </li>
+                                <li>
+                                    <div class="icon-set">
+                                        <img src="dist/img/page4-icon3.png" alt="" />
+                                        <img class="mobile" src="dist/img/mpage4-icon3.png" alt="" />
+                                    </div>
+                                    <p>Barkod ile Ara</p>
+                                </li>
+                            </ul>
+                            <div class="button-holder">
+                                <a href="#" class="button button-back"><img src="dist/img/icon2.png" alt="akilli-arama.html" /><img class="mobile" src="dist/img/micon2.png" alt="" />DETAYLI <i>BİLGİ</i></a>
+                                <a href="#" class="video-watch button button-nback"><img src="dist/img/icon1.png" alt="" /><img class="mobile" src="dist/img/micon1.png" alt="" /> <p>VİDEOYU <i>İZLE</i></p></a>
+                            </div>
+                        </div>
+                    </div>
+                </section><!-- PAGE# -->
+
+                <section id="page5" class="page5 page">
+                    <div id="page5-holder" class="content-holder">
+                        <div class="wow fadeInUp animated3">
+                            <div id="text-holder5" class="text-holder">
+                                <p class="h3">MARKALAR & KAMPANYALAR</p>
+                                <p class="h2">ELEKTRONİKTEN, SEYAHATE <span>BİRÇOK MARKA HOPİ'DE.</span></p>
+                            </div>
+                        </div>
+                        <div id="slider" class="slider owl-carousel owl-them wow fadeInUp animated3">
+                            <div id="home-slider" class="home-slider">
+
+                                @foreach (var cp in @Model)
+                                {
+                                    var serviceImg = HopiApplication.Helpers.Helper.GetHopiServiceCampaingDetail(cp.previewId).imageList[0];
+                                    index++;
+                                    <div class="slider-content">
+                                        <a target="_blank" href-id="@index" href="/KampanyaDetay/@cp.previewId">
+                                            <div class="img-item">
+                                                <img src="@serviceImg.Replace("\\hopiweb01", "").Replace("\\hopiweb02", "").Replace("\\hopiweb03", "")" alt="" />
+                                                <div class="filter"></div>
+                                            </div>
+                                        </a>
+                                        <div class="text-item">
+                                            <img src="http://www.hopi.com.tr\@cp.firmLogo.Replace("\\hopiweb01", "").Replace("\\hopiweb02", "").Replace("\\hopiweb03", "")" alt="" />
+                                            <p>@cp.title</p>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                            <div id="home-slider-2" class="home-slider slider2">
+
+                                @foreach (var cp in @Model)
+                                {
+                                    var serviceImg = HopiApplication.Helpers.Helper.GetHopiServiceCampaingDetail(cp.previewId).imageList[0];
+                                    mobileIndex++;
+                                    <div class="slider-content">
+                                        <a target="_blank" href-id="@mobileIndex" href="/KampanyaDetay/@cp.previewId">
+                                            <div class="img-item">
+                                                <img src="@serviceImg.Replace("\\hopiweb01", "").Replace("\\hopiweb02", "").Replace("\\hopiweb03", "")" alt="" />
+                                                <div class="filter"></div>
+                                            </div>
+                                        </a>
+                                        <div class="text-item">
+                                            <img src="http://www.hopi.com.tr\@cp.firmLogo.Replace("\\hopiweb01", "").Replace("\\hopiweb02", "").Replace("\\hopiweb03", "")" alt="" />
+                                            <p>@cp.title</p>
+                                        </div>
+                                    </div>
+                                }
+
+
+
+                            </div>
+
+                        </div>
+                        <div class="button-holder wow fadeInUp animated3 delay2">
+                            <a href="/Markalar" onclick="ga('send', 'event', 'Anasayfa Tüm Markalar Click', 'Anasayfa Tüm Markalar Click');" class="button"><strong>DAHA FAZLASI</strong></a>
+                        </div>
+                    </div>
+                </section><!-- PAGE# -->
+
+                <section id="social-page" class="social-page">
+                    <div class="title wow fadeInUp animated3">
+                        <p><span class="icon icon-social-tt"></span> #Hopi</p>
+                    </div>
+                    <div class=" wow fadeInUp animated3">
+
+
+
+                        <div class="twit-content" style="display:block">
+                            <div id="twit" class="twit">
+                                <p>Bu hopi gercekten cok güzel....teşekkürler 👏👏👏 <span>#HopiApp</span> </p>
+                            </div>
+                            <div id="person" class="person">
+                                <img src="dist/img/twitperson5.jpg" alt="" />
+                                <div class="text">
+                                    <p class="h1">CimbomunKızı</p>
+                                    <p class="h2">1905Deren</p>
+                                    <p class="twit">Bu hopi gercekten cok güzel....teşekkürler 👏👏👏 <span>#HopiApp</span> </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="twit-content">
+                            <div id="twit" class="twit">
+                                <p>Neden hüzünlü şarkılar dinleyip kendinizi depresyonun derinliklerine bırakıyorsunuz? Bir <span>'Hopi'</span> reklamı izleyin neşelenin yahu. </p>
+                            </div>
+                            <div id="person" class="person">
+                                <img src="dist/img/twitperson4.jpg" alt="" />
+                                <div class="text">
+                                    <p class="h1">Bahar Keskin</p>
+                                    <p class="h2">_BhrKskn</p>
+                                    <p class="twit">Neden hüzünlü şarkılar dinleyip kendinizi depresyonun derinliklerine bırakıyorsunuz? Bir <span>'Hopi'</span> reklamı izleyin neşelenin yahu. </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="twit-content">
+                            <div id="twit" class="twit">
+                                <p>240 liralık ayakkabı kasada 160 çıktı.<span> #Hopi</span> kullanın. #Ykm </p>
+                            </div>
+                            <div id="person" class="person">
+                                <img src="dist/img/twitperson3.jpg" alt="" />
+                                <div class="text">
+                                    <p class="h1">kiviçayıkalpben</p>
+                                    <p class="h2">kusasli</p>
+                                    <p class="twit">240 liralık ayakkabı kasada 160 çıktı.<span> #Hopi</span> kullanın. #Ykm </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="twit-content">
+                            <div id="twit" class="twit">
+                                <p>Teşekkürler aşkısı <strong style="color:red;">❤</strong>  <span>#HopiApp</span></p>
+                            </div>
+                            <div id="person" class="person">
+                                <img src="dist/img/twitperson2.jpg" alt="" />
+                                <div class="text">
+                                    <p class="h1">Buse Hazal Gözübek</p>
+                                    <p class="h2">bhazalgozubek</p>
+                                    <p class="twit">Teşekkürler aşkısı <strong style="color:red;">❤</strong>  <span>#HopiApp</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="twit-content">
+                            <div id="twit" class="twit">
+                                <p>Bu <span>#Hopi</span> reklamı da bi acayip. Müziği duyunca paracıklar paracıklar katlansın hep paracıklar diyorum istemsiz olarak.</p>
+                            </div>
+                            <div id="person" class="person">
+                                <img src="dist/img/twitperson1.jpg" alt="" />
+                                <div class="text">
+                                    <p class="h1">Nisanur</p>
+                                    <p class="h2">NisanurD1 </p>
+                                    <p class="twit">Bu <span>#Hopi</span>  reklamı da bi acayip. Müziği duyunca paracıklar paracıklar katlansın hep paracıklar diyorum istemsiz olarak.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+
+
+
+        </div>
+        @Html.Partial("Footer")
+
+    </div>
+    @Html.Partial("Static")
+
+    @Html.Partial("FooterMarketing")
+</body>
+</html>

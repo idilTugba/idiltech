@@ -1,0 +1,35 @@
+{
+  "name": "red",
+  "version": "1.0.0",
+  "description": "vodefone red",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "browser-sync": "^2.18.2",
+    "concat": "^1.0.3",
+    "gulp-htmlmin": "^3.0.0",
+    "imagemin": "^5.3.1",
+    "minify": "^3.0.2",
+    "nodemon": "^1.12.1",
+    "pump": "^1.0.1",
+    "refresh": "^1.0.1",
+    "sass": "^1.0.0-beta.3",
+    "server": "^1.0.12",
+    "uglify": "^0.1.5",
+    "watch": "^1.0.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^3.4.0",
+    "gulp-minify": "^2.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.1.2",
+    "gulp-watch": "^4.3.11"
+  },
+  "scripts": {
+    "test": "vodefone red"
+  },
+  "author": "it",
+  "license": "ISC"
+}

@@ -1,0 +1,1318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html ng-app class="no-js" lang="tr" xmlns="http://www.w3.org/1999/xhtml"> <!-- lang="en"-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="googlebot" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no"> <!-- Apple larda telefon numarısının şekillenmemesi için -->
+  <link href="dist/img/favicon/favicon.png" rel="Shortcut icon">
+  <title>HOPİ - FORM</title>
+
+  <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5shiv.js"></script>
+    <script type="text/javascript" src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+  <![endif]-->
+
+  <!-- fonts -->
+
+  <link rel="stylesheet" href="dist/css/style.css" />
+  <script type="text/javascript" src="dist/js/all.js"></script>
+  <script>
+      var detailPage = true;
+      var notfoundpage = false;
+      var dans = false;
+      $(document).ready(function(){
+
+          (function($){
+              $.fn.setCursorToTextEnd = function() {
+                  var $initialVal = this.val();
+                  this.val($initialVal);
+              };
+          })(jQuery);
+
+          $('input[name=companyPhoneNumber]').on("focus", function(){
+              var companyPhoneNumberValLength = $('input[name=companyPhoneNumber]').val().length;
+              if (companyPhoneNumberValLength<2) {
+                  $(this).val('0');
+              };
+              setTimeout(function(){
+                  $(this).setCursorToTextEnd();
+              },1);
+          });
+
+          $('input[name=phoneNumber]').on("focus", function(){
+              var phoneNumberValLength = $('input[name=phoneNumber]').val().length;
+              if (phoneNumberValLength<3) {
+                  $(this).val('05');
+              };
+              setTimeout(function(){
+                  $(this).setCursorToTextEnd();
+              },1);
+          });
+
+          $('#registrationForm').submit(function(e){
+
+              e.preventDefault();
+              var errorList = [];
+              var firstNameVal = $('input[name=firstName]').val();
+              var lastNameVal = $('input[name=lastName]').val();
+              var brandNameVal = $('input[name=brandName]').val();
+              var webSiteUrlVal = $('input[name=webSiteUrl]').val();
+              var applicantDutyVal = $('input[name=applicantDuty]').val();
+              var emailVal = $('input[name=email]').val();
+              var companyPhoneNumberVal = $('input[name=companyPhoneNumber]').val();
+              var phoneNumberVal = $('input[name=phoneNumber]').val();
+              var companyAddressVal = $('input[name=companyAddress]').val();
+              var messageVal = $('textarea[name=message]').val();
+              var phoneNumberValLength = $('input[name=phoneNumber]').val().length;
+              var companyPhoneNumberValLength = $('input[name=companyPhoneNumber]').val().length;
+
+              var firstNameChecked=0;
+              var lastNameChecked=0;
+              var brandNameChecked=0;
+              var webSiteUrlChecked=0;
+              var applicantDutyChecked=0;
+              var emailChecked=0;
+              var companyPhoneNumberChecked=0;
+              var phoneNumberChecked=0;
+              var companyAddressChecked=0;
+              var messageChecked=0;
+
+              var formCompleted=0;
+
+              function validatePhone(txtPhone) {
+                  var a = txtPhone;
+                  var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+                  if (filter.test(a)) {
+                      return true;
+                  }
+                  else {
+                      return false;
+                  }
+              }
+
+
+              function isEmail(email) {
+                var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                return regex.test(email);
+              }
+
+              function showAlert(){
+                  $('#hopi-form .form').addClass('show-alert');
+                  var noticeTop = $('#hopi-form h2').offset().top;
+                  $('html, body').scrollTop(noticeTop);
+              }
+
+
+
+              $("#registrationForm input").on('keypress', function() {
+                  if(formCompleted==1){
+                      $('#registrationForm .form-notice').css({'opacity':'0'});
+                      $('#hopi-form .form-group .submit').val('BAŞVUR');
+                      formCompleted=0;
+                  }
+              });
+
+              $('#registrationForm .form-notice').css({'opacity':'1'});
+
+              if (firstNameVal=='') {
+                  $('input[name=firstName]').addClass('error');
+                  errorList.push('isim');
+                  firstNameChecked=0;
+              }else{
+                  $('input[name=firstName]').removeClass('error');
+                  firstNameChecked=1;
+              };
+
+              if (lastNameVal=='') {
+                  $('input[name=lastName]').addClass('error');
+                  errorList.push('soyisim');
+                  lastNameChecked=0;
+              }else{
+                  $('input[name=lastName]').removeClass('error');
+                  lastNameChecked=1;
+              };
+
+              if (brandNameVal=='') {
+                  $('input[name=brandName]').addClass('error');
+                  errorList.push('marka adı');
+                  brandNameChecked=0;
+              }else{
+                  $('input[name=brandName]').removeClass('error');
+                  brandNameChecked=1;
+              };
+
+              if (webSiteUrlVal=='' || /^(https?:\/\/)?([\w\d\-_]+\.)+\/?/.test(webSiteUrlVal)==false) {
+                  $('input[name=webSiteUrl]').addClass('error');
+                  errorList.push('web site');
+                  webSiteUrlChecked=0;
+              }else{
+                  $('input[name=webSiteUrl]').removeClass('error');
+                  webSiteUrlChecked=1;
+              };
+
+              if (applicantDutyVal=='') {
+                  $('input[name=applicantDuty]').addClass('error');
+                  errorList.push('görev');
+                  applicantDutyChecked=0;
+              }else{
+                  $('input[name=applicantDuty]').removeClass('error');
+                  applicantDutyChecked=1;
+              };
+
+              if (emailVal==''||isEmail(emailVal)==false) {
+                  $('input[name=email]').addClass('error');
+                  errorList.push('e-posta adresi');
+                  emailChecked=0;
+              }else{
+                  $('input[name=email]').removeClass('error');
+                  emailChecked=1;
+              };
+
+              if (companyPhoneNumberVal==''||validatePhone(companyPhoneNumberVal)==false||companyPhoneNumberValLength!=11){
+                  $('input[name=companyPhoneNumber]').addClass('error');
+                  errorList.push('şirket telefonu');
+                  companyPhoneNumberChecked=0;
+              }else{
+                  $('input[name=companyPhoneNumber]').removeClass('error');
+                  companyPhoneNumberChecked=1;
+              };
+
+              if (phoneNumberVal==''||validatePhone(phoneNumberVal)==false||phoneNumberValLength!=11) {
+                  $('input[name=phoneNumber]').addClass('error');
+                  errorList.push('cep telefonu');
+                  phoneNumberChecked=0;
+              }else{
+                  $('input[name=phoneNumber]').removeClass('error');
+                  phoneNumberChecked=1;
+              };
+
+              if (companyAddressVal=='') {
+                  $('input[name=companyAddress]').addClass('error');
+                  errorList.push('şirket adresi');
+                  companyAddressChecked=0;
+              }else{
+                  $('input[name=companyAddress]').removeClass('error');
+                  companyAddressChecked=1;
+              };
+
+              if (messageVal=='') {
+                  $('textarea[name=message]').addClass('error');
+                  errorList.push('mesaj');
+                  messageChecked=0;
+              }else{
+                  $('textarea[name=message]').removeClass('error');
+                  messageChecked=1;
+              };
+
+              if(errorList.length>4){
+                  $('#registrationForm .form-notice').text('İlgili alanları doldurunuz.');
+                  showAlert();
+              }
+              if(errorList.length==4){
+                  $('#registrationForm .form-notice').text('Lütfen geçerli bir '+errorList[0]+', '+errorList[1]+', '+errorList[2]+', '+errorList[3]+' giriniz.');
+                  showAlert();
+              }
+              if(errorList.length==3){
+                  $('#registrationForm .form-notice').text('Lütfen geçerli bir '+errorList[0]+', '+errorList[1]+', '+errorList[2]+' giriniz.');
+                  showAlert();
+              }
+              if(errorList.length==2){
+                  $('#registrationForm .form-notice').text('Lütfen geçerli bir '+errorList[0]+', '+errorList[1]+' giriniz.');
+                  showAlert();
+              }
+              if(errorList.length==1){
+                  $('#registrationForm .form-notice').text('Lütfen geçerli bir '+errorList[0]+' giriniz.');
+                  showAlert();
+              }
+
+              //console.log(errorList);
+
+
+              if (firstNameChecked==1&&lastNameChecked==1&&brandNameChecked==1&&webSiteUrlChecked==1&&applicantDutyChecked==1&&emailChecked==1&&companyPhoneNumberChecked==1&&phoneNumberChecked==1&&companyAddressChecked==1&&messageChecked==1) {
+  
+                  $.post(
+                      "ApplicationForm/SubmitFormNoModel",
+                      {'firstName': firstNameVal, 'lastName': lastNameVal, 'brandName': brandNameVal, 'webSiteUrl': webSiteUrlVal, 'webSiteUrl': webSiteUrlVal, 'applicantDuty': applicantDutyVal, 'email': emailVal, 'companyPhoneNumber': companyPhoneNumberVal, 'phoneNumber': phoneNumberVal, 'companyAddress': companyAddressVal, 'message': messageVal}, 
+                      function(data){
+                          $('#registrationForm .form-notice').css({'opacity':'0'});
+                          $('#registrationForm input').removeClass('error');
+                          switch(data) {
+                              case "0":
+                                  $('input[name=firstName]').addClass('error');
+                                  showAlert();
+                                  $('input[name=firstName]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-1":
+                                  $('input[name=lastName]').addClass('error');
+                                  showAlert();
+                                  $('input[name=lastName]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-2":
+                                  $('input[name=brandName]').addClass('error');
+                                  showAlert();
+                                  $('input[name=brandName]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-3":
+                                  $('input[name=webSiteUrl]').addClass('error');
+                                  showAlert();
+                                  $('input[name=webSiteUrl]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-4":
+                                  $('input[name=applicantDuty]').addClass('error');
+                                  showAlert();
+                                  $('input[name=applicantDuty]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-5":
+                                  $('input[name=email]').addClass('error');
+                                  showAlert();
+                                  $('input[name=email]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-6":
+                                  $('input[name=companyPhoneNumber]').addClass('error');
+                                  showAlert();
+                                  $('input[name=companyPhoneNumber]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-7":
+                                  $('input[name=phoneNumber]').addClass('error');
+                                  showAlert();
+                                  $('input[name=phoneNumber]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-8":
+                                  $('input[name=companyAddress]').addClass('error');
+                                  showAlert();
+                                  $('input[name=companyAddress]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-9":
+                                  $('textarea[name=message]').addClass('error');
+                                  showAlert();
+                                  $('textarea[name=message]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-10":
+                                  $('#registrationForm .form-notice').text('Geçersiz e-posta adresi');
+                                  $('input[name=email]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-11":
+                                  $('#registrationForm .form-notice').text('Geçersiz cep telefonu');
+                                  $('input[name=phoneNumber]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "-12":
+                                  $('#registrationForm .form-notice').text('Geçersiz şirket telefonu');
+                                  $('input[name=companyPhoneNumber]').focus();
+                                  $('#registrationForm .form-notice').css({'opacity':'1'});
+                                  break;
+                              case "1":
+                                  $('#registrationForm input').val('')
+                                  $('#registrationForm textarea').val('')
+                                  $('#registrationForm .form-notice').css({'opacity':'1','color':'#3E9E05'});
+                                  $('#registrationForm .form-notice').text('Başvuru tamamlandı.');
+                                  $('#hopi-form .form-group .submit').val('BAŞVURULDU');
+                                  showAlert();
+                                  formCompleted=1;
+                                  break;
+                          }
+                      }
+                  );
+
+              };
+
+          });
+      });
+  </script>
+</head>
+<body>
+  <div id="wrap" class="wrap">
+    <header id="header" class="header detail-page">
+        <div id="header-desktop" class="header-desktop">
+          <div class="hopi-logo home-page-logo"><a href="index.html"><img src="dist/img/logo_hopi.png" alt="" /></a></div>
+          <div class="hopi-logo detail-page-logo"><a href="index.html"><img src="dist/img/logo_hopi4.png" alt="" /></a></div>
+          <div class="hopi-logo scroll"><a href="index.html"><img src="dist/img/logo_hopi4.png" alt="" /></a></div>
+          <div id="Ferdinand">
+            <nav class="menu menu--ferdinand">
+              <ul class="menu__list">
+                <li class="menu__item"><a class="menu__link" href="index.html" href-id="page1">ANASAYFA</a></li>
+                <li class="menu__item"><a class="menu__link" href="hopi-nedir.html">HOPİ NEDİR</a></li>
+                <li class="menu__item"><a class="menu__link" href="paracik-nedir.html" href-id="page2">PARACIK</a></li>
+                <li class="menu__item"><a class="menu__link" href="mobil_odeme.html" href-id="page3">HOPİPAY</a></li>
+                <li style="display:none" class="menu__item"><a class="menu__link" href="akilli-arama.html" href-id="page4">AKILLI ARAMA</a></li>
+                <li class="menu__item"><a class="menu__link" href="markalar.html" href-id="page5">MARKALAR & KAMPANYALAR</a></li>
+              </ul>
+              <a href="index.html" id="app-button" class="button button-nback"><p><i>ÜCRETSİZ</i> İNDİR</p></a>
+              <ul class="social">
+                <li><a target="_blank" href="https://www.facebook.com/HopiApp" href="#"><span class="icon-social-fb"></span></a></li>
+                <li><a target="_blank" href="https://twitter.com/HopiApp" href="#"><span class="icon-social-tt"></span></a></li>
+                <li><a target="_blank" href="https://www.instagram.com/hopiapp" href="#"><span class="icon-social-inst"></span></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div id="mobile-head-icon-page1" class="mobile-head-icon-page1">
+          <div id="mobile-icon-open-page1" class="mobile-icon">
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </div>
+        <div id="mobile-head-icon" class="mobile-head-icon">
+          <div class="hopi-logo"><a href="index.html"><img src="dist/img/logo_hopi2.png" alt="" /></a></div>
+          <div id="mobile-icon-open" class="mobile-icon">
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </div>
+        <div id="header-mobile" class="header-mobile">
+          <div href-id="header-mobile" id="mobile-icon-close" class="mobile-icon close">
+            <ul>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+          <nav>
+            <div class="hopi-logo"><a href="index.html"><img src="dist/img/logo_hopi4.png" alt="" /></a></div>
+            <ul>
+              <li><a class="active" href="index.html" href-id="page1">ANASAYFA</a></li>
+              <li><a href="hopi-nedir.html">HOPİ NEDİR</a></li>
+              <li><a href="paracik-nedir.html" href-id="page2">PARACIK</a></li>
+              <li><a href="mobil_odeme.html" href-id="page3">HOPİPAY</a></li>
+              <li style="display:none"><a href="akilli-arama.html" href-id="page4">AKILLI ARAMA</a></li>
+              <li><a href="markalar.html" href-id="page5">MARKALAR & KAMPANYALAR</a></li>
+              <!--<li><a href="#" href-id="page5">HOPİPAY</a></li>-->
+            </ul>
+            <div class="app-link">
+                <a target="_blank" href="https://app.adjust.com/csyjum_ts2qyk?campaign=HOPIANASAYFAMOBIL" class="button button-nback"><i>ÜCRETSİZ</i> <strong>İNDİR</strong></a>
+            </div>
+          </nav>
+          <div class="bottom">
+            <ul class="social">
+              <li><a target="_blank" href="https://www.facebook.com/HopiApp"><span class="icon-social-fb fb"></span></a></li>
+              <li><a target="_blank" href="https://twitter.com/HopiApp"><span class="icon-social-tt tt"></span></a></li>
+              <li><a target="_blank" href="https://www.instagram.com/hopiapp"><span class="icon-social-inst2 inst"></span></a></li>
+            </ul>
+            <p><span>Tüm hakları saklıdır. Hopi 2016</span></p>
+          </div>
+        </div>
+      </header>
+    
+    <div class="wall">
+      <div id="hopi-form" class="form-content">
+        <div class="wrapper">
+            <h2><span>Hopi</span> üye işyeri olmak ister misiniz?</h2>
+            <h3>Hopi üye işyeri başvurusu yapmak için lütfen aşağıdaki formu doldurun.</h3>
+            <form action="ApplicationForm/SubmitFormNoModel" method="post" id="registrationForm" class="form">
+            <p class="form-notice">İlgili alanları doldurunuz.</p>
+            <div class="form-group half">
+                <label for="firstname">Adınız</label>
+                <input id="firstName" name="firstName" type="text">
+            </div>
+            <div class="form-group half">
+                <label for="lastname">Soyadınız</label>
+                <input id="lastName" name="lastName" type="text" value="">
+            </div>
+            <div class="form-group">
+                <label for="brandName">Markanızın Adı</label>
+                <input id="brandName" name="brandName" type="text" value="">
+            </div>
+            <div class="form-group">
+                <label for="webSiteUrl">Markanızın Web Sitesi</label>
+                <input id="webSiteUrl" name="webSiteUrl" type="text" value="">
+            </div>
+            <div class="form-group half">
+                <label for="applicantDuty">Göreviniz</label>
+                <input id="applicantDuty" name="applicantDuty" type="text" value="">
+            </div>
+            <div class="form-group half">
+                <label for="email">E-Posta Adresiniz</label>
+                <input id="email" name="email" type="text" value="">
+            </div>
+            <div class="form-group half">
+                <label for="companyPhoneNumber">Şirket Telefonunuz</label>
+                <input id="companyPhoneNumber" name="companyPhoneNumber" type="tel" value="">
+            </div>
+            <div class="form-group half">
+                <label for="phoneNumber">Cep Telefonunuz</label>
+                <input name="phoneNumber" id="phoneNumber" type="tel" value="">
+            </div>
+            <div class="form-group">
+                <label for="companyAddress">Şirket Adresiniz</label>
+                <input id="companyAddress" name="companyAddress" type="text" value="">
+            </div>
+            <div class="form-group">
+                <label for="message">Mesajınız</label>
+                <textarea name="message" id="message" cols="30" rows="10"></textarea>
+            </div>
+            <div class="form-group submit">
+                <input class="submit" type="submit" value="BAŞVUR">
+            </div>
+            </form>
+        </div>
+      </div>
+
+    </div><!--wall-->
+  </div><!--wrap-->
+
+  <footer id="footer" class="footer">
+       <div class="footer-col"></div>
+       <div class="footer-col"></div>
+       <div id="footer-logo" class="footer-logo">
+         <a href="index.html"><img src="dist/img/logo_hopi.png" alt="" /></a>
+       </div>
+       <div class="content-holder">
+         <div class="row">
+           <div class="footer-nav">
+             <ul>
+               <li><a href="index.html">Anasayfa</a></li>
+               <li><a href="hopi-nedir.html">Hopi Nedir?</a></li>
+               <li><a href="paracik-nedir.html">Paracık</a></li>
+               <li style="display:none"><a href="akilli-arama.html">Akıllı Arama</a></li>
+             </ul>
+             <ul>
+               <li><a href="mobil_odeme.html">HopiPay</a></li>
+               <li><a href="markalar.html">Markalar & Kampanyalar</a></li>
+               <li><a href="sss.html">Sıkça Sorulan Sorular</a></li>
+             </ul>
+           </div> <!--footer-nav-->
+           <div class="footer-bottom">
+             <p>SORU VE ÖNERİLERİNİZ İÇİN</p>
+             <div class="item">
+               <p><a href="mailto:info@hopi.com.tr">info@hopi.com.tr</a></p>
+               <p><a class="tel" href="tel:08502006688">0850 200 66 88</a><span>0850 200 66 88</span></p>
+             </div>
+             <div class="social">
+               <ul>
+                 <li><a target="_blank" href="https://www.facebook.com/HopiApp"><span class="icon-social-fb"></span></a></li>
+                 <li><a target="_blank" href="https://twitter.com/HopiApp"><span class="icon-social-tt"></span></a></li>
+                 <li><a target="_blank" href="https://www.instagram.com/hopiapp/"><span class="icon-social-inst"></span></a></li>
+               </ul>
+             </div>
+             <div id="footer-logo" class="footer-logo">
+               <a href="index.html"><img src="dist/img/logo_hopi.png" alt="" /></a>
+             </div>
+           </div> <!--footer-bottom-->
+         </div> <!--row-->
+         <div class="row">
+           <div class="footer-nav">
+             <ul>
+               <li><a class="popup-link" href-id="hakkimizda" href="#">Hakkımızda</a></li>
+               <li><a class="popup-link" href-id="gizlilik-politikasi" href="#">Gizlilik Politikası</a></li>
+             </ul>
+             <ul>
+               <li><a class="popup-link" href-id="kullanici-sozlesmesi" href="#">Kullanıcı Sözleşmesi</a></li>
+               <li><a href="form.html">Üye İşyeri Başvuru Formu</a></li>
+             </ul>
+           </div> <!--footer-nav-->
+           <div class="footer-bottom">
+             <p>ÜCRETSİZ İNDİRMEK İÇİN</p>
+             <div class="app-link">
+               <a href="https://itunes.apple.com/app/id983886691?mt=8" target="_blank" class="button-app"><img src="dist/img/apple.png" alt="" /></a>
+               <a href="https://play.google.com/store/apps/details?id=com.boynergrup.hopi&referrer=adjust_reftag%3Dcx8DswuRAjM1E%26utm_source%3DHopi%2BWebsite%26utm_campaign%3DHOPIANASAYFA" target="_blank" class="button-play"><img src="dist/img/gplay.png" alt="" /></a>
+             </div>
+             <p class="end">2015 Tüm hakları BNR Teknoloji A.Ş.’de saklıdır. <span>Bilgi Toplumu Hizmetleri için <strong>tıklayın.</strong></span></p>
+           </div> <!--footer-bottom-->
+         </div> <!--row-->
+       </div> <!--content-holder-->
+     </footer>
+
+  <div id="hakkimizda" class="content-popup">
+    <div class="pop-up">
+      <a href="#" class="close-popup"><span></span></a>
+        <p class="h3">HAKKIMIZDA</p>
+        <div class="content mCustomScrollbar">
+            <p>
+                Hopi, kişiselleştirilmiş alışveriş deneyimi sunan bir mobil uygulamadır.
+            </p>
+            <p>&nbsp;</p>
+            <p>
+                Kullanıcılarına, hayat tarzlarına, zevklerine ve ihtiyaçlarına uygun kampanyaları iletir ve kullanıldıkça alışveriş deneyimini zenginleştirerek alışveriş konusunda ihtiyaç duyulabilecek rehberliği sunar.
+            </p>
+            <p>&nbsp;</p>
+            <p>
+                Giyimden teknolojiye, seyahatten gıdaya birçok farklı sektörden markalarla işbirliği yaparak kullanıcılarına ve iş ortaklarına Koşulsuz Müşteri Mutluluğu ilkesiyle hizmet verir.
+            </p>
+            <p>&nbsp;</p>
+            <p>
+                Türkiye’nin halka açık en büyük gıda ve elektronik dışı perakende grubu olan Boyner Grup tarafından 2015 yılında hayata geçirilen Hopi, Boyner Grup şirketi BNR Teknoloji A.Ş.tarafından yönetilmektedir.
+            </p>
+            <p>BNR Teknoloji A.Ş. İletişim Bilgileri:</p>
+            <p>&nbsp;</p>
+            <p>Adres: Eski Büyükdere Cad. Park Plaza No: 22 Kat: 3 Maslak – İstanbul</p>
+            <p>Telefon : 02123668900</p>
+            <p>Müşteri Hizmetleri Telefonu: 08502006688</p>
+            <p>Faks : 02123450920</p>
+            <p>E-posta: info@hopi.com.tr</p>
+            <p>İnternet Adresi : www.hopi.com.tr</p>
+
+        </div>
+    </div>
+  </div>
+
+  <div id="gizlilik-politikasi" class="content-popup">
+    <div class="pop-up">
+      <a href="#" class="close-popup"><span></span></a>
+        <p class="h3">GİZLİLİK POLİTİKASI</p>
+        <div class="content mCustomScrollbar">
+            <p><strong>BNR Teknoloji A.Ş.&rsquo;ce sağlanan Hopi'de Kullanıcı (Hopi'li)  bilgilerinin gizliliği, korunması, işlenmesi-kullanımı ve diğer hususlarda  aşağıda cari esasları belirtilen Gizlilik Kuralları-Politikası ve Kullanım  Şartları geçerlidir.   </strong></p>
+            <p>&nbsp;</p>
+            <ul style="list-style-type:disc">
+                <li><strong>BNR       Teknoloji A.Ş., Hopi Kullanıcılar'ına datalarını, kişisel bilgilerini kar       amacıyla &quot;satmayacağı&quot; hususunda özellikle söz verir, Hopi       Kullanıcıları'nın bilgilerini sadece aşağıda belirtilen şekilde ve amaçlar       için kullanacağını ve iznine-kanunlara aykırı kullanmayacağını taahhüt  eder</strong>.</li>
+            </ul>
+          </br>
+            <ul style="list-style-type:disc">
+                <li>Kullanıcı bilgileri, Hopi Mobil       Uygulaması'nın özellik, imkan ve servislerinden yararlanabilmeleri için       ilgili kuruluşlara ve ayrıca kanuni mercilere açıklanabilir. Kullanıcı       tarafından herhangi bir surette verilen ve kullanım sırasında Hopi'nin       işleyişi gereği edinilen bilgileri, her türlü Kullanıcı işlemlerinin ve       uygulamalarının yapılması, muhtelif ürün/hizmetlerin BNR Teknoloji A.Ş.,       Boyner Grubu Şirketleri ve Hopi sistemine dahil İşyerleri ile iş       ortakları-tedarikçileri tarafından sağlanması  ve Kullanıcılara çeşitli bilgilendirme,       reklam-tanıtım, promosyon, satış, pazarlama mağaza kartı, kredi kartı ve       üyelik uygulamaları amaçlı yapılacak elektronik ve diğer iletişimler için       belirtilenler ve halefleri nezdinde süresiz olarak veya öngörecekleri süre       ile kayda alınır, basılı/manyetik arşivlerde saklanır, gerekli görülen       hallerde güncellenir, aktarılır, transfer edilir, kullanılır ve sair       suretlerle işlenir.  </li>
+            </ul>
+            <p>&nbsp;</p>
+            <p>Yukarıdakilere ilaveten, Hopi  Kullanıcılarının; yaş, cinsiyet, medeni durum, yaşadıkları bölge, eğitim  düzeyi, ilgi alanları, alışveriş alışkanlıkları, cep telefonu no.ları, mail  adresleri ve konum verileri de dahil kişisel olan-olmayan mevcut ve sonradan  oluşacak bilgileri, kişisel verilerin korunması hakkında mevzuat ile elektronik  haberleşme-ticaret mevzuatına uygun biçimde Hopi'nin iletişim ortağı Turkcell  İletişim Hizmetleri A.Ş. tarafından (vd haberleşme servis sağlayıcılarınca)  yukarıdaki kapsamda kaydedilebilir, BNR Teknoloji A.Ş. ile Turkcell İletişim  Hizmetleri A.Ş. (&quot;Turkcell&quot;) nezdindeki abone-kullanıcı platformları  (veritabanları) arasında karşılıklı paylaşılabilir, ayrıca Hopi  Kullanıcılarının Turkcell abonelikleri süresince oluşacak verileri, Turkcell ve  BNR Teknoloji A.Ş.  tarafından reklam,  tanıtım, satış &nbsp;ve pazarlama, istatistiki raporlama, anket ve/veya  promosyon alanlarında kullanılabilir ve işlenebilir, Turkcell ve BNR Teknoloji  A.Ş. gerek kendilerinin, gerek üçüncü kişi kurumların  avantajları ve teklifleri ile ilgili her  türlü mecrada reklam, tanıtım ve kampanya duyuruları gönderilebilir, bu amaçlar  ile her türlü elektronik iletişim yapılabilir.</p>
+            <p>
+                <br>
+                Hopi Kullanıcılar'ı belirtilen  amaçlar ve kapsam dahilinde yapılacak bu işlem,   işlenme ve iletişimlere muvafakat etmiş ve izin vermiş olurlar.
+            </p>
+            <p>
+                <br>
+                <u>Ancak;  </u>
+            </p>
+            <p>
+                <br>
+                <strong>i)</strong> Hopi Kullanıcı Sözleşmesi'nin uygulanması, bu  suretle Kullanıcıların Hopi Mobil Uygulaması özelliklerinden, servislerinden,  Kampanyalar ve benzerlerinden (kısaca İmkanlar'dan) yararlanabilmeleri ve  böylece Hopi'yi kullanabilmeleri için gereken haller dışında, Kullanıcı bilgi-verileri,  üçüncü kişiler ile Kullanıcının somut olarak tanınmasını sağlayacak biçimde  paylaşılmaz, örneğin isminiz verilmez.
+            </p>
+            <p>
+                <br>
+                Bir servis veya imkandan  yararlanabilmeniz için gerekiyor ise, Uygulama o tür bir paylaşım için zaman  zaman ilgili kuruluş veya işlem bazında izninizi isteyebilir (İzin vermeyen  Kullanıcı ilgili özellik/servis/imkandan kısmen veya tamamen  yararlanamayabilir). Bununla beraber Hopi'yi olağan kullanımınız, özellik,  servis ve imkanlardan istifadeniz için bu prosedür her zaman tatbik edilmez.
+            </p>
+            <p>
+                <br>
+                <strong>ii)</strong> Kullanıcılar taraflarına yapılacak  iletişimleri cihazlarının veya Hopi Mobil Uygulamasının Ayarlar vb. bölümünden  engelleyebilir (internet-mobil data bağlantısı gerekebilir) veya BNR Teknoloji  A.Ş.'e bildirerek veri kullanımı-işlenmelerini ve/veya iletişimleri her zaman  için durdurabilirler. Hopi Mobil Uygulamasını akıllı cihazından kaldırmanız  halinde aynı sonuca ulaşmanız herhalükarda mümkün ve teknik olarak amaca en  uygun yöntem bu olduğu gibi  söz konusu  işlemlerden herhangi birinin  Hopi  kullanıcılığınız devam ederken yapılması durumunda Hopi imkanlarından kısmen  veya tamamen yararlanamayabilirsiniz. Veri kullanımı-işlenmesi ve/veya  iletişimin durdurulması &quot;bildirimi&quot; BNR Teknoloji A.Ş.'e  kullanıcılığın sona ermesinden sonra da her zaman yapılabilir. Tüm bu hallerde,  isteğinize göre ve ilgili cari yasalar gerektirdiği sürece-ölçüde BNR Teknoloji  A.Ş nezdindeki kişisel veri işlemleri ve/veya tarafınıza iletişimleri yasal  azami süre içinde durdurulur, yine aynı çerçevede olmak üzere hukuken  muhafazası gerekenler ve/veya mümkün olanlar haricindeki bilgileriniz, Hopi  veri kayıt sisteminde (BNR Teknoloji A.Ş.'deki arşiv-veri tabanında) silinir ya  da  kimliğiniz belli olmayacak biçimde  anonim hale getirilir.
+            </p>
+            <p>&nbsp;</p>
+            <p><strong>iii)</strong> Kullanıcılar isterlerse ve ilgili cari  yasalar gerektirdiği sürece-ölçüde kişisel verilerinin işlenmesi ile ilgili  işlemler, aktarıldığı kişiler, eksik veya yanlış olması halinde düzeltilmesi,  düzeltilen bilgilerin (varsa) ilgili üçüncü kişilere bildirilmesi, verilerin  silinmesi veya yok edilmesi, otomatik sistemler ile analiz edilmesi sureti ile  kendileri aleyhine bir sonucun ortaya çıkması, verilerin kanuna aykırı olarak  işlenmesi sebebi ile zarara uğrama halinde giderilmesi gibi konularda BNR  Teknoloji A.Ş.'ne her zaman başvurabilirler. </p>
+            <p>&nbsp;</p>
+            <ul style="list-style-type:disc">
+                <li>Hopi'ye dahil İşyerlerinde kendilerine       ait gizlilik-güvenlik politikaları ve kullanım şartları geçerlidir;       uygulama içinden ulaşılan bu ve diğer web sitelerinden bilgi kullanımları,       keza etik ilkeler, gizlilik-güvenlik prensipleri, servis kalitesi, kişisel       veri kullanımları ile iletişim esasları ve diğer uygulamalar sebebi       ile  oluşabilecek ihtilaflardan ve       menfi neticelerinden BNR Teknoloji A.Ş. sorumlu değildir. </li>
+            </ul>
+            <ul>
+                <li>Kullanıcı  tarafından uygulamaya girilen bilgilerin ve işlemlerin güvenliği için gerekli  önlemler, BNR Teknoloji A.Ş'deki sistem altyapısında, bilgi ve işlemin  mahiyetine göre günümüz teknik imkanları ölçüsünde  alınmıştır.  Bununla beraber, söz konusu bilgiler akıllı cihazınızda da yer aldığından (ki  bir kısım bilgiler sadece cihazınızdadır) her bakımdan korunmaları ve ilgisiz  kişilerce erişilememesi için gerekli tedbirlerin alınması sorumluluğu  Kullanıcı'ya aittir.</li>
+            </ul>
+            <ul style="list-style-type:disc">
+                <li>Bilgi güvenliği, gizlilik, kişisel       verilerin kullanımı-işlenmesi ve iletişimler ile ilgili tüm hususlar       burada ve Kullanıcı Sözleşmesi'nde ayrıntılı olarak belirtilmiştir. BNR       Teknoloji A.Ş. bu konularda gerekli görebileceği değişiklikleri yapma       hakkını saklı tutar, bunlar Hopi Mobil Uygulaması üzerinden       (internet-mobil data bağlantısı gerekir) ve diğer uygun yöntemler ile       duyurulduğu andan itibaren geçerli olur, Hopi&rsquo;yi kullanmaya devam eden       Kullanıcılar revize edilmiş hususları kabul etmiş sayılırlar. </li>
+            </ul>
+            <ul style="list-style-type:disc">
+                <li>Hopi ile ilgili bilgi almak istediğiniz       diğer konular için geçerli olduğu gibi bu hususlarda da BNR Teknoloji       A.Ş.'ne danışabilirsiniz. Bu hususlardaki başvuru ve talepleriniz yasal       azami süreler içinde yerine getirilecek yahut gerekçesi tarafınıza       açıklanarak kabul edilmeyebilecektir. </li>
+            </ul>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>Olası uyuşmazlıkların çözümü için öncelikle BNR Teknoloji A.Ş. (adres: Maslak Eski Büyükdere Cad.  Park Plaza No:14 Kat:3, Şişli/İstanbul,  Tel: (0212) 366 89 00, Müşteri Hizmetleri  Telefon : 0 850 200 66 88, Faks: (0212) 345 09 20 veya E-posta: <a href="mailto:info@hopi.com.tr">info@hopi.com.tr</a>) ile temas kurmanızı rica ederiz, mümkün olmadığı hallerde kanunen  görevli-yetkili tüm Mahkeme ve mercilere (mahiyetine ve kanuni tutarlarına göre  yaşadığınız yerdeki Tüketici Mahkemeleri ve Hakem Heyetleri dahil)  başvurabilirsiniz.</p>
+
+        </div>
+    </div>
+  </div>
+
+  <div id="kullanici-sozlesmesi" class="content-popup">
+    <div class="pop-up">
+      <a href="#" class="close-popup"><span></span></a>
+      <p class="h3" style="padding-bottom: 0.1%;">HOPİ İÇİN BİLGİLENDİRME VE KULLANICI SÖZLEŞMESİ</p>
+      <div class="content mCustomScrollbar">
+          <p><strong>(Bilgileriniz ve Onayınız İçin)</strong></p></br>
+          <p>
+              <strong>BİLGİLENDİRMELER</strong></br></br>
+              Hopi Mobil Uygulaması için Kullanıcı Sözleşmesi yapacağınız BNR Teknoloji A.Ş.,  bir Boyner Grubu Şirketidir. İletişim bilgilerimiz şöyledir : Adres: Maslak Eski Büyükdere Cad. Park Plaza No:14 Kat:3, Şişli/İstanbul, İnternet adresi : <a href="http://www.hopi.com.tr">www.hopi.com.tr</a>, Tel: (0212) 366 89 00, Müşteri Hizmetleri Telefon : 0 850 200 66 88, Faks: (0212) 345 09 20  E-posta: : info@hopi.com.tr
+          </p>
+          <p>
+              <br>
+              Hopi Kullanıcılarının (&quot;Kullanıcı&quot;-&quot;Hopi'li&quot;/&quot;Kullanıcılar&quot;) Hopi Mobil Uygulaması (Uygulama) imkanlarından, özelliklerinden ve servislerinden yararlanabilmeleri için data erişimi açık akıllı mobil cihaza (cep telefonu, tablet vb) sahip olmaları,  Hopi uygulamasını bu cihazlarına yüklemeleri, kendilerinden alınacak bilgileri ve uygulama kullanımındaki tüm izinleri içeren bu  Bilgilendirmelerde yazılı esas-kurallar dahil olmak üzere Hopi Kullanıcı Sözleşmesini kabul etmeleri ve bu arada BNR Teknoloji A.Ş. tarafından başlangıçta ve bilahare zaman zaman akıllı cihazlarına kısa mesajla (SMS) veya uygulama üzerinden gönderilecek/üretilecek kodları (aktivasyon kodu, şifreler ve  ek kodları) uygulamaya girmeleri ve istendiğinde Hopi İşyerlerindeki ödeme noktalarına ibraz etmeleri gerekir.
+          </p>
+          <p>
+              <br>
+              Uygulama tarafından istenen cep telefonu, isim, soyisim, doğum tarihi, yaşadığınız şehir ve cinsiyet bilgilerini ilgili kısımlara muhakkak ve doğru biçimde girmelisiniz (Kurulum/aktivasyon sırasında istenebilecek diğer bilgiler bu aşama için opsiyoneldir) <br>
+              <em>Bu bilgileri eksik veya yanlış girerseniz Uygulama'nın Profilim Bölümündeki Kişisel Bilgilerim sayfasından düzeltebilirsiniz (ve ancak bundan sonra faydalanabilirsiniz). Bununla beraber cep telefonu (akıllı cihaz mobil abone) numarasını yanlış girmişseniz  SMS ile numaraya yollanan aktivasyon kodunu alamayacağınız için Uygulamayı aktive edemez ve kullanamazsınız;  tekrar, doğru cep telefonu numarası ile tüm bilgileri girerek  kurmanız ve/veya aktivasyon işlemlerini yapmanız gerekir.</em>
+          </p>
+          <p>
+              <br>
+              Kullanıcı Sözleşmesi, sistemlerimizde ve internet sitemizde "form olarak" yer almasının yanısıra akıllı cihazınıza yüklediğiniz Hopi Mobil Uygulamasında yine form olarak  saklanmaktadır. Sözleşmeyi kabul etmeden önce gizlilik kurallarımız ile uyuşmazlıkların çözüm mekanizmalarına, Hopi Mobil Uygulamasını kullanımınıza, keza Hopi ödül puanı olan Paracık kazanımı/kullanımı dahil önemli hususlara ilişkin aşağıdaki bilgileri ve ayrıca diğer esaslı-detaylı bilgileri ve kuralları içeren tüm Kullanıcı Sözleşmesi şartlarını incelemenizi özellikle rica ederiz. Hopi Mobil Uygulamasını cihazınızdan kaldırmadığınız sürece, buradaki Bilgilendirmeleri ve Sözleşmenizi uygulamanın Profilim-Ayarlar bölümünde görebileceğiniz gibi www.hopi.com.tr adresinden her zaman ulaşabilirsiniz.
+          </p>
+          <p>
+              <br>
+              <strong>Kullanıcı olarak dilediğiniz her zaman yukarıda belirtilen iletişim kanallarından BNR Teknoloji A.Ş.'ne yapacağınız sözlü veya yazılı bildirim ile, herhangi bir gerekçe göstermeksizin ve ceza ödemeksizin Kullanıcı Sözleşmesi'nden cayabilir, yine her zaman aynı şekilde sona erdirebilirsiniz</strong>;  Sözleşme'nin sona ereceği diğer haller (BNR Teknoloji'ce sona erdirilme halleri ile kendiliğinden sona erme durumları) Kullanıcı Sözleşmesi'nde belirtilmiştir.
+          </p>
+          <p>
+              <br>
+              BNR Teknoloji A.Ş. İstanbul Ticaret Odası'na (www.ito.org.tr) kayıtlıdır; meslekle ilgili davranış kurallarına aynı adresten ulaşabilirsiniz.
+          </p>
+          <p>
+              <br>
+              <strong>Hopi'de (BNR Teknoloji A.Ş.'de) Kullanıcı bilgilerinin gizliliği, korunması, işlenmesi-kullanımı, ticari -elektronik iletiler-iletişimler ve diğer hususlarda aşağıda cari esasları belirtilen Gizlilik Kuralları-Politikası ve Kullanım Şartları geçerlidir.</strong>
+          </p>
+          <ul style="list-style-type:disc">
+              <li>Kullanıcı tarafından uygulamaya girilen bilgilerin ve işlemlerin güvenliği için gerekli önlemler, BNR Teknoloji A.Ş'deki sistem altyapısında, bilgi ve işlemin mahiyetine göre günümüz teknik imkanları ölçüsünde  alınmıştır. Bununla beraber, söz konusu bilgiler akıllı cihazınızda da yer aldığından (ki bir kısım bilgiler sadece cihazınızdadır) her bakımdan korunmaları ve ilgisiz kişilerce erişilememesi için gerekli tedbirlerin alınması sorumluluğu Kullanıcı'ya aittir. </li>
+              <li><strong>BNR Teknoloji A.Ş., Hopi Kullanıcılar'ına, datalarını, kişisel bilgilerini kar amacıyla "satmayacağı" hususunda özellikle söz verir, Hopi Kullanıcıları'nın bilgilerini sadece aşağıda belirtilen şekilde ve amaçlar için kullanacağını,  iznine (onayına) ve kanunlara aykırı kullanmayacağını taahhüt eder. </strong></li>
+              <li>Kullanıcı bilgileri, Hopi Mobil Uygulaması'nın özellik, servis, kampanya-imkanlarından yararlanabilmeleri için ilgili kuruluşlara ve ayrıca kanuni mercilere açıklanabilir. Kullanıcı tarafından herhangi bir surette verilen ve kullanım sırasında Hopi'nin işleyişi gereği edinilen bilgileri, her türlü Kullanıcı işlemlerinin ve uygulamalarının yapılması, muhtelif ürün/hizmetlerin BNR Teknoloji A.Ş., Boyner Grubu Şirketleri (Boyner Holding A.Ş. ve mevcut-yeni, doğrudan/dolaylı bağlı şirketleridir) ve Hopi sistemine dahil İşyerleri (Boyner Grubu Şirketleri ile Uygulama içinde ünvanı/adı veya markası belirtilen kuruluşlardır) ile iş ortakları-tedarikçileri tarafından sağlanması  ve Kullanıcılara çeşitli bilgilendirme, reklam-tanıtım, promosyon, satış, pazarlama mağaza kartı, kredi kartı ve üyelik uygulamaları amaçlı olarak Uygulama üzerinden ve/veya kısa mesaj, e-mail, telefonla arama vb. ile yapılacak ticari elektronik ileti gönderileri ve diğer iletişimler için belirtilenler ve halefleri nezdinde süresiz olarak veya öngörecekleri süre ile kayda alınır, basılı/manyetik arşivlerde saklanır (ki ticari elektronik ileti içeriklerinin ve bunlara ilişkin kayıtların mevzuatca gereken hallerde Gümrük ve Ticaret Bakanlığı gibi yasal mercilere ve mahkemelere sunulmak üzere de saklanması  gerekmektedir), gerekli görülen hallerde güncellenir, aktarılır, transfer edilir, kullanılır ve sair suretlerle işlenir. </li>
+              <li>
+                  Yukarıdakilere ilaveten, Hopi Kullanıcılarının; yaş, cinsiyet, medeni durum, yaşadıkları bölge, eğitim düzeyi, ilgi alanları, alışveriş alışkanlıkları, cep telefonu no.ları, mail adresleri ve konum verileri de dahil kişisel olan-olmayan mevcut ve sonradan oluşacak bilgileri, kişisel verilerin korunması hakkında mevzuat ile elektronik haberleşme-ticaret mevzuatına uygun biçimde Hopi'nin iletişim ortağı Turkcell İletişim Hizmetleri A.Ş. tarafından (vd. haberleşme servis sağlayıcılarınca) yukarıdaki kapsamda kaydedilebilir, BNR Teknoloji A.Ş. ile Turkcell İletişim Hizmetleri A.Ş. ("Turkcell") nezdindeki abone-kullanıcı platformları (veritabanları) arasında karşılıklı paylaşılabilir, ayrıca Hopi Kullanıcılarının Turkcell abonelikleri süresince oluşacak verileri, Turkcell ve BNR Teknoloji A.Ş.  tarafından reklam, tanıtım, satış  ve pazarlama, istatistiki raporlama, anket ve/veya promosyon alanlarında kullanılabilir ve işlenebilir, Turkcell ve BNR Teknoloji A.Ş. gerek kendilerinin, gerek üçüncü kişi kurumların  avantajları ve teklifleri ile ilgili her türlü mecrada reklam, tanıtım ve kampanya duyuruları gönderilebilir, bu amaçlar ile ticari elektronik iletiler gönderilebilir, her türlü elektronik iletişim yapılabilir.<br>
+                  Hopi Kullanıcılar'ı belirtilen amaçlar ve kapsam dahilinde yapılacak bu işlem,  işlenme, erişim sağlama ve paylaşmalar ile taraflarlarına ticari elektronik iletiler gönderilmesine, ticari ve diğer iletişimlere muvafakat etmiş, izin vermiş ve bilgilerinin bu amaçlar ile alındığını onaylamış olurlar.
+              </li>
+          </ul>
+          <p>
+              <br>
+              <u>Bununla beraber;</u>
+          </p>
+          <p>
+              <strong>i)</strong> Hopi Kullanıcı Sözleşmesi'nin uygulanması, bu suretle Kullanıcıların Hopi Mobil Uygulaması özelliklerinden, servislerinden, Kampanyalar ve benzerlerinden (kısaca İmkanlar'dan) yararlanabilmeleri ve böylece Hopi'yi kullanabilmeleri için gereken haller ve yasal durumlar dışında, Kullanıcı bilgi-verileri, üçüncü kişiler ile Kullanıcının somut olarak tanınmasını sağlayacak biçimde paylaşılmaz, örneğin isminiz verilmez.<br>
+              Bir servis veya imkandan yararlanabilmeniz için gerekiyor ise, Uygulama o tür bir paylaşım için zaman zaman ilgili kuruluş veya işlem bazında izninizi isteyebilir (İzin vermeyen Kullanıcı ilgili özellik/servis/imkandan kısmen veya tamamen yararlanamayabilir). Bununla beraber Hopi'yi olağan kullanımınız, özellik, servis ve imkanlardan istifadeniz için bu prosedür her zaman tatbik edilmez.
+          </p>
+          <p> <strong>ii)</strong>Kullanıcılar taraflarına yapılacak iletişimleri cihazlarının veya Hopi Mobil Uygulamasının Ayarlar vb. bölümünden engelleyebilir (internet-mobil data bağlantısı gerekebilir)veya yukarıdaki iletişim kanallarından BNR Teknoloji A.Ş.'e bildirerek veri kullanımı-işlenmelerini ve/veya ticari-diğer iletişimleri her zaman için durdurabilirler. Hopi Mobil Uygulamasını akıllı cihazından kaldırmanız halinde aynı sonuca ulaşmanız herhalükarda mümkün ve teknik olarak amaca en uygun yöntem bu olmakla beraber   söz konusu işlemlerden herhangi birinin  Hopi kullanıcılığınız devam ederken yapılması durumunda Hopi imkanlarından kısmen veya tamamen yararlanamayabilirsiniz. Veri kullanımı-işlenmesi ve/veya iletişimin durdurulması "bildirimi" BNR Teknoloji A.Ş.'e kullanıcılığın sona ermesinden sonra da her zaman yapılabilir. Tüm bu hallerde, isteğinize göre ve ilgili cari yasalar gerektirdiği sürece-ölçüde BNR Teknoloji A.Ş nezdindeki kişisel veri işlemleri ve/veya tarafınıza ticari iletişimler yasal azami süre içinde durdurulur, yine aynı çerçevede olmak üzere hukuken muhafazası gerekenler (örneğin,  ticari elektronik ileti içeriklerinin ve bunlara ilişkin kayıtların mevzuatca gereken hallerde Gümrük ve Ticaret Bakanlığı ve sair yasal mercilere, mahkemelere sunulmak üzere saklanması  gerekmektedir) ve/veya mümkün olanlar haricindeki bilgileriniz, Hopi veri kayıt sisteminde (BNR Teknoloji A.Ş.'deki arşiv-veri tabanında) silinir ya da  kimliğiniz belli olmayacak biçimde anonim hale getirilir. </p>
+          <p> <strong>iii)</strong> Kullanıcılar isterlerse ve ilgili cari yasalar gerektirdiği sürece-ölçüde kişisel verilerinin işlenmesi ile ilgili işlemler, aktarıldığı kişiler, eksik veya yanlış olması halinde düzeltilmesi, düzeltilen bilgilerin (varsa) ilgili üçüncü kişilere bildirilmesi, verilerin silinmesi veya yok edilmesi, otomatik sistemler ile analiz edilmesi sureti ile kendileri aleyhine bir sonucun ortaya çıkması, verilerin kanuna aykırı olarak işlenmesi sebebi ile zarara uğrama halinde giderilmesi gibi konularda BNR Teknoloji A.Ş.'ne her zaman başvurabilirler. </p>
+          <p> <strong>iv)</strong>BNR Teknoloji A.Ş., Boyner Grubu Şirketleri, Hopi sistemine dahil olan diğer İşyerleri (markalar) ve sair ilgili kuruluşların mevzuat gereği halen onaylı sayılan mevcut veri tabanlarını kullanmak sureti ile Hopi Kullanıcılarına ticari elektronik ileti gönderme hak ve yetkileri ayrıca ve her durumda saklıdır.  Kullanıcı'nın Hopi'ye (BNR'e) bildirdiği kişisel veri kullanımı-ticari elektronik iletişim durdurma isteği, Hopi'nin bu konuda bir insiyatifi ve sorumluluğu olmadığından, izin verdiği kuruluşca herhangi bir surette Kullanıcı'ya yapılan iletişimlerin ve veri kullanım-işlenmelerinin de durdurulacağı anlamına gelmez; Kullanıcı'nın bu hususta, ilgili kuruluşa ayrıca başvurması gerekir ve ilgili tüm işlemler ile gerek-sonuçları Kullanıcı ve bahsi geçen kuruluş arasındadır. </p>
+          <ul style="list-style-type:disc">
+              <li>Hopi'ye dahil İşyerlerinde kendilerine ait gizlilik-güvenlik politikaları ve kullanım şartları geçerlidir; uygulama içinden ulaşılan bu ve diğer web sitelerinden bilgi kullanımları, keza etik ilkeler, gizlilik-güvenlik prensipleri, servis kalitesi, kişisel veri kullanımları ile iletişim esasları ve diğer uygulamalar sebebi ile  oluşabilecek ihtilaflardan ve menfi neticelerinden BNR Teknoloji A.Ş. sorumlu değildir. </li>
+              <li>Gizlilik, kişisel verilerin kullanımı-işlenmesi ve ticari iletişimler ile ilgili tüm hususlar burada ve Kullanıcı Sözleşmesi'nde ayrıntılı olarak belirtilmiştir. Hopi ile ilgili bilgi almak istediğiniz diğer konular için geçerli olduğu gibi bu hususlarda da yukarıda belirtilen iletişim kanallarından BNR Teknoloji A.Ş.'ne danışabilirsiniz. Bu hususlardaki başvuru ve talepleriniz yasal azami süreler içinde yerine getirilecek yahut gerekçesi tarafınıza açıklanarak kabul edilmeyebilecektir. </li>
+              <li>Genel olarak,  Hopi Mobil Uygulaması dahilinde edindikleri bilgiler, taraflarına yapılan bilgilendirme, tanıtım ve reklamlar çerçevesinde aldıkları kararlardan, bunlara göre yaptıkları hertürlü işlemden ve olumlu-olumsuz sonuçlarından sorumluluk Kullanıcılara aittir; BNR Teknoloji A.Ş., Hopi işyerleri ve kullanıcılar arasındaki herhangi bir tüketici işlemi (Kampanyalı/kampanyasız alışverişlerinin yanısıra İşyerleri'nin uygulama üzerinden ilettikleri bilgiler, tanıtım ve reklamlar dahil) bakımından herhangi bir tarafın temsilcisi veya aracısı değildir. Bu tür işlemlerin tamamı, her türlü hukuki-mali gerekleri ve sonuçları  itibari ile Kullanıcı ve ilgili İşyeri arasındadır. </li>
+              <li>Hopi Mobil Uygulamasına dahil her türlü bilgi ve içerik (Kullanıcı tarafından yüklenenler dahil) ile bunların düzenlenmesi, revizyonu ve kısmen/tamamen kullanımı konusunda; doğrudan Hopi işyerlerine, ilgili servis sağlayıcılara, BNR Teknoloji A.Ş. ile anlaşmasına göre diğer üçüncü sahıslara ait olanlar hariç; tüm fikri-sınai haklar ve mülkiyet hakları BNR Teknoloji A.Ş.'ne ve Boyner Grubu'na aittir ve taraflarınca (Kullanıcılar'a ait olanlar için Kullanıcı Sözleşmesi dahilinde) serbestçe tasarruf olunur. </li>
+              <li>
+                  <p>
+                      Uygulamayı kullanmanız için tarafınızdan bir ücret,  masraf ve sair bedel talep edilmez. <br>
+                      <u>Ancak;</u><br>
+                  </p>
+              </li>
+          </ul>
+          <p><strong>i)</strong> uygulama kullanımının gerektirdiği her türlü iletişim-haberleşme giderleri, servis sağlayıcınız ile şahsi anlaşmanız dahilinde tarafınıza aittir. </p>
+          <p><strong>ii)</strong> Uygulamadaki bilgi/tanıtım/bağlantı ve Kampanyalardan istifade ile Hopi İşyerlerinden (fiziki ve elektronik ticaret-mesafeli satış mağazaları vb.den) yapacağınız alışveriş işlemleri ve bağlantılı işlemler (genel ifadesi ile tüketici işlemleri) her bakımdan BNR Teknoloji A.Ş. dışında ve doğrudan sizinle işyeri arasında olduğundan alışveriş bedelleri ve diğer bedelleri tarafınıza aittir.</p>
+          <p><strong>iii)</strong> Paracık kazandığınız bir ürünü iade etmeniz halinde, Hopi nezdinde başka yeterli Paracıkınız bulunmadığı takdirde, söz konusu ürünü alırken kazandığınız Paracık tutarını ödemeniz gerekir; ilgili işyeri kullandığınız Paracıkların değeri olan bu tutarı,  iade edilen ürün bedelinden indirerek (mahsup) sizden nakden tahsil eder.  Hopi İşyeri'nin öyle bir uygulaması varsa, iade mal fişi (İMF) vb.leri de aynı şekilde indirimli düzenlenir.</p>
+          <p><strong>iv)</strong>Kullanıcılardan (yeni) bir ücret, masraf ve sair bedel talep edilmesi söz konusu olan Hopi özellikleri ve servisleri için uygulama üzerinden Kullanıcıların (duruma göre genel veya işlem bazında) ayrıca onayı alınır.</p>
+          <ul style="list-style-type:disc">
+              <li> Hopi Mobil Uygulamasının ilk kurulumu sırasında Kullanıcı tarafından verilen/girilen  GSM no.sunun iptali veya değişmesi, keza akıllı cihazın kaybolması ya da çalınması, BNR tarafından farklı bir teknik sistem öngörülerek yine belirleyeceği şartlarda değişik bir uygulama yapılmadığı sürece, Kullanıcı'nın o güne kadar edindiği muhtelif hak-imkanlarının sona ermesine (kullanılmamış Paracıklarının geçerliliğini yitirmesi dahil) sebebiyet verebilecektir. </li>
+              <li>Hopi'nin ödül puanları olan Paracıklar, ilgili tüm unsurlar (Hopi İşyeri, ürün ve/veya süreç) itibari ile Hopi İşyerleri ve/veya-BNR tarafından belirlenen şartlarda kazanılır, kullanılır ve geçerliliğini yitirir. Buradaki genel kuralların yanısıra Kampanya (İmkan) bazında geçerli özel yararlanma şartları Uygulama'daki ilgili Kampanya ana veya alt sayfasında belirtilmiş olup &lt;Kampanya Şartları&gt;/ &lt;Detaylar&gt;  tıklanarak görülebilir. </li>
+              <li>Kural olarak alışverişlerde 1 Paracık 1 TL değerinde kazanılır ve yine kural olarak aynı değerde kullanılır. Hopi (BNR), belirli Hopi İşyerleri, ürünler ve/veya dönemler itibari ile Paracık’a kazanım/kullanım açısından farklı  değerler uygulayabilir, Paracıklar ilgili kampanya şartlarına göre bazı ürün gruplarında ve/veya Hopi İşyerleri'nde geçerli olmayabilir. Hopi Uygulaması içerisinde belirtilen her Kampanyanın kendi koşulları içerisinde kazanılan-kullanılan Paracıklar  alışverişinizden sonra takriben 24 saat içinde yüklenir ve kullanılabilir hale gelir.  Ancak Paracıklar kazanıldığı alışverişi takip eden 1 yılın bittiği takvim ayının sonunda kendiliğinden geçerliliğini yitirir. Hopi her zaman bazı Paracıklar için çok daha kısa kullanım süreleri öngörebilir ve bunun için (Uygulama içinden veya sair yollar ile) belirtilmiş  tarihe kadar kullanılmayan Paracıklar daha sonra kullanılamaz. İlgili Paracıklar'ın kullanım süresi içinde satın alınan ürünlerin iadesinde, iade alınan Paracıklar’ın da ilk kazanıldığı tarihten itibaren ve belirli süresi içinde kullanılması şarttır, bu ve sair nedenler ile Paracık geçerlilik süresi uzamaz/yenilenmez. BNR, Hopi Mobil Uygulaması kullanımı ile ilgili tüm şartlar için  geçerli olduğu üzere, Paracıklar ile ilgili tüm kuralları değiştirebilme ve Paracık uygulamasına kazanım ve/veya kullanım açısından son verme haklarını her zaman için saklı tutar. </li>
+              <li>Herhalükarda, kullanılmamış Paracıklar mukabilinde Kullanıcı'ya kısmen veya tamamen bir "para" ödenmesi söz konusu değildir. </li>
+              <li>Hopi Mobil Uygulaması ve Paracık kazanım ve kullanımında olası uyuşmazlıkların çözümü için öncelikle BNR Teknoloji A.Ş. ile temas kurmanızı rica ederiz, sorunun çözümünün mümkün olmadığı hallerde kanunen görevli-yetkili tüm Mahkeme ve Mercilere (mahiyetine ve kanuni tutarlarına göre yaşadığınız yerdeki Tüketici Mahkemeleri ve Hakem Heyetleri dahil) başvurabilirsiniz.  Hopi İşyerleri ile tüketici işlemlerinde BNR Teknoloji A.Ş. taraf ve temsilci-aracı olmadığından, kullanıcılar ile İşyerleri arasındaki uyuşmazlıklar, tabi oldukları mevzuat hükümleri dahilinde ve işlemin mahiyetine göre yetkili-görevli Mahkeme-Mercilerde çözümlenir; bununla beraber "Paracık kazanım ve kullanım işlemlerinde" bir sorun yaşamanız halinde, BNR Teknoloji A.Ş. ile paylaşırsanız, imkanları ve Hopi'nin işleyiş kuralları dahilinde çözümü için yardımcı olabilir. </li>
+          </ul>
+          <p> <strong>Yukarıda Bilgilendirmeler'de yer alan tüm esaslar ve kurallar aşağıdaki Kullanıcı Sözleşmesi'nin ayrılmaz bir parçasıdır ve Kullanıcı Sözleşmesi onaylandığında Sözleşme gibi geçerli-bağlayıcıdır. </strong> </p>
+          <p> <strong>BNR Teknoloji A.Ş., Hopi Mobil Uygulaması ve kullanım koşulları hususunda </strong> (kapsam, içerik, zamanlama, servisler-özellikler, Hopi İşyerleri, ürünler, her türlü ödül puanları ve hediyeler ve/veya İmkanlar  itibari ile) <strong> gerekli görebileceği her türlü değişikliği yapma ve kısmen-tamamen sonlandırma hakkını her zaman için saklı tutar </strong>; bunlar, BNR Teknoloji A.Ş. tarafından Hopi Mobil Uygulaması içinde (internet-mobil data bağlantısı gerekir) veya diğer uygun yöntemler ile duyurulduğu andan itibaren geçerli olur. </p>
+          <p style="text-align:center"><strong>(Lütfen  şimdi Kullanıcı Sözleşmenizi okuyunuz ve inceleyiniz).</strong></p>
+          <p style="text-align:center">&nbsp;</p>
+          <h3><strong>HOPİ  KULLANICI SÖZLEŞMESİ</strong></h3>
+          <p><strong>1.   Hopi - Hopi Mobil Uygulaması  (Aplikasyon/Uygulama) </strong></p>
+          <p>
+              <br>
+              a.   <u>Genel Olarak Hopi Nedir ve  Nasıl Kullanılır</u>
+          </p>
+          <p>
+              <br>
+              Hopi Mobil Uygulaması/Servisi (Uygulama), Boyner Grubu Şirketlerinden BNR Teknoloji A.Ş. (BNR) (Adres: Maslak Eski Büyükdere Cad. Park Plaza No:14 Kat:3, Şişli/İstanbul , İnternet adresi www.hopi.com.tr, Tel: (0212)  366 89 00, Müşteri Hizmetleri Telefon : 0 850 200 66 88, Faks: (0212) 345 09 20   E-posta: : info@hopi.com.tr) tarafından geliştirilmiş, data iletişimi bulunan akıllı cihazlara (cep telefonu, tablet vb) yüklenerek ve Uygulama içinde gösterildiği gibi çalıştırılarak, Hopi Kullanıcılarının, iletişim ve kişisel olan/olmayan bilgilerinin eşleştirilmesi sureti ile, Hopi platformuna dahil işyerlerinin (İşyeri/İşyerleri) mağazalarında (fiziksel mağazalar ile duruma göre elektronik ticaret siteleri ve çağrı merkezi satış birimlerinde), keza sosyal medya hesaplarında duyurdukları Kampanyalarını, tekliflerini, yeni ürünlerini, duyuru ve tanıtım-reklamlarını ve sağladıkları İmkanları öğrenmelerini ve İşyerlerinden (mağazalarından) yapacakları ürün ve hizmet (Ürün/Ürünler) alımlarında, öngörülen şartlarda Hopi ödülü olan Paracıklar kazanıp yine  İşyerlerindeki ürün alışverişlerinde belirlenen koşullarda indirim, hediye ürün temin vb. amaçlı kullanabilmelerini sağlayan bir mobil uygulama servisidir (Diğer özellikleri aşağıda anlatılmıştır).
+          </p>
+          <p>
+              <br>
+              Hopi Kullanıcılarının Hopi  özelliklerinden, İşyeri Kampanya ve İmkanlarından yararlanabilmeleri için internete erişimi (mobil veri iletişimi) açık akıllı mobil cihazlarına Hopi Uygulamasını yükleyerek kendilerinden alınacak bilgileri ve uygulama kullanımındaki izinleri içeren  Bilgilendirmeleri-Hopi Kullanıcı Sözleşmesini kabul etmelerinin yanısıra BNR tarafından akıllı cihazlarına kısa mesajla (SMS) veya uygulama üzerinden zaman zaman gönderilecek/gösterilecek kodları, şifre vb.lerini uygulamaya girmeleri ya da İşyerlerinde göstermeleri / belirtmeleri gerekir. Bu işlemlerin yapılabilmesi için kural olarak Uygulamanın ve akıllı cihazların kablolu- kablosuz ve/veya mobil data ve/veya SMS iletişiminin açık olması, Kullanıcının cihazından Hopi uygulamasını kaldırması halinde ve cihazını değiştirdiği durumlarda (önceki  cihazından uygulamayı kaldırmalıdır), keza Uygulama kurulumu sırasında Kullanıcı tarafından verilen GSM no.sunun değişmesi halinde, cihazına/yeni cihazına aynı usulleri izleyerek yeniden kurması gerekir.
+          </p>
+          <p>
+              <br>
+              Hopi Mobil Uygulamasının ilk kurulumu sırasında Kullanıcı tarafından verilen bu GSM no.sunun iptali veya değişmesi halinde Kullanıcı'nın o güne kadar edindiği haklar-İmkanlar sona erebilir. BNR tarafından bu halde (ve/veya akıllı cihaz kayıp/çalıntı işlemlerinde) tatbik edilmek üzere farklı bir sistem-kurallar öngörülmüş ise  uygulamaya alındığı tarihten sonrası için geçerli olmak ve Kullanıcı'nın gerek yukarıda belirtilen halleri, gerek önceki kullanıcılığının tespiti-teyiti için BNR'nin tespit edeceği tüm işlemleri (yeni GSM no.lu telefonuna yükleyeceği Hopi Mobil Uygulaması üzerinde ve BNR'nin göstereceği fiziki mekanlarda) yapması kaydı ile, geçmişteki bazı (geçerlilik süresi bitmemiş) hak-imkanları yeni GSM no.su ile BNR'ce belirlenecek ileriki bir tarihten itibaren kullanabilmesi mümkün olabilir (Ancak bu, BNR Teknoloji A.Ş'nin Kullanıcı'ya bir taahhüdü değildir ve Kullanıcı Sözleşmesi'nin diğer tüm hükümleri geçerli ve saklıdır).
+          </p>
+          <p>
+              <br>
+              Hopi İşyerleri Kullanıcılara uygulama üzerinden teklif, kampanya, servis, hediye vb. iletişimleri yapacak, dileyen Hopi Kullanıcısı'nın yararlanmak istediği İşyeri teklif, kampanya ve hediyeler (genel ifadesi ile İmkânlar) için cihazlarındaki uygulama üzerinden katılım kodu üretilecektir. Üretilen bu kod o İşyerinden alışverişlerinde kullanılmak üzere uygulama içinde, Hopi Kullanıcısının ulaşabileceği bir alanda muhafaza edileceği gibi aynı zamanda otomatik olarak Hopi ID QR koduna eklenecek ve Kullanıcı ilgili İşyerinde Hopi ID QR kodunu ibraz ederek (mobil cihazında göstererek, İşyerindeki ilgili alette tuşlayarak, İşyerleri'nin elektronik ticaret sitelerinde yer alan özel kod alanlarına kampanya kodunu manuel olarak girerek vb. gibi ) İşyerlerinin Hopi'e özel İmkanlarına ulaşacak ve/veya bu İmkanlar'dan Hopi ödül puanları olan Paracıklar kazanıp kullanabilecektir.
+          </p>
+          <p>
+              <br>
+              Dileyen Hopi Kullanıcısı Uygulama üzerinden edindiği bilgiler veya linkler ile İşyerleri'nin mağazalarına (fiziki mağazaları veya elektronik ticaret mağazaları vb.e) ulaşarak, Ürün alışverişlerini, İşyerleri'nin söz konusu fiziki mağazalarında  ilgili İşyeri'nin satış uygulamaları-esasları, kampanyaları ve kampanyaları için öngördükleri Ürün miktarları dahilinde,  elektronik ticaretin söz konusu olduğu her durumda  ilgili İşyeri'nin mesafeli sözleşmesini yaparak (duruma göre öncesinde üyelik işlemlerini de tamamlayarak) yine İşyeri'nin öngördüğü İmkanlar ve aralarındaki anlaşma hükümleri çerçevesinde gerçekleştirir.
+          </p>
+          <p>
+              <br>
+              Kullanıcılar'ın doğrudan BNR Teknoloji A.Ş.'den alışveriş yaptıkları hallerde  BNR ile (de) mesafeli sözleşme yapmaları gerekir ve yalnız bu hallerde Kullanıcı ile BNR Teknoloji A.Ş. arasında bir tüketici işlemi gerçekleşmiş olur.
+          </p>
+          <p>
+              <br>
+              İleride Hopi'ye yeni özellikler/İmkanlar eklendiği ve/veya BNR tarafından kullanıma açıldığı taktirde,  Kullanıcılar, BNR'ce belirlenen kuralları dahilinde yeni özellik ve İmkanlar'dan istifade edebileceklerdir. (Örneğin kullanıma açıldığında Uygulama üzerinden kendilerine iletişimi yapılacak Tazecikler -ilk kez veya öncelikli tanıtım/satışı yapılacak yeni / orjinal ve/veya sınırlı sayıda ya da fiyatı elverişli olan ürünler- alanındaki ürün-hizmetlere ulaşabilecekler, bilgi alabilecekler veya yukarıda belirtilen çerçevede satın alabileceklerdir). Bir ücret öngörülmediği sürece, söz konusu özellik-İmkanlar'dan fiilen istifade eden Kullanıcılar bahsi geçen, Uygulama içinde ya da uygun diğer yöntemler ile bildirilecek kuralları kabul etmiş sayılırlar.
+          </p>
+          <p>
+              <br>
+              b.   <u>Hopi Mobil Uygulaması-Servisi ve BNR Teknoloji A.Ş. (BNR) ne değildir.</u>
+          </p>
+          <p>
+              <br>
+              Hopi (BNR Teknoloji A.Ş.), Kullanıcılar ve İşyerleri arasındaki Ürün (mal ve hizmet) alışverişlerinde bir aracı değildir. İşyerleri'nin mağazalarına ve elektronik ticaret-mesafeli satış sitelerine, Ürün ve kampanya bilgilerine Hopi Uygulaması üzerinden ulaşılması Hopi'nin Kullanıcılar'a sağladığı bir özellik olmakla beraber Ürünler'e ilişkin her türlü tanıtım, bilgilendirme, reklam-pazarlama ve satış işlemleri ile sair tüketici işlemleri sadece İşyerleri ile Kullanıcı arasındadır ve gerek bu işlemlere ilişkin bilgilendirmeler ve satış sözleşmesinin yapılması, gerek Kullanıcılardan satış işlemi uyarınca tahsilatlar-Kullanıcıların İşyerlerine ödemeleri gibi sorumluluklar, gerek ise Ürünler ile ilgili olarak satış sonrası için mevzuatta öngörülmüş alıcı (tüketici) ve satıcı sorumluluk ve gereklerini yerine getirmek münhasıran İşyerleri'nin ve Kullanıcılar'ın yükümlülükleridir.
+          </p>
+          <p>
+              <br>
+              İşyerleri'nin Kullanıcılar'a sağladığı Kampanya ve sair İmkanların koşulları, Paracık kazanılacak/kullanılacak haller dahil, Ürün türü, miktarı, cinsi ve geçerlilik süreleri itibari ile  ilgili İşyeri'nce belirlenir ve bu İmkanlar ancak geçerlilik süresi içinde kullanılabilir. Buradaki genel kuralların yanısıra Kampanya (İmkan) bazında geçerli özel yararlanma şartları Uygulama'daki ilgili Kampanya ana sayfasında veya alt-devam sayfasında belirtilmiş olup < Kampanya Şartları > /
+              <detaylar>
+                  tıklanarak görülebilir. Bunlar, önceden haber verilmeksizin, belirtilen hususlar itibari ile değiştirilebilir veya tamamen iptal edilebilir.
+          </p>
+          <p>
+              <br>
+              BNR tüm bu tüketici işlemleri ve tüketiciye yönelim işlemler ve herhangi bir aşaması veya neticesi açısından ilgili İşyeri veya Kullanıcı'nın aracısı, vekili, komisyoncusu, acentesi,  ortağı, pazarlamacısı, bayisi, temsilcisi vb değildir; İşyerleri veya Kullanıcı nam ya da hesabına alım satım işlemi yapan veya aralarındaki satış işlemleri ile sair tüketici işlemlerine aracılık eden gibi bir konumda (da) bulunmadığı gibi, İşyerleri veya Kullanıcılar’a  karşı bu konularda herhangi bir sorumluluk ve yükümlülüğü yoktur. Ancak, herhangi bir tarafa karşı herhangi bir maddi–hukuki edim, taahhüt ve sorumluluk üstlenmeksizin, Paracık kazanımı ve kullanımı gibi hususlarda, kendisine intikal ettirilmiş sorunlar itibari ile, Kullanıcılar ile İşyerleri arasındaki uyuşmazlığın giderilmesi, sorunun çözümü için imkanları dahilinde yardımcı olabilir.
+          </p>
+          <p>
+              <br>
+              BNR'nin  Kullanıcılar'a bizzat ve doğrudan satış yaptığı hallerde, diğer Hopi İşyerleri'nden alışverişler için geçerli olduğu gibi BNR ile Kullanıcı arasında Hopi üzerinden/içinden doğrudan/dolaylı surette ayrıca ulaşılacak bir mecrada, durumun mahiyetine göre ayrı bir yazılı/sözlü sözleşme veya mesafeli satış sözleşmesi yapılır ve ilgili Ürün'ün Kullanıcı'ya satışı söz konusu sözleşmeye tabi olur, bu Kullanıcı Sözleşmesi'nin işlemin mahiyetine uygun hükümleri de birlikte tatbik edilir.
+          </p>
+          <p>
+              <br>
+              Hopi'deki Paracıklar ödül puanlardır, elektronik para vb mahiyetinde olmadıkları gibi BNR veya İşyerleri para transferleri yapan  ödeme kuruluşu veya hizmet kuruluşu değillerlerdir. İleride Hopi'ye bu ve diğer alternatif ödeme sistemi/mobil ticaret özelliğinin dahil edilmesi ve Kullanıcı'nın bundan yararlanmak istemesi halinde, ilgili tüm taraflar bu sistemlerin uygulaması için ilgili mevzuatın ve yetkili kuruluş(lar)ın kendileri için öngördüğü iş, gerek ve sorumlulukları yerine getirirler.
+          </p>
+          <p>
+              <br>
+              Hopi (BNR), bu Kullanıcı Sözleşmesi'nde açıkca üstlendiği edim ve sorumluluklar dışında, Kullanıcılara (veya İşylerlerine yahut diğer ilgililere) karşı, doğrudan/dolaylı surette herhangi bir taahhüt ve mesuliyet altında bulunmamaktadır.
+          </p>
+          <strong>2.   Hopi'de Paracıklar (Ödül Puanlar)</strong>
+          <p>
+              <br>
+              Paracıklar Hopi'deki ödül puanlarının adıdır. Paracık kazanım,  kullanım ve iptal işlemleri burada belirtilen esasların yanısıra  ilgili İşyeri'nin satış-Kampanya şartları ile Kullanıcı'nın söz konusu İşyeri ile üyelik/satış/mesafeli sözleşmesi hükümlerine tabidir; İşyeri ve/veya BNR Teknoloji A.Ş. luzum gördükleri hallerde gerek burada, gerek anılan sözleşmelerde belirli tüm hakları Kullanıcı nezdinde kullanabilir, ilgili işlemleri yapabilir. İşyerlerinin kampanyaları Paracık kazandıran / kullandırılan kampanyalar olabileceği gibi kazandırmayan ve/veya kullanılmayan Kampanyalar da olabilir.
+          </p>
+          <p>
+              <br>
+              a.   <u>Kazanma ve Kullanma</u>
+          </p>
+          <p>
+              <br>
+              Hopi Kullanıcıları, Hopi dahilindeki İşyerleri'nden yaptıkları alışverişler üzerinden, Hopi İşyerleri tarafından belirlenen-belirlenecek şartlarda Hopi Sistemi'nin ödül puanlarını, diğer değişle Paracıklar kazanacaklar ve kazandıkları tüm Paracıkları yine Hopi İşyerlerinde tespit edilen-edilecek şartlarda kullanılabileceklerdir.
+          </p>
+          <p>
+              <br>
+              Kazanılacak Paracık miktarı veya oranı, keza kazanılabilecek dönem ve ürünler kampanyayı teklif eden İşyeri tarafından belirlenir.
+          </p>
+          <p>
+              <br>
+              Paracık kazanım/kullanım koşulları her kampanya için ilgili İşyeri tarafından, süre, ürün ve ilgili satış noktası itibari ile tespit edilir (Bazı İşyerleri Paracık kazandırmayan/kullandırılmayan Kampanya'lar düzenleyebilecekleri gibi, sadece kendilerinden alışverişlerde kazanılmış Paracıklar'ı da kullandırabilirler).
+          </p>
+          <p>
+              <br>
+              Bunlar Hopi Uygulaması üzerinden (ilgili Kampanya sayfalarındaki Kampanya Şartları/Detaylar'da) veya sair uygun yöntemler ile ilgili Kullanıcılara bildirilir.
+          </p>
+          <p>
+              <br>
+              Kural olarak, 1 (Bir) Paracık, kazanılırken ve kullanılırken 1 (Bir) TL değerindedir.
+          </p>
+          <p>
+              <br>
+              Paracık, İşyerleri'nin Paracıklı kampanyalarındaki alışverişlerde kazanılabilir. Kazanılan Paracıklar,  Ürün türü, ilgili İşyeri, Kampanya'nın mahiyeti ve/veya Ürün alış bedeli itibari ile belirlenen bir sürenin geçmesini takiben sistem tarafından belli bir zamanda otomatik olarak yüklenerek yine Hopi'ce belirlenen zamandan  itibaren Hopi Programı'na dahil İşyerleri'nin belirli mağazalarında ve/veya Ürünler'inde ilgili İşyeri'nin Kampanya koşulları dahilinde kullanılabilir. Buradaki genel kuralların yanısıra Kampanya (İmkan) bazında geçerli özel yararlanma şartları Uygulama'daki ilgili Kampanya ana veya alt-devam sayfasındaki &lt; Kampanya Şartları&gt;/&lt;Detaylar&gt; tıklanarak görülebilir.
+          </p>
+          <p>
+              <br>
+              Katlı Paracık Kullanımı : Hopi platformundaki bazı İşyerleri zaman zaman Paracıkların değerini artıran kampanyalar düzenleyebilir ve bu kampanyalardan yararlanma koşullarını belirleyebilirler. Belirtilen kampanya koşulları doğrultusunda mümkün ise, 1 Paracık 1 TL’den daha değerli olacak şekilde kullanılabilir.
+          </p>
+          <p>
+              <br>
+              Kazanılan Paracıkların geçerlilik (kullanılabilirlik) süresi,  BNR ve/veya ilgili İşyeri tarafından aksi daha az veya daha fazla bir süre olarak öngörülmediği takdirde, her bir Paracık'ın kazanıldığı alışverişi takip eden  bir (1) senenin bittiği takvim ayının sonudur; bu sürenin sonunda geçerliliklerini yitirirler ve kullanılamazlar, bunlar Hopi sisteminde sıfırlanır. BNR/İşyerleri her zaman bazı Paracıklar için çok daha kısa kullanım süreleri öngörebilir ve bunun için (Uygulama içinden veya sair yollar ile) belirtilmiş  tarihe kadar kullanılmayan Paracıklar daha sonra kullanılamaz. BNR, Hopi Mobil Uygulaması kullanımı ile ilgili tüm şartlar için  geçerli olduğu üzere, Paracıklar ile ilgili tüm kuralları değiştirebilme ve Paracık uygulamasına kazanım ve/veya kullanım açısından son verme haklarını her zaman için saklı tutar.
+          </p>
+          <p>
+              <br>
+              Söz konusu  geçerlilik süresi bitmeden  önce Hopi kullanıcılığı sona eren Kullanıcılar'ın o tarih itibari ile sahip oldukları Paracık bilgisi Hopi Sistemi'nde saklanır; ancak Hopi'den bilgilerinin işlenmemesini veya silinmesini yahut elektronik iletişim yapılmamasını istemiş (yahut aynı sonucu yaratan biçimde Hopi Mobil uygulamasını cihazlarından kaldırmış ve/veya cep telefonu aboneliğini durdurmuş/iptal ettirmiş/ilgili fonksiyonlarda engellemeler yapmış) olan Kullanıcılar bu İmkandan istifade edemeyecekleri gibi tekrar usulunce ve tüm şartları ile Hopi Kullanıcısı olmadıkları ve duruma göre önceki kullanıcılıkları BNR'ce öngörülen usuller ile teyit edilmediği sürece söz konusu Paracıklarını herhangi bir şekilde kullanamazlar. Bu hallerde Paracıklar geçerliliğini tamamen de yitirebilir.
+          </p>
+          <p>
+              <br>
+              Her durumda ve şartta geçerli olmak üzere, Kullanıcı hesabında görünmekle beraber henüz kullanılmamış Paracıklar mukabilinde Kullanıcı'ya kısmen veya tamamen bir para ödenmesi kesinlikle söz konusu olmayacak, bu ve benzer mahiyetteki Hopi Kullanıcısı nakdi-ayni talepleri, İşyerleri ve BNR tarafından (varsa, keza sair ilgili kişilerce) hiçbir surette ve sebeple kabul edilmeyecektir.
+          </p>
+          <p>
+              <br>
+              b.   BNR tarafından aksi öngörülerek uygulamaya alınmadıkça, <u>Paracık "kazanılarak" Satın Alınan Bir Ürün Kullanıcı Tarafından Usulünce Alındığı İşyeri'ne İade Edilir ve Bu İade İşlemi İşyeri Tarafından Kabul Edilir ise;</u>
+          </p>
+          <p>
+              <br>
+              1)  Hopi Kullanıcısının hesabında yeterli Paracık'ı varsa, o Ürün için kazandığı Paracıklar Hopi Sistemi üzerinden Hopi Kullanıcısından geri alınır (ve Ürün için ödemiş bulunduğu bedel de  İşyeri'nin buna dair çalışma esasları ve Kullanıcı ile İşyeri arasındaki tüketici işleminin mahiyeti-gerekleri dahilinde geri ödenir).
+          </p>
+          <p>
+              <br>
+              2)  Hopi  Kullanıcısının hesabında yeterli Paracık'ı yok ise, ilgili İşyeri'nce iade konusu Ürün için Hopi Kullanıcısına geri verilecek bedelden ilgili Paracık karşılığı (parasal-nakdi değeri)  düşülerek sadece kalan tutar İşyeri'nin buna dair çalışma esasları ve Kullanıcı ile İşyeri arasındaki tüketici işleminin mahiyeti-gerekleri dahilinde Hopi Kullanıcısına ödenir.
+          </p>
+          <p>
+              <br>
+              3)  Bir para iadesi söz konusu olmadan iade fişi (İMF vb). karşılığında iade edilen Ürünler'de  Kullanıcı hesabında o ürünü alırken kazandığı Paracık kadar Paracık'ı varsa Hopi Sistemi üzerinden geri alınır ve IMF Ürün bedeli tutarında düzenlenir, ancak yeterli Paracık'ı yok ise eksik Paracık tutarı düşüldüktan sonra kalan tutarda tanzim olunur (Düzenlenen İMF vb,  ilgili İşyeri'nin bunlara dair esaslarına ve her bakımdan yeni alışveriş zamanındaki satış-Hopi şartlarına tabi olarak kullanılır).
+          </p>
+          <p>
+              <br>
+              Aşağıdaki Genel Kural ve ilgili diğer Sözleşme koşulları herhalükarda saklıdır.
+          </p>
+          <p>
+              <br>
+              c.   BNR tarafından aksi öngörülerek uygulamaya alınmadıkça, <u>Paracık "kullanılarak"  Satın Alınan Bir Ürünün Usulünce İadesi ve İlgili İşyeri'nce kabulü halinde;</u>
+          </p>
+          <p>
+              <br>
+              Aşağıdaki Genel Kural ve ilgili diğer Sözleşme şartları saklı kalmak üzere, Kullanıcı'nın söz konusu Ürünü satın alırken kullandığı Paracık miktarı İşyeri'nce Hopi  Sistemi'nden Kullanıcı'ya aynen iade edilir. (Varsa satış bedeli ile ilgili işlem de ilgili İşyeri'nce bu tüketici işlemine dair çalışma esaslarına ve mevzuatına göre yapılır).
+          </p>
+          <p>
+              <br>
+              d.   <u>Genel Kural olarak; </u>
+          </p>
+          <p>Kullanıcı'nın  Ürün alışverinden cayması/iptali/feshi, herhangi bir surette haksız Paracık kazanımının veya kullanımının tespitinde ve ilgili Ürün bedelinin İşyeri'nce Kullanıcı'ya iade edildiği tüm hallerde, söz konusu Paracık tutarı (parasal-nakdi değeri) ilgili İşyeri/İşyerleri veya Hopi (BNR Teknoloji A.Ş.) tarafından Kullanıcı'dan (alışverişte kullandığı kredi kartından, nakden ve sair yasal yöntemler ile) tahsil olunabilir. </p>
+          <p>
+              <br>
+              d.   <u>Paracıkları Devretme-Kullandırma </u>
+          </p>
+          <p>Hopi Kullanıcıları'nın kazandıkları Paracıkları bizzat kullanmaları gerekir. Bununla beraber BNR Teknoloji A.Ş'nin Hopi'de buna imkan veren bir özelliği kullanıma alması durumunda Kullanıcılar sahip oldukları Paracıklar'ını, BNR'nin belirleyeceği şartlar ve esaslar dahilinde kısmen veya tamamen (sadece) diğer Hopi Kullanıcıları'na devrederek istifade ettirebilirler. Bu takdirde Hopi sistemi dahilinde ilgili işlem (geri dönüşü-iptali mümkün olmayan bir şekilde) yapılır; ancak Hopi (BNR Teknoloji A.Ş.) ve İşyerleri söz konusu Hopi Kullanıcıları arasındaki bu işleme hiçbir surette taraf olmaz, bundan kaynaklı maddi-hukuki ihtilaflardan ve herhangi bir mali ve mali olmayan sonucundan hiçbir mesuliyet kabul etmezler. </p>
+          <p>
+              <br>
+              f.   <u>Paracıklar'ın Geçerliliğini Yitirdiği ve/veya Kullanma İmkanının Sona Erdiği Haller </u>
+          </p>
+          <p>
+              <br>
+              Kullanıcı Sözleşmesi'nin yukarıda ve diğer ilgili maddelerinde yer alan özel düzenlemeler saklı kalmak üzere ve yanısıra,
+          </p>
+          <p>
+              <br>
+              1)  Paracık kazanılan tarihten itibaren BNR tarafından (ilgili Paracık bazında) belirlenen kullanım süresi geçmiş ve bu süre içinde kullanılmamış olması (belirlenen bu sürede kullanılmayan Paracıklar sonraki herhangi bir döneme devretmez),
+          </p>
+          <p>
+              <br>
+              2)  Paracık kazanılan Ürün alışverişinin herhangi bir surette geçersiz hale gelmesi,
+          </p>
+          <p>
+              <br>
+              3)  Kazanılan Paracık'ın Ürün alışverişinde veya Hopi Sistemi dahilindeki bir başka uygulama çerçevesinde kullanılmış olması,
+          </p>
+          <p>
+              <br>
+              4)  Paracık'ın haksız (belirlenen genel ve özel şartlara yahut iyiniyet esaslarına uygun olmayan ya da kötü niyetli davranışlar ile) kazanıldığının / kullanıldığının herhangi bir zamanda tespit edilmesi,
+          </p>
+          <p>
+              <br>
+              5)  Hopi Mobil Uygulamasının ilk kurulumu sırasında Kullanıcı tarafından verilen GSM no.sunun iptal edilmiş veya değişmiş olması
+          </p>
+          <p>
+              <br>
+              6)  Hopi Mobil Uygulamasının akıllı cihazdan kaldırılması halinde Paracıkların geçerlilik süresi içinde ve GSM no.su değişmeyecek biçimde aynı veya başka bir cihaza tekrar usulunce kurulmaması,
+          </p>
+          <p>
+              <br>
+              7)  Hopi Kullanıcısının vefat etmesi veya Uygulamayı kullanması mümkün olmayacak bir fiziki veya akli rahatsızlığı (Paracıklar Kullanıcı miraçılarına, haleflerine, vasi ve temsilcilerine devrolmaz),
+          </p>
+          <p>
+              <br>
+              8)  Kullanıcının Hopi (BNR Teknoloji A.Ş.)'e (varsa) Uygulamanın ilgili özelliklerini kullanarak veya doğrudan ulaşarak kişisel verilerinin kullanılmaması veya tarafına iletişim yapılmaması yahut kişisel verilerinin sistemden silinmesi isteğinde (bildiriminde) bulunması,
+          </p>
+          <p>
+              <br>
+              9)  Kullanıcı veya Hopi (BNR Teknoloji A.Ş.) tarafından bu Kullanıcı Sözleşmesi'nin  herhangi bir neden ile herhangi bir zamanda sona erdirilmesi ya da Kullanıcı Sözleşmesi'nin ilgili hükümlerine göre kendiliğinden sona ermiş sayılması,
+          </p>
+          <p>
+              <br>
+              hallerinde Paracıklar geçerliliğini yitirir, kullanılamaz ve BNR Teknoloji A.Ş'den-İşyerleri'nden  Paracıklar için herhangi bir talepte bulunulamaz.
+          </p>
+          <p>
+              <br>
+              BNR ve İşyerleri'nin haksız Paracık kazanan veya kullanan Hopi Kullanıcısı'ndan akdi-kanuni hakları saklıdır.
+          </p>
+          <p>
+              <br>
+              <strong>3.  Hopi'de Gizlilik-Güvenlik ve Kişisel Verileriniz - Ticari Elektronik İletişim ve Diğer İletişimler</strong>
+          </p>
+          <p>
+              <br>
+              a.   <u>Kullanıcılar'ın Hopi (BNR)'ye sağladığı  kişisel ve diger bilgiler nelerdir, nasıl kullanılır ve işlenir:</u>
+          </p>
+          <p>
+              <br>
+              Hopi (BNR Teknoloji A.Ş.-BNR), Kullanıcılar'ın isim, soyisim, cep telefon numaraları, doğum tarihi, yaşadığı şehir, cinsiyet  gibi kişisel bilgilerini veri kayıt sisteminde muhafaza eder. Kullanıcılar  Uygulama'ya girdikleri ve sair yollar ile verdikleri bilgilerin doğruluğundan sorumludurlar.
+          </p>
+          <p>
+              <br>
+              Kişisel tercihler ile ilgili olup  Hopi uygulaması üzerinden veya haricen  (örneğin Hopi Çağrı Merkezi'nde) paylaşılan bilgiler de Hopi'de saklanabilir.
+          </p>
+          <p>
+              <br>
+              Hopi  Kullanıcılar'a olabildiğince en uygun tekliflerin iletilmesini amaçlamaktadır. Bu amaçla Kullanıcılar'ın Hopi uygulaması üzerinden yararlandığı kampanyalar, beğendiği ürünler, alışveriş alışkanlıkları, alışveriş fatura vb. bilgileri, katıldıkları oyunlar ve Uygulamayı kullanma işlemleri ile kullanım trendleri Hopi nezdindeki basılı/manyetik arşivlere kaydedilip işlenerek Hopi özellik- servislerinden ve İmkanlardan istifade edebilmesi amacı ile  paylaşılır, işlenir ve kullanılır.  Ancak Kullanıcı'nın bunlardan istifade edebilmesi için gerekmedikçe, "ismi" paylaşılmaz.
+          </p>
+          <p>
+              <br>
+              Kullanıcı'nın o anda bulunduğu konuma (şehir, semt, bölge, işyeri-mağaza vb lokasyonlara)  uygun teklifleri cihazında (Uygulamada) görebilmesi için Hopi bu lokasyon bilgilerini kendi tarafında saklayabilir ve işleyebilir/inceleyebilir. Bu sayede örneğin farklı bir şehirde olduğu için zaten yararlanamayacağı (söz konusu lokasyondaki İşyeri/İşyerleri'ne özgü) bir  Kampanya  bilgisi-teklifi yerine, Kullanıcı'ya o anda bulunduğu konuma uygun kampanya ve tekliflerin gönderilmesi, bunları Hopi Uygulamasında görebilmesi sağlanır (Hopi'nin olağan işleyişinde tüm Kullanıcılar'a gönderilen teklif-bilgilendirmeler  lokasyondan bağımsız duyurulurlar).
+          </p>
+          <p>
+              <br>
+              Hopi İşyerlerinin bir kısmında akıllı cihazlardaki bluetooth sayesinde Hopi Uygulaması ve/veya Kullanıcısı tanınabilir ve Kullanıcıların o mağazaya girmiş olduğu anlaşılır; böylece bir Kullanıcı mağazaya girdiğinde, cihazlarının bu özelliği açık ise, o an mağazada geçerli imkanlardan haberdar olabilir, örneğin Kampanya fırsatlarından istifade edilebilir, bazen oyunlar oynayarak ödüller, hediyeler de kazanılabilir. Kullanıcılar konum (lokasyon) ve/veya bluetooth ayarlarını cihazlarının ve/veya Uygulamanın Ayarlar bolumunden istedikleri zaman açıp kapatabilirler  . Ancak bu ayarların kapatılması durumunda söz konusu İşyeri-mağaza teklifleri algılanamaz (Uygulamada görülemez),  mağaza içi fırsatlardan-oyunlardan, İmkanlar'dan yararlanılamaz.
+          </p>
+          <p>
+              <br>
+              Hopi, Kullanıcının  Boyner Grubu, Migros ve Turkcell firmaları nezdindeki Kullanıcı bilgilerini, bunun gibi diğer Hopi İşyerleri'ndeki mevcut-sonradan oluşacak bilgilerini (mağaza kartları, müşteri sadakat kartları gibi kart bilgileri dahil) Uygulamanın işlerliğini ve faydalanmasını sağlamak için alabilir, Hopi (BNR) nezdindeki bilgileri ile birleştirebilir ve işleyebilir.
+          </p>
+          <p>
+              <br>
+              Kullanıcılar'ın, Hopi İşyerleri'nde Hopi Kullanıcısı olduklarını bildirerek yaptıkları alışverişlerde o alışveriş ile ilgili (konum-lokasyon, tarih,tutar, alışveriş içeriği) bilgileri İşyeri'nden temin edilir ve bu bilgiler Hopi Paracık kazanımlarının ve kullanımlarının hesaplanması ve ileride Kullanıcı'ya  uygun teklifler sunulabilmesi amacı ile kullanılır.
+          </p>
+          <p>
+              <br>
+              BNR aynı amaçlar ile diğer üçüncü şahıs kaynaklarından ve servis sağlayıcılardan zaman zaman burada belirtilen muhtelif Kullanıcı bilgilerini alabilir ve bu bilgileri Hopi Sistemi'ndeki bilgileri ile birlikte işleyebilir.
+          </p>
+          <p>
+              <br>
+              Hopi, Kullanıcılar'a Uygulama içerisinde veya Hopi Çağrı Merkezi'nden aranmaları suretiyle ve diğer uygun yöntemler ile yaptığı anketlerde edinilen bilgileri (de) işleyebilir ve kullanabilir (Hopi veya İşyerleri'nce yapılabilecek bu tür anket sorularını cevaplayıp cevaplamamak Kullanıcı'nın kararındadır, bununla beraber anketlere katılma hususunda bir ödül, hediye vb öngörülmesi durumunda bundan istifade edemez).
+          </p>
+          <p>
+              <br>
+              Kullanıcılara Hopi özellik ve/veya servislerinin sağlanabilmesi için Uygulama üzerinden ve/veya haricen elektronik iletişimler yapılması gerekmektedir. Bu iletiler ticari nitelikte olabileceği gibi sosyal ve sair nitelikte de olabilir.
+          </p>
+          <p>
+              <br>
+              Hopi (BNR Teknoloji A.Ş.) ve Hopi İşyerleri, doğrudan veya ilgili hizmet sağlayıcıları marifeti ile, Kullanıcılar'a Hopi servisleri, İşyerlerinin Ürünler'i, Kampanya teklifleri ve şartları, öngördükleri İmkanlar ile ilgili olarak her türlü ticari ve ticari olmayan elektronik iletişim (Uygulama içinden anlık bildirimler, sms, çağrı merkezinden arama ve/veya e-posta yollarından herhangi biri veya bir kaçı ile) yaparlar, elektronik ileti gönderirler. Kullanıcılara gönderilen bu yazılı-sözlü iletiler için Kullanıcılar'dan Hopi tarafından herhangi bir bedel alınmaz.  Kullanıcılar'ın Hopi Uygulamasını kullanırken yaptıkları data kullanımı ve ileşitimlerin ücret-masrafları ise, abonesi oldukları servis sağlayıcı ile anlaşmalarına tabidir ve kendilerine aittir.
+          </p>
+          <p>
+              <br>
+              Hopi ve İşyerleri'nin Kullanıcılar'a elektronik iletişimleri için Kullanıcı mobil iletişim bilgileri ile konum verileri kullanılabilir. Ancak Hopi’den email, sms  ya da Uygulama üzerinden anında iletim bildirimleri almak istemeyen Kullanıcılar, duruma göre cihazlarının, duruma göre uygulamanın Ayarlar vb. kısmında bu seçimlerini belirtmeleri durumunda email, sms veya anında iletim bildirimlerini ve diğer iletileri almayabilirler.
+          </p>
+          <p>
+              <br>
+              Hopi, kümüle (toplu) Kullanıcı bilgilerini ad-soyad bilgilerini içermeyecek şekilde iş ortakları (yatırımcıları dahil), basın gibi üçüncü şahıslar ile paylaşabilir. Örnek olarak Hopi yatırımcılarına veya basına toplam üye sayısını, Kullanıcılar'ın demografik durumlarını, sipariş sayıları gibi kümüle bilgileri verebilir.
+          </p>
+          <p>
+              <br>
+              Hopi, İşyerleri ile, Kullanıcılara teklifler veya özel teklifler sunabilmeleri için yine isim-soyad bilgisi olmadan kümelenmiş Kullanıcı trendlerini paylaşabilir. Örnek olarak, Ataşehir bölgesindeki bir Hopi İşyeri restaurantın o bölgede olan Kullanıcılar'a özel tekliflerini uygulama üzerinden gösterebilmesi için Atasehir'de bulunan Hopi Kullanıcılarının sayısı, demografisi ve kümüle davranış bilgileri o İşyeri'ne verilebilir, Hopi Mobil Uygulaması üzerinden o Kullanıcılar'ı söz konusu özel tekliften bilgilendirmek için elektronik iletişim yapılabilir.
+          </p>
+          <p>
+              <br>
+              Muhtelif paylaşımlar için Hopi uygulaması üzerinden  Kullanıcı'nın İşyeri / teklif / Kampanya (genel ifadesi ile İmkan) bazında izni de talep edilebilir;  yararlanmak isteyen Kullanıcıların bu izni vermesi gerekmektedir. Ancak zaman zaman bu şekilde izin istenmesi/verilmesi Hopi'nin olağan özellikleri ve servisleri için her seferinde bu prosedürün uygulanması gerektiği ve uygulanacağı anlamına gelmemektedir.
+          </p>
+          <p>
+              <br>
+              Hopi, Kullanıcılar'a Hopi servislerini verebilmek için  çeşitli hizmet sağlayıcıları ile de kişisel bilgileri ve kişisel olmayan bilgileri paylaşabilir. BNR'nin Hopi Sistemi için "sunucu barındırma/işletim" servisi sağlayıcıları, Hopi’nin Kullanıcılar'a data ve elektronik ileti gönderecek servis  sağlayıcılar ile iletişim bilgilerinizi paylaşması gibi. Yine örneğin, bir çağrı merkezi firmasının Kullanıcılar'dan Hopi için gelen çağrıların yanıtlanmasında Hopi üzerinden kişisel olan ve olmayan bilgilere erişimi olacak, Hopi'nin uygulaması ve şikayetler/yanıtlanması ile ilgili telefon görüşmeleri kayda alınabilecek, kullanılabilecektir.
+          </p>
+          <p>
+              <br>
+              Hopi, bu tür özellikler kullanıma açıldığında, Kullanıcının Hopi İşyerleri'ne ait mevcut marka kartları (mağaza sadakat kartları vb) ile ilgili bilgileri İşyerleri'nden alabileceği gibi bu tür kartlar için yeni başvurular Hopi üzerinden yapılmak istenir ise Hopi'deki bilgiler söz konusu İşyeri ile paylaşılır. (İşyeri'nin marka kartı vermek/kullandırmak için  istediği zorunlu bilgiler sağlanmaz ise yahut İşyeri'nce kart istemi herhangi bir neden ile uygun bulunmaz ise,  başvuru kabul edilmeyebilir).
+          </p>
+          <p>
+              <br>
+              Hopi'nin bir başka şirketle birleşmesi, bir başka şirkete devri veya bir başka firmayı satın alması durumlarında kişisel bilgiler anılanlara devredilebilir/alınabilir, Kullanıcılar'a bahsi geçenlerce de elektronik iletişim yapılabilir.
+          </p>
+          <p>
+              <br>
+              Bilgiler burada belirtilen kapsamda ve şartlarda, yurt içinde ve dışında kullanılabilir ve işlenebilir.
+          </p>
+          <p>
+              <br>
+              Yasal durumlarda Hopi, Kullanıcı bilgileri-verilerini Mahkemelere ve yetkili İdari Mercilere verilebilir.
+          </p>
+          <p>
+              <br>
+              Kullanıcı Sözleşmesi'nin Bilgilendirmeler kısmında yer alan tüm esaslar ve ilgili Kullanıcı onayları, Turkcell İletişim Hizmetleri A.Ş.'nin Bilgilendirmeler kısmında belirtilen uygulamaları dahil olmak üzere aynen geçerlidir.
+          </p>
+          <p>
+              <br>
+              Bu Kullanıcı Sözleşmesi'ni onaylayan Kullanıcılar, kişisel ve kişisel olmayan mevcut-sonradan oluşacak  bilgilerinin (isim, soy isim, yaş, cinsiyet, medeni durum, yaşadıkları bölge, eğitim düzeyi, ilgi alanları, alışveriş alışkanlıkları, cep ve diğer telefon no.ları, mail adresleri, konumları vs.) kişisel verilerin korunması hakkında mevzuat ile elektronik ticaret mevzuatına  uygun biçimde, Bilgilendirme Bölümü ve yukarıdaki kapsamda kullanımına, paylaşımına, diğer suretler ile işlenmesine ve kendilerine ticari reklam, tanıtım ve kampanya duyuları dahil olmak üzere iletişim yapılmasına muvafakat etmiş olurlar ve aksi Kullanıcı tarafından Hopi'ye (BNR Teknoloji A.Ş.'e) bildirilmediği sürece, Hopi uygulaması cihazdan kaldırılmış yahut Kullanıcı Sözleşmesi sona ermiş olsun/olmasın, bu muvafakatleri geçerli olmaya devam eder.
+          </p>
+          <p>
+              <br>
+              b.   <u>Hopi Kullanıcıları Kişisel Verilerinin İşlenmesini-Kullanımını ve/veya Taraflarına İletişimleri  Durdurabilirler ve Bu Hususlarda Bilgi Alabilirler</u>
+          </p>
+          <p>
+              <br>
+              Kullanıcılar tarafından veri kullanımı ve/veya iletişimin durdurulması isteği herhangi bir gerekçe gösterilmesi gerekmeksizin her zaman yapılabilir. Hopi Kullanıcıları, kişisel verileri ile ilgili olarak Bilgilendirmeler'de açıklandığı gibi BNR Teknoloji A.Ş.'e başvurabilirler, bu husustaki kanuni  bilgilenme ve talep haklarını de kullanabilirler.
+          </p>
+          <p>
+              <br>
+              Kullanıcılar söz konusu bilgilerin-verilerin kullanımını ve/veya taraflarına yapılacak iletişimleri duruma göre cihazlarının veya Hopi Mobil Uygulamasının Ayarlar ve benzeri bölümünden-fonksiyonundan engelleyebilir (internet/data bağlantısı gerekebilir)  veya BNR Teknoloji A.Ş.'e (Adres: Maslak Eski Büyükdere Cad. Park Plaza No:14 Kat:3, Şişli/İstanbul , Müşteri Hizmetleri Telefon : 0 850 200 66 88 Faks: (0212) 345 09 20 <a href="mailto:info@hopi.com.tr">info@hopi.com.tr</a>) ulaşarak her zaman için (yasal sürelerde) durdurabilirler; bunun gibi Hopi Uygulamasının cihazdan kaldırılması "Hopi Uygulaması" üzerinden ileti alımlarını durdurur.(Bu takdirde Hopi'den yararlanılamayabilir).
+          </p>
+          <p>
+              <br>
+              BNR Teknoloji A.Ş.'ne açıkca ve usulünce bildirilmiş Kullanıcı isteğine göre, kanunen gereken hallerde kişisel veri işlemleri ve/veya iletişimler, ilgili yasal azami süre aşılmamak üzere, Hopi sistemlerine uygun en kısa sürede durdurulur. Kullanıcılar cari kanunlarca böyle bir hakka sahip oldukları durumlarda ayrıca Hopi nezdindeki bilgilerinin silinmesini de her zaman talep edebilirler ve bu durumda, hukuken muhafazası gereken-mümkün olanlar hariç,  bilgiler, Hopi sisteminden yasal azami süreler dahilinde silinir ya da anonimleştirilir (Yine tüm bu hallerde, Kullanıcılar Bilgilendirmeler ve/veya Kullanıcı Sözleşmesi'nin muhtelif kısımlarında yazılı hak ve İmkanları kaybedebilirler ve bundan ötürü Hopi'den veya İşyerleri'nden herhangi bir talepte bulunamazlar). Herhangi bir teknik aksaklık vs.'den ötürü yukarıdaki gereklerin yerine gelmemiş olması halinde, Hopi (BNR Teknoloji A.Ş), Kullanıcı'nın bildirimi üzerine gereğini mümkün olan en kısa sürede yapar.
+          </p>
+          <p>
+              <br>
+              BNR Teknoloji A.Ş.'ne açıkca ve usulünce bildirilmiş Kullanıcı isteğine göre, kanunen gereken hallerde kişisel veri işlemleri ve/veya iletişimler, ilgili yasal azami süre aşılmamak üzere, Hopi sistemlerine uygun en kısa sürede durdurulur. Kullanıcılar cari kanunlarca böyle bir hakka sahip oldukları durumlarda ayrıca Hopi nezdindeki bilgilerinin silinmesini de her zaman talep edebilirler ve bu durumda, hukuken muhafazası gereken-mümkün olanlar hariç,  bilgiler, Hopi sisteminden yasal azami süreler dahilinde silinir ya da anonimleştirilir (Yine tüm bu hallerde, Kullanıcılar Bilgilendirmeler ve/veya Kullanıcı Sözleşmesi'nin muhtelif kısımlarında yazılı hak ve İmkanları kaybedebilirler ve bundan ötürü Hopi'den veya İşyerleri'nden herhangi bir talepte bulunamazlar). Herhangi bir teknik aksaklık vs.'den ötürü yukarıdaki gereklerin yerine gelmemiş olması halinde, Hopi (BNR Teknoloji A.Ş), Kullanıcı'nın bildirimi üzerine gereğini mümkün olan en kısa sürede yapar.
+          </p>
+          <p>
+              <br>
+              Hopi üzerinde Kullanıcı kişisel verilerinin ve/veya diğer bilgilerinin kullanımı-işlenmesi ve/veya tarafına iletişim, Kullanıcının önceden veya bilahare herhangi bir Hopi İşyerine ya da diğer Boyner Grubu şirketine yahut bunların iş ortaklarına/tedarikçilerine bu hususta verdikleri izin (keza aynı anlamdaki muvafakat, rıza veya onay) uyarınca yapılıyor ise; bunların mevzuat gereği halen onaylı sayılan mevcut veri tabanlarını kullanım sureti ile Hopi Kullanıcılarına ticari elektronik ileti gönderme hak ve yetkileri ayrıca ve her durumda saklı olmakla beraber; Kullanıcı'nın Hopi'ye (BNR'e) bildirdiği durdurma isteği, Hopi'nin bu konuda bir insiyatifi ve sorumluluğu olmadığından, izin verdiği kuruluşca herhangi bir surette Kullanıcı'ya yapılan iletişimlerin ve veri kullanım-işlenmelerinin de durdurulacağı anlamına gelmez; Kullanıcı'nın bu hususta, ilgili kuruluşa ayrıca başvurması gerekir ve ilgili tüm işlemler ile gerek-sonuçları Kullanıcı ve bahsi geçen kuruluş arasındadır.
+          </p>
+          <p>
+              <br>
+              c.   <u>Hopi'de Kullanıcı Bilgilerinin Güvenliği </u>
+          </p>
+          <p>
+              <br>
+              Hopi (BNR Teknoloji A.Ş., kısaca BNR), Kullanıcı kişisel bilgilerinin korunması için kanunen zorunlu gereken ve teknik olarak mümkün genel güvenlik tedbirlerini almıştır.
+          </p>
+          <p>
+              <br>
+              Ne var ki, gerekli önlemlerin alınmasına rağmen data (veri) güvenliğinde ihlal durumları (kanunsuz müdahaleler, virüsler ve benzerleri neticesi) maalesef olabilmektedir. Böyle bir data güvenliği ihlali halinde, BNR durumdan haberdar ise ve ihlalin mahiyetine göre gerekiyor ise Kullanıcılar'ı uygun yöntemler ile bilgilendirebilir. Bu durumda (varsa) BNR tarafından bildirilen işlemlerin, duruma göre Hopi Uygulamasındaki güncellemelerin Kullanıcı tarafından derhal yapılması gerekir (Kullanıcı cihazlarındaki "işletim sistemleri" ve benzerleri ile ilgili güvenlik açıkları ve ihlallerinin de Kullanıcı tarafından usulunce-zamanında giderilmesi gerekir).
+          </p>
+          <p>
+              <br>
+              Öte yandan, Uygulama kapsamında ilgili fonksiyon (özellik)  içerisinde belirli işlemlerin güvenliği için Kullanıcı'ya tanımlanan şifrenin ve kullanım sırasında zaman zaman uygulama tarafından üretilebilecek veya BNR'ce gönderilebilecek her türlü kodun gizliliği ve güvenliğini temin her durumda Kullanıcı'ya aittir.
+          </p>
+          <p>
+              <br>
+              Kullanıcılar'ın akıllı cihazlarındaki Hopi uygulamasına  marka kartları (mağaza sadakat kartları vb.) ve kredi kartlarını ya da bunlara ait bilgileri yüklemeleri tamamen kendi inhisar ve kararlarındadır; akıllı cihazın başkasına verilmesi, Uygulamanın birden fazla cihaza yüklenmesi/paylaşılması, cihaz(lar)ın kaybolması, hasara, zarara ve ziyana uğraması halinde ve akıllı cihaz(lar)daki bu tür bilgilerine Kullanıcı dışındaki (herhangi bir) üçüncü kişinin herhangi bir surette ulaşması ve kullanması durumlarında hertürlü sorumluluk ve menfi netice riski ile bu tür sonuçları Kullanıcı'ya aittir.
+          </p>
+          <p>
+              <br>
+              Herhalükarda, BNR Teknoloji A.Ş. ve Hopi İşyerleri ile hizmet sağlayıcıları ve sair ilgilileri,  insiyatifleri dışında ve/veya kanunen sorumlu olmadıkları sebeplerle Kullanıcı bilgi-verilerinin ihlali sonucu oluşan Kullanıcı kayıp ve zararlarından sorumlu olmazlar; ancak kasıtlı veya ağır kusurlu eylemlerinin varlığında, kanuni kapsamı ve şartları dahilinde mesul sayılırlar.
+          </p>
+          <p>
+              <br>
+              d.   <u>Hopi Uygulaması Üzerinden Ulaşılan İnternet Siteleri (Elektronik Ticaret Siteleri ve Diğer Siteler)</u>
+          </p>
+          <p>
+              <br>
+              Kullanıcılar Hopi üzerinde duyurulan/gösterilen Kampanyalarda, Tazecik duyurularında ve/veya cesitli diğer alanlarda Hopi İşyerleri'nin ve diğer şahısların sitelerine, mobil uygulamalarına vb.'e yönlenebilirler.  Hopi Uygulaması üzerinden bu suretle ulaşılan sitelerde data (kişisel bilgiler ve  diğer bilgiler) paylaşımları ve data güvenligi o sitenin kurallarına tabidir. BNR'nin, Hopi İşyerleri'ne ait olanlar dahil olmak üzere, bu sitelerdeki güvenlik ve gizlilik koşulları ile uygulamaları üzerinde bir yetkisi, kontrolü ve sorumluluğu bulunmamaktadır.
+          </p>
+          <p>
+              <br>
+              Kullanıcıların Hopi Platformu dahilindeki İşyerleri'nin elektronik ticaret sitelerinde ve benzerlerinden alışverişlerinde geçerli diğer esaslar Kullanıcı Sözleşmesi'nin ilgili kısımlarında ayrıca ve ayrıntılı belirtilmiştir.
+          </p>
+          <p>
+              <br>
+              <strong>4.   Hopi Kullanılırken Bilinmesi ve Dikkat Edilmesi Gereken Bazı Hususlar </strong>
+          </p>
+          <p>
+              <br>
+              a.     Kullanıcılar'ın Hopi Mobil Uygulamasına ilişkin her türlü şifre-kodlarını, yükledikleri sadakat kart bilgilerini, keza varsa kredi kartı bilgilerini ve genel olarak Uygulamanın yüklü olduğu cihazlarını korumaları, bunların ilgisiz üçüncü kişilerin eline geçmemesi için, virüsler ve diğer zararlı programlar ile ilgili olanlar da dahil olmak üzere, luzumlu tüm tedbirleri şahsen almaları gerekir.
+          </p>
+          <p>
+              <br>
+              b.  Hopi Mobil Uygulamasının-Servislerinin kullanımı ücretsiz olmakla beraber;
+          </p>
+          <p>
+              <br>
+              i) Uygulama kullanımının gerektirdiği her türlü haberleşme-iletişim giderleri, servis sağlayıcısı ile şahsi anlaşmasına göre Kullanıcı'ya aittir. ii) Uygulamadaki bilgi-tanıtım ve kampanyalardan istifade ile Hopi işyerlerinden  herhangi bir yöntem ile yapılacak alışveriş işlemleri ve bağlantılı işlemler doğrudan Kullanıcı ile ilgili İşyeri arasında olduğundan alışveriş bedelleri ve diğer bedeller Kullanıcı'ya aittir. iii) Kullanıcı'nın Paracık kazandığı bir ürünü iade etmesi halinde, Hopi nezdinde başka yeterli Paracıkı yok ise, söz konusu ürünü alırken kazandığı Paracık tutarını ödemesi gerekir; ilgili İşyeri (Hopi'nin uygulamasına göre iade ettiği ürünü satın aldığı İşyeri veya satın aldığı ürün sebebi ile kazandığı Paracık'ı kullandığı İşyeri yahut BNR) o Paracıkların parasal-nakdi değeri olan tutarı Kullanıcı'dan derhal tahsil eder. iv) Kullanıcılardan (yeni) bir ücret, masraf ve sair bedel talep edilmesi söz konusu olan Hopi özellikleri ve servisleri için Uygulama üzerinden Kullanıcıların (duruma göre genel veya işlem bazında) ayrıca onayı alınır.
+          </p>
+          <p>
+              <br>
+              c.  Hopi'de Kullanıcılar'a sağlanan özellikler, bilgilendirmeler, Kampanya teklifleri ve İmkanlar ( Paracık kazanım ve kullanım şatları-değerleri dahil) tüm Kullanıcılar için aynı olabileceği gibi, bulundukları lokasyon (konum), alışveriş alışkanlıkları, yaşları, cinsiyetleri, İlgili İşyeri, Ürünler, Kullanıcılar'ın Hopi Uygulamasından yararlanma trendleri, Hopi İşyerleri'nden alışveriş tutarları ve sair unsurlar  itibari ile Kullanıcılar'a farklı teklifler ve İmkanlar sağlanabilir. <br>
+              Herhangi bir Kullanıcı'ya Hopi'de herhangi bir İmkan'ın sağlanmış olması diğer Kullanıcılar'a da aynı İmkanın sağlanacağı anlamına gelmediği gibi bir Kullanıcı'nın herhangi bir özellik, Kampanya ve İmkandan yararlanmış/yararlandırılmış olması, aynı Hopi İşyerinde veya bir başka İşyeri'nde yahut bir Hopi İşyerinin farklı satış noktalarında her zaman aynı veya benzeri İmkanlar'dan istifade edebileceği anlamına gelmemektedir.
+          </p>
+          <p>
+              <br>
+              d.  Kullanıcıların Hopi İşyerleri'nde Paracık kazanırken ve kullanırken, bu ve bağlantılı tüm işlemleri ve tutarlarını, ilgili işlem sırasında  kontrol etmeleri ve bir yanlışlık var ise  muhakkak ve derhal İşyeri'nde bildirmeleri şarttır; aksi halde haklarını yitirebilirler (Kullanıcılar'ın ilgili fatura vs işlem belgelerini de gerektiğinde ibraz için muhafaza etmeleri gerekir).
+          </p>
+          <p>
+              <br>
+              e.  Paracıklar Sözleşme'nin ilgili maddelerinde belirtilen koşullarda kazanılır, kullanılır ve geçerliliğini yitirir. Herhalükarda, kullanılmayan Paracıklar mukabilinde Hopi Kullanıcılarına, herhangi bir surette, kısmen veya tamamen nakit para ödenmez, aynı anlamdaki kredi kartına ödeme/iade, iade mal fişi vb. tutarlarına eklenmesi gibi istemleri dahil olmak üzere bu tür talepleri karşılanmaz.
+          </p>
+          <p>
+              <br>
+              f.  BNR Teknoloji A.Ş. mücbir sebep hallerinde ve genel olarak bu Kullanıcı Sözleşmesi'nde açıkca üstlendiği edim ve sorumluluklar dışında, Kullanıcılara (veya İşyerlerine) karşı, doğrudan/dolaylı surette herhangi bir taahhüt ve mesuliyet altında bulunmamaktadır. <br>
+              Hopi dahilindeki İşyerleri, önceden haber verilmeksizin her zaman değişebilir, bazı İşyerleri Hopi Sistemi'nden ayrılabilir veya yeni İşyerleri dahil olabilir.
+          </p>
+          <p>
+              <br>
+              g.  BNR Teknoloji A.Ş., Kullanıcı'ya karşı haklarını doğrudan veya Hopi İşyerleri marifeti ile kullanabilir.
+          </p>
+          <p>
+              <br>
+              h.  Burada bazı konularda hatırlatmalar yapılmış ve/veya diğer Hopi kullanım koşulları belirtilmiş olup Kullanıcı Sözleşmesi'nin (ayrılmaz parçası olan Bilgilendirmeler Bölümü dahil) diğer tüm esas ve şartları  aynen ve herhalükarda geçerlidir.
+          </p>
+          <p>
+              <br>
+              i.  Kullanıcılar, cihazlarında Hopi Mobil Uygulaması'nın <i>Kullanıcı Bilgilendirme Metni  ve Sözleşmesini Onaylıyorum kutusunu tıklayıp BAŞLA </i>ve benzeri tuşuna bastıklarında (tıkladıklarında) bu Kullanıcı Sözleşmesi'ni (Bilgileriniz-Onayınız için Bilgilendirmeler bölümü dahil) tamamen okumuş, anlamış ve tüm hükümlerini açıkca kabul etmiş olurlar ve BNR Teknoloji A.Ş. ile  Kullanıcı arasında bu Kullanıcı Sözleşmesi kurulmuş olur.
+          </p>
+          <p>
+              <br>
+              <strong>5.   Kullanıcı Sözleşmesi'nde, Hopi Özelliklerinde ve Kullanıcı İmkanlarında Değişiklikler </strong>
+          </p>
+          <p>
+              <br>
+              Hopi (BNR Teknoloji A.Ş.), ilgili mevzuata veya teknikte gelişmelere veya Kullanıcılar'a sağlanan özellik ve imkanlara göre mevcut özellik/servisleri durdurma, yeni özellik/servisler ekleme, güvenlik standartlarını değiştirme, Hopi Mobil Uygulaması'nın bazı özelliklerinde, Paracıklar ve sair ödül puanları ile  hediyeler vb. dahil olmak üzere Kullanıcı İmkanlarında revizyonlar ve iptaller, İşyerleri'nde ve İşyeri Kampanyaları içeriğinde, zamanlamasında ve her türlü istifade şartlarında önceden haber vermeksizin değişiklikler, ertelemeler ve iptaller yapma hakkını saklı tutar. Bu tür değişiklikler BNR Teknoloji A.Ş. ve/veya ilgili İşyeri tarafından Hopi Mobil Uygulaması üzerinden yayınlandığı (veya uygun diğer yöntemler ile duyuruldukları) tarihten itibaren geçerli kabul edilir.
+          </p>
+          <p>
+              <br>
+              Hopi'yi kullanmaya devam eden Kullanıcılar tüm bu değişimleri (revizyonları, değişiklikleri, iptal işlemlerini ve öngörülen yeni kullanım şartlarını) kabul etmiş sayılırlar. Hopi'nin ödeme sistemi veya elektronik para ya da mobil ticaret fonksiyonu gibi özellikler kazanması/kullanıma açılması, Kullanıcılar'dan Hopi Mobil Uygulaması'nı kullanmaları için herhangi bir bedel istenmesi gibi bazı durumlarda ayrıca Uygulama üzerinden ve sair yöntemler ile izinleri de istenebilir (Herhangi bir tereddüt oluşmaması için, Hopi başlangıç itibari ile  bir ödeme ve mobil ticaret sistemi olmadığı gibi Hopi'deki Paracıklar elektronik para vb. değildir, ödül puanlarından ibarettir).
+          </p>
+          <p>
+              <br>
+              Hopi uygulaması üzerinden veya sair uygun yöntemler ile istenen/bildirilen güncellemelerin (duruma göre Uygulamanın tekrar indirilmesi/kurulumu dahil) Kullanıcı tarafından hemen yapılması gerekir.
+          </p>
+          <p>
+              <br>
+              Herhangi bir nedenle güncellemeleri yapmayan veya elektronik iletişimleri / bilgi işlenmelerini durdurdukları için bunları alamayan Kullanıcılar, güvenlik konularının yanısıra mevcut/değişen/yeni Hopi özellikleri ve/veya servislerinden ve/veya şartlarından istifade hususlarında, keza muhtelif bilgileri edinmelerinde gecikme vb. sebepten İmkanlar'dan yararlanamaları gibi oluşan menfi sonuçları kabullenmiş sayılırlar.
+          </p>
+          <p>
+              <br>
+              <strong>5.   Kullanıcı Sözleşmesi'nde, Hopi Özelliklerinde ve Kullanıcı İmkanlarında Değişiklikler</strong>
+          </p>
+          <p>
+              <br>
+              a.  Bu Kullanıcı Sözleşmesi süresizdir ve Sözleşme'nin  muhtelif hükümlerinde belirtilen sona erme hallerinin yanısıra aşağıdaki hükümlere göre sona erene kadar geçerlililiğini muhafaza eder.
+          </p>
+          <p>
+              <br>
+              b.  Kullancı dilediği her zaman  BNR Teknoloji A.Ş.'ne  yapacağı sözlü veya yazılı bildirim ile, herhangi bir gerekçe göstermeksizin ve ceza ödemeksizin bu Sözleşme'den cayabilir ve yine her zaman aynı şekilde sona erdirebilir (fesh edebilir). (BNR İletişim bilgileri: (0212) 366 89 00, Müşteri Hizmetleri Telefon : 0 850 200 66 88  faks (0212) 345 09 20  , Eposta: info@hopi.com.tr)
+          </p>
+          <p>
+              <br>
+              c.  BNR Teknoloji A.Ş. de bu Sözleşmeyi dilediği her zaman, Kullanıcı'ya, Uygulama üzerinden ve sair  iletişim kanallarından bildirerek tek yanlı ve tazminatsız sona erdirebilir.  BNR Teknoloji A.Ş.'nin Hopi Sistemi'ne son vermesi halinde Kullanıcı Sözleşmesi kendiliğinden sona erer.
+              BNR Teknoloji A.Ş.'nin bazı Hopi özelliklerini-İmkanlarını tamamen kaldırması halinde Sözleşme belirtilen özellik-İmkanlar açısından aynı şekilde sona erer.
+          </p>
+          <p>
+              <br>
+              d.  Kullanıcı'nın vefatı veya Hopi Mobil Uygulamasını kullanması fiilen mümkün olmayacak bir rahatsızlığı halinde, bunun gibi BNR Teknoloji A.Ş.'nin (kanuni birleşme, bölünme, devrolunma ve devralmalar hariç) kanunen fesh olması ya da tasfiyesi halinde bu Kullanıcı Sözleşmesi kendiliğinden sona erer.
+          <p>
+              <br>
+              e.  Sözleşme'nin herhangi bir surette sona erdiği hallerde, Kullanıcı'nın Hopi Uygulamasını kullandığı süre zarfında edindiği ve kullanmadığı Paracıklar dahil  tüm hak-imkanları kendiliğinden kesin olarak sona erer.
+          </p>
+          <p>
+              <br>
+              f.  Sözleşme'nin herhangi bir sebepten her ne zamanda sona erdiği hallerde Kullanıcı kişisel verilerinin ve kişisel olmayan bilgilerinin kullanımı-işlenmesinin ve Kullanıcı'ya iletişimlerin durdurulması, Sözleşme'nin (Bilgilendirmeler dahil) ilgili hükümlerinde belirtilen özel usul ve kurallara tabidir.
+          </p>
+          <p>
+              <br>
+              g.  Sözleşme her ne sebepten ve her ne zaman sona ermiş olursa olsun, Kullanıcı'dan veya BNR Teknoloji A.Ş.'den veya Hopi İşyerleri'nden ve sair ilgililerinden tazminat ve diğer bir ödeme talep edilemez. Ancak BNR Teknoloji A.Ş.'nin ve Hopi İşyerleri'nin, Kullanıcı Sözleşmesi'nin ilgili hükümlerine (özellikle Kullanıcı tarafından haksız Paracık kazanımı/kullanımı  maddelerine) göre ve/veya Kullanıcı ile Hopi İşyerleri arasındaki sözlü/yazılı/mesafeli tüketici işlemlerine ve kanuna göre bu Sözleşme'nin sona ermesinden sonra Kullanıcı'ya karşı sahip olduğu hak-imkanları,  Kullanıcı için de bu Sözleşme'de açıkca belirtilmiş haklar ile ilgili "emredici" (amir) mevzuattan doğan haklar her durumda-ayrıca saklıdır.
+          </p>
+          <p>
+              <br>
+              h.  Sözleşme'nin sona erdiği hallerde Kullanıcıların cihazlarındaki Hopi Mobil Uygulaması'nı kaldırmaları gerekebilir; aksi halde Hopi'nin olağan uygulamasında yapıla gelmekte olan genel iletileri almaya devam edebilirler, ancak bu durum Sözleşme'nin devam ettiği ve Kullanıcı'nın Sözleşme'de belirli hak-İmkanlara sahip olmaya ve/veya kullanmaya devam edebileceği anlamına gelmez.
+          </p>
+          <p>
+              <br>
+              <strong>6.   Kullanıcı Sözleşmesi'nin Süresi, Sona Ermesi ve Bu Halde Uygulanacak Koşullar</strong>
+          </p>
+          <p>
+              <br>
+              a.  Bu Kullanıcı Sözleşmesi süresizdir ve Sözleşme'nin  muhtelif hükümlerinde belirtilen sona erme hallerinin yanısıra aşağıdaki hükümlere göre sona erene kadar geçerlililiğini muhafaza eder.
+          </p>
+          <p>
+              <br>
+              b.  Kullancı dilediği her zaman  BNR Teknoloji A.Ş.'ne  yapacağı sözlü veya yazılı bildirim ile, herhangi bir gerekçe göstermeksizin ve ceza ödemeksizin bu Sözleşme'den cayabilir ve yine her zaman aynı şekilde sona erdirebilir (fesh edebilir). (BNR İletişim bilgileri: (0212) 366 89 00, Müşteri Hizmetleri Telefon : 0 850 200 66 88  faks (0212) 345 09 20  , Eposta: info@hopi.com.tr)
+          </p>
+          <p>
+              <br>
+              c.  BNR Teknoloji A.Ş. de bu Sözleşmeyi dilediği her zaman, Kullanıcı'ya, Uygulama üzerinden ve sair  iletişim kanallarından bildirerek tek yanlı ve tazminatsız sona erdirebilir.  BNR Teknoloji A.Ş.'nin Hopi Sistemi'ne son vermesi halinde Kullanıcı Sözleşmesi kendiliğinden sona erer.
+              BNR Teknoloji A.Ş.'nin bazı Hopi özelliklerini-İmkanlarını tamamen kaldırması halinde Sözleşme belirtilen özellik-İmkanlar açısından aynı şekilde sona erer.
+          </p>
+          <p>
+              <br>
+              d.  Kullanıcı'nın vefatı veya Hopi Mobil Uygulamasını kullanması fiilen mümkün olmayacak bir rahatsızlığı halinde, bunun gibi BNR Teknoloji A.Ş.'nin (kanuni birleşme, bölünme, devrolunma ve devralmalar hariç) kanunen fesh olması ya da tasfiyesi halinde bu Kullanıcı Sözleşmesi kendiliğinden sona erer.
+          <p>
+              <br>
+              e.  Sözleşme'nin herhangi bir surette sona erdiği hallerde, Kullanıcı'nın Hopi Uygulamasını kullandığı süre zarfında edindiği ve kullanmadığı Paracıklar dahil  tüm hak-imkanları kendiliğinden kesin olarak sona erer.
+          </p>
+          <p>
+              <br>
+              f.  Sözleşme'nin herhangi bir sebepten her ne zamanda sona erdiği hallerde Kullanıcı kişisel verilerinin ve kişisel olmayan bilgilerinin kullanımı-işlenmesinin ve Kullanıcı'ya iletişimlerin durdurulması, Sözleşme'nin (Bilgilendirmeler dahil) ilgili hükümlerinde belirtilen özel usul ve kurallara tabidir.
+          </p>
+          <p>
+              <br>
+              g.  Sözleşme her ne sebepten ve her ne zaman sona ermiş olursa olsun, Kullanıcı'dan veya BNR Teknoloji A.Ş.'den veya Hopi İşyerleri'nden ve sair ilgililerinden tazminat ve diğer bir ödeme talep edilemez. Ancak BNR Teknoloji A.Ş.'nin ve Hopi İşyerleri'nin, Kullanıcı Sözleşmesi'nin ilgili hükümlerine (özellikle Kullanıcı tarafından haksız Paracık kazanımı/kullanımı  maddelerine) göre ve/veya Kullanıcı ile Hopi İşyerleri arasındaki sözlü/yazılı/mesafeli tüketici işlemlerine ve kanuna göre bu Sözleşme'nin sona ermesinden sonra Kullanıcı'ya karşı sahip olduğu hak-imkanları,  Kullanıcı için de bu Sözleşme'de açıkca belirtilmiş haklar ile ilgili "emredici" (amir) mevzuattan doğan haklar her durumda-ayrıca saklıdır.
+          </p>
+          <p>
+              <br>
+              h.  Sözleşme'nin sona erdiği hallerde Kullanıcıların cihazlarındaki Hopi Mobil Uygulaması'nı kaldırmaları gerekebilir; aksi halde Hopi'nin olağan uygulamasında yapıla gelmekte olan genel iletileri almaya devam edebilirler, ancak bu durum Sözleşme'nin devam ettiği ve Kullanıcı'nın Sözleşme'de belirli hak-İmkanlara sahip olmaya ve/veya kullanmaya devam edebileceği anlamına gelmez.
+          </p>
+          <p>
+              <br>
+              <strong>7.   Diğer Hükümler</strong>
+          </p>
+          <p>
+              <br>
+              a. <u>Tanımlar:</u> Bu Sözleşme'de (Bilgilendirmeler dahil) geçen ifadeler, aksi ilgili maddeden açıkca anlaşılmadıkça;
+          </p>
+          <p>
+              <br>
+              "Hopi Mobil Uygulaması"-"Servisleri /"Uygulama"/"Hopi Sistemi"/"Hopi"/Program"/"Platform": BNR Teknoloji A.Ş. (BNR) tarafından oluşturularak geliştirilmiş-geliştirilecek, kapsamı, özellikleri, şartları ve uygulama esasları Sözleşme'de belirtilen; muhtelif İşyerleri'nin dahil olarak Ürünler'i için öngörülen segmentlerde Kullanıcılar’a bilgilendirme, tanıtım ve satış imkanı sağlamaları, Kullanıcılar'ın da akıllı telefonlarını ve diğer bu tür cihazlarını kullanarak İşyerleri'nden, Ürünler'inden ve İmkanlar'dan  bilgilenmeleri – yararlanmaları, keza ileride uygulamaya alınabilecek alternatif ödeme sistemlerinden istifadeleri özlü (kullanıma-faaliyete açılan/açılacak ve zaman zaman revize edilebilecek unsurları-özellikler itibari ile) sistemi, duruma göre BNR Teknoloji A.Ş.(BNR)'i,
+          </p>
+          <p>
+              <br>
+              "Hopi Kullanıcısı"/"Kullanıcıları" / "Kullanıcılar" : Hopi Mobil Uygulaması'nı akıllı cihazlarına kurmak suretiyle veya internet marifetiyle ya da sair mevcut-müstakbel yöntemler ile, BNR'nin belirlediği ve zaman zaman değiştirebileceği kriterler, kapsam-şartlar-usul çerçevesinde Program'a dahil olup içeriğindeki bilgilerden ve İmkanlar'dan o şartlara-kriterlere göre yararlanacak, işbu Sözleşme'nin tarafı olan Kullanıcı gibi tüketici gerçek kişileri (Uygulama içindeki çeşitli bilgilendirmelerde Hopi'li, Hopililer gibi de belirtilebilirler),
+          </p>
+          <p>
+              <br>
+              "İşyer(ler)i"/"Hopi İşyer(ler)i: BNR ile anlaşmasına göre Hopi'ye dahil olan ve her zaman değişebilecek mağazaları-işletmecileri (mesafeli satış yapan e-ticaret siteleri, çağrı merkezinden satış brimleri vb dahil),
+          </p>
+          <p>
+              <br>
+              "Ürün(ler)":İşyerleri'nce olağan faaliyetleri dahilinde Kullanıcılar'a tanıtımı ve/veya satışı yapılan perakende ürün ve/veya hizmetleri,
+          </p>
+          <p>
+              <br>
+              "Alışveriş" / "Satış" /"Satış İşlemi":İşyerleri tarafından Kullanıcılar'a yapılacak Ürün satışlarını,
+          </p>
+          <p>
+              <br>
+              "Paracık(lar)": Kullanıcılar'ın İşyerleri'nden Ürün alışverişleri veya Platform üzerindeki oyunların hedeflerini gerçekleştirerek ya da BNR'nin belirleyeceği diğer bazı işlemler neticesi edinecekleri ve (BNR veya ilgili İşyeri'nce  aksi herhangi bir açıdan öngörülmedikçe) diledikleri herhangi bir  Hopi İşyeri'nde alışverişlerinde fiyat indirimi veya bedelsiz Ürün veya hediye ürün/hizmet veya hediye çeki vb alabilmelerini temin eden, kazanım ve/veya kullanım itibari ile değeri ve sair her türlü kazanım/kullanım koşulları BNR ve/veya ilgili İşyeri'nce genel olarak veya Kampanya bazında belirlenen ödül puanı ve muadillerini,
+          </p>
+          <p>
+              <br>
+              "Tazecik(ler)":Kullanıcılar'a (İşyerleri ve/veya BNR tarafından ilk kez veya öncelikli yahut avantajlı tanıtım/satışı yapılacak yeni/orjinal ve/veya sınırlı sayıda ve/veya uygun fiyatlı piyasa arz edilmiş/edilecek Ürünleri (keza Hopi Sistemi'nde bu mahiyette oldukları duyurulan diğer Ürünler'i "Kampanya(lar)":Paracıklar, Tazecikler ve/veya BNR'ce Program'a dahil edilmesi öngörülen sair hususlarda İşyerleri’nin tüm Kullanıcılar'a veya belli bir kriteri taşıyan Kullanıcılar'a yahut seçilmiş Kullanıcılar'a yönelik olarak gerçekleştireceği-sağlayacağı genel/özel imkanları,
+          </p>
+          <p>
+              <br>
+              "Kampanyalar"-"İmkan(lar)":Kullanıcılar'ın bir kısmı ya da tamamının Program dahilinde Kampanyalı/Kampanyasız hak kazanıp  istifade edebileceği Paracıklar, Tazecikler ve BNR'nin öngöreceği İşyerleri ile zaman zaman varacağı mutabakatlar uyarınca Kullanıcılar'a Hopi üzerinden sağlanan ve Uygulama'nın ilgili sayfa-alt sayfalarında özel şartları (da) belirtilen diğer İşyeri/BNR  mali veya gayri mali teklifleri-imkan-fırsatları,
+          </p>
+          <p>
+              <br>
+              " Kişisel Veriler ve Kişisel Verilerin İşlenmesi" :Kullanıcılar'a ait her türlü bilgilerin herhangi bir kanuna uygun yolla tamamen/kısmen elde edilmesi, kaydedilmesi, depolanması, muhafaza edilmesi, değiştirilmesi, yeniden düzenlenmesi, açıklanması, aktarılması, sınıflandırılması, kullanılması ve paylaşılması gibi kişisel veriler üzerinde gerçekleştirilen her türlü işlemi,
+          </p>
+          <p>
+              <br>
+              "Anonimleştirme"/"Anonim Hale Getirme": Kişisel verilerin, kimliği belirli veya belirlenebilir bir gerçek kişiyle ilişkilendirilemeyecek hale getirilmesini,
+          </p>
+          <p>
+              <br>
+              " Elektronik ileti ve elektronik iletişim": Telefon, çağrı merkezi, faks, otomatik arama makineleri, akıllı ses kaydedici sistemler, elektronik posta, kısa mesaj hizmeti gibi vasıtalar kullanılarak elektronik ortamda gerçekleştirilen, ticari ve diğer amaçlarla gönderilen veri, ses ve görüntü içerikli iletileri ve bunların yapılmasını,
+          </p>
+          <p>
+              <br>
+              "Kullanıcı Sözleşmesi" / "Sözleşme": BNR Teknoloji A.Ş. ile Hopi Kullanıcı'sı arasında Mobil Uygulaması-Servisleri için akdedilmiş bu Sözleşme'yi
+              ifade eder.
+          </p>
+          <p>
+              <br>
+              İlgili maddeden aksi açıkca anlaşılmadıkça, bu ifadelerin büyük veya küçük harfle kullanılmış olmaları, yukarıdaki tanımlarından farklı bir anlam-yoruma sebebiyet vermez.
+          </p>
+          <p>
+              <br>
+              b. <u>Mücbir Sebepler: </u> Genel veya Hopi (BNR)/İşyerleri/tedarikçi ve servis sağlayıcıları nezdinde oluşabilecek teknik aksaklıklar, bakım çalışmaları vb. sırasındaki kesintiler, Hopi Mobil Uygulamasındaki yazılımsal sorunlar, Uygulama'nın Kullanıcı cihazı ile uyumsuzluğu veya uyumsuz hale gelmesi, elektronik-sesli haberleşme ve iletişimdeki hertürlü aksaklık ve kesintiler, yetkili mercilerin emir ve yasaklamaları, emredici kanun hükümlerine uyulması luzumu, grev-lokavt, halk hareketleri, savaş, deprem, yangın gibi doğal afetler ve diğer insiyatif dışı haller mücbir sebep sayılır. Mücbir sebeplerden ötürü Hopi Uygulaması'nın kısmen/tamamen çalışmaması veya Kullanıcının herhangi bir  bilgilendirme, özellik, servis ve/veya İmkan'dan yararlanamaması halinde BNR Teknoloji A.Ş., Hopi İşyerleri ve servis sağlayıcıları ile sair ilgililerinin bu sebepten kaynaklı Kullanıcı kayıp ve zararlarından herhangi bir sorumlulukları bulunmamaktadır.
+          </p>
+          <p>
+              <br>
+              c. <u>Uyuşmazlıkların Çözümü: </u>Bu Kullanıcı Sözleşmesi'nden ve/veya uygulanmasından doğabilecek hertürlü uyuşmazlığın çözümünde BNR Teknoloji A.Ş. ve başvurabileceği ilgili servis-hizmet sağlayıcıları ile Hopi İşyerlerinin kayıtları (bilgisayar-ses kayıtları gibi manyetik ortamdaki kayıtlar dahil) kesin delil oluşturur. Tarafların bu husustaki emredici kanunlardan doğan hakları saklıdır.
+          </p>
+          <p>
+              <br>
+              Hopi Mobil Uygulaması kullamında olası uyuşmazlıklarda,  belirtilen iletişim kanallarından temas kurulduğunda BNR Teknoloji A.Ş. haklı Kullanıcı talep ve şikayetlerini memnuniyetle karşılar ve çözümler; çözümün mümkün olmadığı hallerde İstanbul Merkez Adliyesi (Çağlayan) Mahkemeleri yetkilidir. Bununla beraber Kullanıcılar uyuşmazlığın mahiyetine göre kanunen görevli-yetkili diğer tüm Mahkemelere, Tüketici Mahkemelerine, Hakem Heyetleri'ne ve ilgili İdari Mercilere de başvurabilirler.
+          </p>
+          <p>
+              <br>
+              Kullanıcı ile İşyerleri arasındaki tüketici işlemlerine ilişkin ihtilaflar ise, tabi oldukları mevzuat hükümleri dahilinde yetkili-görevli Mahkeme-Mercilerde çözümlenir. Kullanıcı ile İşyeri arasındaki ihtilafın "Paracık kazanım ve kullanımı" gibi hususlara ilişkin olması durumunda BNR Teknoloji A.Ş., imkanları ve Hopi'nin işleyiş kuralları dahilinde çözümü için Kullanıcı ve İşyeri nezdinde yardımcı olabilecektir.
+          </p>
+          <p>
+              <br>
+              d. <u>İleti, Bildirim ve Tebligatlar: </u>Kullanıcı tarafından BNR Teknoloji A.Ş.'e yapılacak her türlü şikayet, talep ve diğer bildirimlerin (Adres: Maslak Eski Büyükdere Cad. Park Plaza No:14 Kat:3, Şişli/İstanbul,  Telefon: (0212) )  366 89 00,  Müşteri Hizmetleri Telefon : 0 850 200 66 88 nolu ,  Faks: (0212) 345 09 20  , E-posta: info@hopi.com.tr)  iletişim-erişim kanallarından  sözlü veya yazılı olarak yapılması gerekir ve yeterlidir (Hopi İşyerleri'ne yapılan başvuru ve bildirimler dikkate ve işleme alınmaz). BNR Teknoloji A.Ş. erişim-iletişim bilgilerinin değişmesi halinde güncel bilgilerini Hopi Mobil Uygulaması üzerinden veya sair uygun yöntemler ile Kullanıcılar'a duyurur.
+          </p>
+          <p>
+              <br>
+              BNR Teknoloji A.Ş. tarafından Kullanıcılara yapılacak genel ve özel iletiler-bildirimler Hopi Mobil Uygulaması'na yayınlandığı anda yapılmış sayılır ve geçerlilik kazanır. Kullanıcı'nın cihazını mobil (data) iletişimine kapatması veya Uygulamanın/Cihaz'ın Ayarlar bölümünden ileti alımlarını durdurmuş olması veya Uygulamayı çalıştırmaması yahut geçici yada daimi olarak cihazını kullanmaması veya ulaşamaması sebebi ile söz konusu Hopi bildirimlerini alamaması yahut görmemesi ve bunların olumsuz sonuçları Kullanıcı'ya aittir (BNR Teknoloji A.Ş., Kullanıcı'nın Hopi Sistemi'ndeki adreslerine, telefon no.larına da ileti-bildirimde bulanabilir, ancak bu BNR Teknoloji A.Ş. açısından bir mecburiyet değildir).
+          </p>
+          <p>
+              <br>
+              e. <u>Sözleşme'nin Muhafazası: </u>Bu Kullanıcı Sözleşmesi (Bilgilendirmeler bölümü dahil), BNR Teknoloji A.Ş. sistemlerinde, www.hopi.com.tr internet sitesinde ve HOPİ uygulaması icerisinde sadece bir "form olarak" yer almakta olup aynı biçimde Kullanıcı cihazındaki Hopi Mobil Uygulamasının Profilim-Ayarlar kısmında (Uygulama cihazdan kaldırılmadığı sürece) mevcuttur; Kullanıcı'ya "özel" (taraf olarak bilgileri girilmiş) Sözleşme metni gibi bir metin, BNR Teknoloji A.Ş. tarafından sistemlerinde ayrıca muhafaza edilmeyebilecektir.
+          </p>
+          <p>
+              <br>
+              f. <u>Sözleşme'nin Devri</u> Kullanıcı, bu Sözleşme'den doğan hak ve sorumluluklarını üçüncü kişilere devir ve temlik edemez. BNR Teknoloji A.Ş. bu Kullanıcı Sözleşmesi'nden doğmuş-doğacak haklarını, alacaklarını, yükümlülük ve sorumluluklarını kısmen veya tamamen üçüncü kişilere devredebilir.
+          </p>
+          <p>
+              <br>
+              <strong>8.  Kullanıcı'nın Sözleşmeyi Kabulü ve Hukuki Sonuçları </strong>
+          </p>
+          <p>
+              <br>
+              Kullanıcılar bu Sözleşme'yi kabul edip edip etmemekte serbesttir. Kullanıcı Sözleşmesi onaylanmak sureti ile kabul edilmediği (keza istenen bilgiler girilerek aktivasyon işlemleri usulunce yapılmadığı) takdirde Hopi Mobil Uygulaması-Servisleri (cihaza yüklenmiş veya kurulmuş olsa dahi) kullanılamaz.
+          </p>
+          <p>
+              <br>
+              Bu Kullanıcı Sözleşmesi'ni onaylayan Kullanıcı, yukarıdaki Bilgilendirmelerde ve Kullanıcı Sözleşmesinde yazılı tüm koşulları-şartları okuduğunu, anladığını, tarafına ait bütün yükümlülüklere eksiksiz ve zamanında uyacağını, özellikle tarafınca doğrudan verilen ve Uygulamayı kullanımı öncesinde-sırasında Kullanıcı'dan veya Boyner Grubu Şirketleri'nden, Hopi İşyerleri ile tüm bunların iş ortakları, yatırımcıları ve servis sağlayıcıları ile tedarikçilerinden edinilen kişisel nitelikli olan-olmayan bilgileri-verilerinin ilgili mevzuata uygun olarak belirtilen kapsam ve şartlarda kaydına, kullanılmasına, aktarılmasına, paylaşılmasına ve sair suretlerle işlenmesine, bunun gibi tarafına ticari olan-olmayan elektronik iletişimler yapılmasına, ticari elektronik iletiler gönderilmesine izin (onay) vermiş ve genel olarak Hopi Mobil Uygulaması ve içeriğindeki tüm özellik-servislerden (İmkanlar dahil)  Bilgilendirmeler-Kullanıcı Sözleşmesi'nde yazılı şartlarda istifade edebileceğini beyan ve kabul etmiş olur.
+          </p>
+          <p>
+              <br>
+              <strong>Hopi Mobil Uygulaması-Servislerini <u>bu  şartlarda kullanmak istiyor ve belirtilen izinleri veriyorsanız</u> şimdi  lütfen "<em>Kullanıcı Bilgilendirme Metni ve  Kullanıcı Sözleşmesini onaylıyorum" </em>kutucuğunu  işaretleyerek<em> BAŞLA</em> tuşuna basınız. </strong>
+          </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>   

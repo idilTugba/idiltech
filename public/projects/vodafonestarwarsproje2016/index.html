@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="language" content="tr" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta property="og:title" content="">
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:site_name" content="" />
+    <meta name="search_image_url" content="" />
+    <meta name="search_name" content="" />
+    <meta name="search_description" content="" />
+    <meta name="search_category" content="plans" />
+    <meta name="robots" content="index, follow, odp" />
+    <meta name="googlebot" content="index, follow" />
+
+
+    <meta name="format-detection" content="telephone=no">
+
+    <title>Gücün Afişi - Vodafone FreeZone</title>
+
+    <link href="dist/img/favicon/favicon.png" rel="Shortcut icon">
+    <link rel="stylesheet" href="dist/css/style.css" />
+
+    <script type="text/javascript" src="dist/js/all.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script type="text/javascript">
+
+        var ua = navigator.userAgent.toLowerCase();
+        var isAndroid = ua.indexOf("android") > -1;
+
+        function rotateImage(file, rotate_image, callback) {
+            var reader  = new FileReader();
+
+            reader.addEventListener("load", function () {
+                var canvas = document.getElementById("canvas");
+               var ctx = canvas.getContext("2d");
+
+               var image = new Image();
+               image.src = reader.result;
+               image.onload = function() {
+                   if(rotate_image) {
+                    canvas.width = image.height;
+                    canvas.height = image.width;
+
+                        ctx.translate(canvas.width/2,canvas.height/2);
+                        ctx.rotate(Math.PI/2);
+                        ctx.rotate(Math.PI/2);
+                        ctx.rotate(Math.PI/2);
+
+                        ctx.drawImage(image,-image.width/2,-image.height/2);
+                   }else{
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+
+                    ctx.drawImage(image,0, 0);
+                   }
+                   //console.log(canvas.toDataURL());
+                   //window.location = canvas.toDataURL();
+                   callback(canvas.toDataURL());
+               };
+
+            }, false);
+
+            reader.readAsDataURL(file);
+        }
+
+        function getOrientation(file, callback) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var view = new DataView(e.target.result);
+                if (view.getUint16(0, false) != 0xFFD8) return callback(-2);
+                var length = view.byteLength, offset = 2;
+                while (offset < length) {
+                var marker = view.getUint16(offset, false);
+                offset += 2;
+                if (marker == 0xFFE1) {
+                if (view.getUint32(offset += 2, false) != 0x45786966) return callback(-1);
+                var little = view.getUint16(offset += 6, false) == 0x4949;
+                offset += view.getUint32(offset + 4, little);
+                var tags = view.getUint16(offset, little);
+                offset += 2;
+                for (var i = 0; i < tags; i++)
+                    if (view.getUint16(offset + (i * 12), little) == 0x0112)
+                        return callback(view.getUint16(offset + (i * 12) + 8, little));
+                    }
+                    else if ((marker & 0xFF00) != 0xFF00) break;
+                    else offset += view.getUint16(offset, false);
+                }
+                return callback(-1);
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+
+        
+    </script>
+
+    <script type="text/javascript">
+            var tag = document.createElement('script');
+            tag.src = "//www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+              var player;
+              function onYouTubeIframeAPIReady() {
+                player = new YT.Player('player', {
+                  videoId: 'frdj1zb9sMY',
+                  events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                  }
+                });
+              }
+
+              function onPlayerReady(event) {
+                event.target.playVideo();
+                done = false;
+              }
+
+
+              function onPlayerStateChange(event) {
+                if (event.data == YT.PlayerState.PLAYING && !done) {
+                  setTimeout(stopVideo, 0);
+                  done = true;
+                }
+              }
+
+              function stopVideo() {
+                player.stopVideo();
+              }
+
+
+
+          $(window).load(function(){
+            $('#video-yt').click(function(event){
+              console.log('click me o yeah!')
+              $('.mask,.mask2').hide();
+              ytvideo();
+              player.playVideo();
+              //$('iframe')[0].src += "&autoplay=1";
+              //$('iframe').unbind("click");
+              //ytPlayer.playVideo()
+              event.preventDefault();
+            });
+          });
+    </script>
+
+    <script type="text/javascript">
+    var faceFilter = function(ImgName){
+      $.ajax({
+              type: 'POST',
+              crossOrigin: true,
+              url: 'https://starwars.csdlabapps.com/appservice/faceapi/',
+              dataType:"text",
+              contentType: "application/x-www-form-urlencoded",
+              cache :false,
+              data : {"base64_img": ImgName },
+              success : function (data) {
+                var res = JSON.parse(data);
+                if(res.result == "false"){
+                    $('#page-error').find('.box-holder').find('p.h1').text(res.message);
+                    $('#page-loading').addClass('hide');
+                    $('#page-error').removeClass('hide');
+                }else{
+                    $('#page5').find('.finaly-img').attr('src' , res.message);
+                    $('#page-loading').addClass('hide');
+                    $('#page5').removeClass('hide');
+                }
+              }
+          });            
+
+    };
+
+
+   
+    //LOADİNG
+    var loadingText = function(){
+       var paths = document.getElementsByClassName('styled');
+       var counter = 0;
+       var total = 47;
+       
+       //simulate multiple requests completing at random times. setTimeout acts as success handler for ajax calls.
+       for (var i = 0; i < total; ++i) {
+         setTimeout( function() {
+           counter++;
+           var percentage = Math.ceil(100*counter/total);
+           $('.percentage').text(percentage)
+           
+           
+           if (percentage >= 100) {
+             setTimeout(function() {
+             }, 500);
+           }
+         }, (Math.random() * 5000));
+       }
+
+    }
+    //LOADİNG
+
+    //BASE64
+       
+
+        function toDataUrl(src, callback, outputFormat) {
+          var img = new Image();
+          img.crossOrigin = 'Anonymous';
+          img.onload = function() {
+            var canvas = document.createElement('CANVAS');
+            var ctx = canvas.getContext('2d');
+            var dataURL;
+            canvas.height = this.height;
+            canvas.width = this.width;
+            ctx.drawImage(this, 0, 0);
+            dataURL = canvas.toDataURL(outputFormat);
+          };
+          img.src = src;
+          if (img.complete || img.complete === undefined) {
+            img.src = "data:image/jpg;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+            img.src = src;
+          }
+        }
+    //BASE64
+
+    function pngToJpeg(url, callback){
+        var image = new Image();
+
+        image.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = this.naturalWidth;
+            canvas.height = this.naturalHeight;
+
+            canvas.getContext('2d').drawImage(this, 0, 0);
+
+            callback(canvas.toDataURL('image/jpeg'));
+        };
+
+        image.src = url;
+    }
+
+   
+    //SELECTR select-your-photo
+        var ImgEdit3 = function(imgName){
+            //$('canvas').hide();
+            var $finalyImg;
+            var imageCounter = 0;
+            var imgString = [];
+
+            $finalyImg = $('#img-holder-fb').croppie('destroy').croppie({
+                url: imgName,
+                enableExif: false,
+                viewport: {
+                    width: 500 ,
+                    height: 500,
+                    type: 'square'
+                }
+            });
+            $('.cr-image').addClass('active');
+            setTimeout(function(){
+                img = $('.cr-image').attr("src");
+                $('#img-holder-fb').croppie('destroy').croppie({
+                    url: img,
+                    enableExif: false,
+                    viewport: {
+                        width: 500 ,
+                        height: 500,
+                        type: 'square'
+                    }
+                });
+                $('.cr-image').removeClass('active');
+            }, 1500);
+
+            // seçilen resmin kodu
+            $('#done-fb').click(function(){
+                $('#img-holder-fb').croppie('result', {
+                    type: 'canvas'
+                    }).then(function(resp){
+                         imgString[imageCounter] = resp; // upload img base64
+                        $('.page').addClass('hide');
+                        loadingText();
+                        pngToJpeg(imgString[imageCounter], function(data){
+                            faceFilter(data);
+                        });
+                        $('#page-loading').removeClass('hide');
+                });
+            });
+        }
+
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                $('#page2').addClass('hide');
+                $('#page-loading').removeClass('hide');
+                $('#againSelect-pc').show();
+                $('#againSelect').hide();
+                loadingText();
+
+                getOrientation(input.files[0], function(orientation) {
+                    if(isAndroid){
+                        rotateImage(input.files[0], (orientation == 8 ? true : false), function(uploadImg){
+                            setTimeout(function(){
+                                $('#page-loading').addClass('hide');
+                                $('#page4-fb').removeClass('hide');
+                                ImgEdit3(uploadImg);
+                            },2000);
+                        });
+                    }else{
+                        var reader = new FileReader();
+
+                        
+                        setTimeout(function(){
+                            $('#page-loading').addClass('hide');
+                            $('#page4-fb').removeClass('hide');
+                            reader.onload = function (e) {
+                                var uploadImg = e.target.result;
+                                ImgEdit3(uploadImg);
+                            };
+                            reader.readAsDataURL(input.files[0]);
+                        },2000);
+                    }
+                });
+
+                
+            }
+        };
+
+
+    //SELECTR select-your-photo
+
+
+
+        $(document).ready(function(){
+
+
+            $('.button.down').click(function(){
+               var imgName = $('.finaly-img').attr('src');
+               $(this).attr('href', imgName);
+               $(this).attr('download', 'starwars-profile-picture.jpg');
+               $(this).click;
+            });
+
+            $('#go-back').click(function(){
+                $('#page4').addClass('hide');
+                $('#page2').removeClass('hide');
+            });
+
+
+            $('.scroll-down').click(function(){
+               $('#starwars-finish-side').addClass('active');
+               scrollToGo();
+               sliderActive();
+            });
+
+            function scrollToGo(){
+                $('#wrap').animate({ scrollTop: $('#starwars-finish-side').offset().top }, 'slow');
+            };
+
+            
+            
+
+            $('#error-page-back').click(function(){
+                $('.page').addClass('hide');
+                $('#page2').removeClass('hide');
+            });
+
+
+            $('#fb-profil-photos').click(function(){
+                $('#page-loading').removeClass('hide');
+                loadingText();
+                $('#page2').addClass('hide');
+                setTimeout(function(){
+                    //getAlbums();
+                },500);
+                setTimeout(function(){
+                    $('#page-loading').addClass('hide');
+                    $('#page3').removeClass('hide');
+                },2500);
+            });
+
+
+            //LOADİNG
+            var loadingText = function(){
+               var paths = document.getElementsByClassName('styled');
+               var counter = 0;
+               var total = 47;
+               
+               //simulate multiple requests completing at random times. setTimeout acts as success handler for ajax calls.
+               for (var i = 0; i < total; ++i) {
+                 setTimeout( function() {
+                   counter++;
+                   var percentage = Math.ceil(100*counter/total);
+                   $('.percentage').text(percentage)
+                   
+                   
+                   if (percentage >= 100) {
+                     setTimeout(function() {
+                     }, 500);
+                   }
+                 }, (Math.random() * 5000));
+               }
+
+            }
+            //LOADİNG
+
+            
+
+            //BASE64
+               
+
+                function toDataUrl(src, callback, outputFormat) {
+                  var img = new Image();
+                  img.crossOrigin = 'Anonymous';
+                  img.onload = function() {
+                    var canvas = document.createElement('CANVAS');
+                    var ctx = canvas.getContext('2d');
+                    var dataURL;
+                    canvas.height = this.height;
+                    canvas.width = this.width;
+                    ctx.drawImage(this, 0, 0);
+                    dataURL = canvas.toDataURL(outputFormat);
+                    callback(dataURL);
+                  };
+                  img.src = src;
+                  if (img.complete || img.complete === undefined) {
+                    img.src = "data:image/jpg;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                    img.src = src;
+                  }
+                }
+            //BASE64
+
+            //CHANGE PAGE
+
+            $('#use-web-cam').click(function(){
+                $('#page4').removeClass('hide');
+                $('#page2').addClass('hide');
+                takePhoto();
+            });
+
+            //CHANGE PAGE
+            
+
+            //SELECTR FB PHOTO
+            
+
+            var ImgEdit2 = function(imgName){
+                $('canvas').hide();
+                var $finalyImg;
+                var imageCounter = 0;
+                var imgString = [];
+                $finalyImg = $('#img-holder-fb').croppie('destroy').croppie({
+                    url: imgName,
+                    enableExif: false,
+                    viewport: {
+                    width: 500 ,
+                    height: 500,
+                    type: 'square'
+                }
+                });
+                $('.cr-image').addClass('active');
+                setTimeout(function(){
+                    img = $('.cr-image').attr("src");
+                    $('#img-holder-fb').croppie('destroy').croppie({
+                        url: img,
+                        enableExif: false,
+                        viewport: {
+                            width: 500 ,
+                            height: 500,
+                            type: 'square'
+                        }
+                    });
+                    $('.cr-image').removeClass('active');
+                }, 1500);
+                // seçilen resmin kodu
+                $('#done-fb').click(function(){
+                    $finalyImg.croppie('result', {
+                        type: 'canvas',
+                        size: 'viewport'
+                        }).then(function(resp){
+                             imgString[imageCounter] = resp; //fb-upload img base64
+                            $('.page').addClass('hide');
+                            loadingText();
+                            pngToJpeg(imgString[imageCounter], function(data){
+                                faceFilter(data);
+                            });
+                            $('#page-loading').removeClass('hide');
+                    });
+                });
+            };
+
+
+           
+            $('#select-photo').click(function(){
+                var fbImgSrc = $('#fb-img-holder').find('.active').find('img').attr('src');
+                setTimeout(function(){
+                    $('#page3').addClass('hide');
+                    $('#page-loading').removeClass('hide');
+                    $('#againSelect-pc').hide();
+                    $('#againSelect').show();
+                    loadingText();
+                },10);
+                setTimeout(function(){
+                    $('#page-loading').addClass('hide');
+                    $('#page4-fb').removeClass('hide');                    
+                },2000);
+                setTimeout(function(){
+                    toDataUrl(fbImgSrc, function(base64Img){
+                        ImgEdit2(base64Img);
+                    });
+                },2200);
+            });
+
+            $('#againSelect').click(function(){
+                $('#page3').removeClass('hide');
+                $('#page4-fb').addClass('hide');
+            });
+
+
+
+
+            //SELECTR FB PHOTO
+
+
+             $('.button.upload').click(function(){
+                $('input.upload').click;
+             });
+
+
+             
+
+
+             //TAKE PHOTO PAGE
+                var takePhoto = function(){
+
+                        var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                        var video = document.getElementById('video');
+
+                        // Get access to the camera!
+                        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                            // Not adding `{ audio: true }` since we only want video now
+                            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+
+                                if (window.webkitURL) {
+                                    video.src = window.webkitURL.createObjectURL(stream);
+                                } else {
+                                    video.src = stream;
+                                }
+                                video.src = window.URL.createObjectURL(stream);
+                                video.play();
+                            });
+                        } 
+
+                    
+                    // Elements for taking the snapshot
+                        var canvas = document.getElementById('canvas');
+                        var context = canvas.getContext('2d');
+                        var video = document.getElementById('video');
+
+                        // Trigger photo take
+                        document.getElementById("snap").addEventListener("click", function() {
+                            context.drawImage(video, 0, 0, 772, 597);
+                            var BaseImg = canvas.toDataURL('image/jpg');
+                            ImdEdit(BaseImg);
+                        });
+
+                        //IMG CROP RESİZE
+                        var ImdEdit = function(imgName){
+                            $('canvas').hide();
+                            var $finalyImg;
+                            var imageCounter = 0;
+                            var imgString = [];
+                           
+                            $finalyImg = $('#img-holder').croppie('destroy').croppie({
+                                url: imgName,
+                                enableExif: false,
+                                viewport: {
+                                    width: 500 ,
+                                    height: 500,
+                                    type: 'square'
+                                }
+                            });
+                            $('.cr-image').addClass('active');
+                            setTimeout(function(){
+                                img = $('.cr-image').attr("src");
+                                $('#img-holder-fb').croppie('destroy').croppie({
+                                    url: img,
+                                    enableExif: false,
+                                    viewport: {
+                                        width: 500 ,
+                                        height: 500,
+                                        type: 'square'
+                                    }
+                                });
+                                $('.cr-image').removeClass('active');
+                            }, 1500);
+                            // seçilen resmin kodu
+                            $('#done').click(function(){
+                                $finalyImg.croppie('result', {
+                                    type: 'canvas',
+                                    size: 'viewport'
+                                    }).then(function(resp){
+                                         imgString[imageCounter] = resp;
+                                        $('.page').addClass('hide');
+                                        loadingText();
+                                        pngToJpeg(imgString[imageCounter], function(data){
+                                            faceFilter(data);
+                                        })
+                                        $('#page-loading').removeClass('hide');
+                                });
+                            });
+                        };
+                        //IMG CROP RESİZE
+
+
+
+                    };
+                    
+                    $('#againTake').click(function(){
+                        $('.take-holder').addClass('active');
+                        $('.edit-holder').removeClass('active');
+                    });
+
+                    $('#snap').click(function(){
+                        $('.take-holder').removeClass('active');
+                        $('.edit-holder').addClass('active');
+                    });
+
+             //TAKE PHOTO PAGE
+
+
+
+             // POPUP
+                $('nav ul li').click(function(e){
+                    e.preventDefault;
+                    $('#popup').addClass('active');
+                    var className = $(this).attr('href-id');
+                    $('.'+className).addClass('active');
+                    disableScroll();
+                });
+
+                 $('.close-icon').click(function(e){
+                    e.preventDefault;
+                    $('#popup').removeClass('active');
+                    $('.popup-holder').removeClass('active');
+                    enableScroll();
+                });
+             // POPUP
+
+
+             function sliderActive(){
+                 $('.package-box-holder').clone().prependTo("#slider-holder").addClass('package-box-holder-mobile');
+                 $('.package-box-holder-mobile').slick({
+                     variableWidth: true,
+                     dots: true,
+                     centerMode: true,
+                     infinite: true,
+                     autoplay: false
+                 });
+             };
+
+               var keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+               function preventDefault(e) {
+                 e = e || window.event;
+                 if (e.preventDefault)
+                     e.preventDefault();
+                 e.returnValue = false;  
+               }
+
+               function preventDefaultForScrollKeys(e) {
+                   if (keys[e.keyCode]) {
+                       preventDefault(e);
+                       return false;
+                   }
+               }
+
+
+             function disableScroll() {
+               if (window.addEventListener) // older FF
+                   window.addEventListener('DOMMouseScroll', preventDefault, false);
+               window.onwheel = preventDefault; // modern standard
+               window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+               window.ontouchmove  = preventDefault; // mobile
+               document.onkeydown  = preventDefaultForScrollKeys;
+             }
+
+             function enableScroll() {
+                 if (window.removeEventListener)
+                     window.removeEventListener('DOMMouseScroll', preventDefault, false);
+                 window.onmousewheel = document.onmousewheel = null; 
+                 window.onwheel = null; 
+                 window.ontouchmove = null;  
+                 document.onkeydown = null;  
+             }
+
+             $('nav ul li').click(function(e){
+                 e.preventDefault;
+                 $('#popup').addClass('active');
+                 var className = $(this).attr('href-id');
+                 $('.'+className).addClass('active');
+                 disableScroll();
+             });
+
+              $('.close-icon').click(function(e){
+                 e.preventDefault;
+                 $('#popup').removeClass('active');
+                 $('.popup-holder').removeClass('active');
+                 enableScroll();
+             });
+
+
+        });
+    </script>
+    
+
+</head>
+<body>
+    <div id="fb-root"></div>
+        <script>
+            window.fbAsyncInit = function() {
+              FB.init({
+                appId      : '338219576557892',
+                xfbml      : true,
+                version    : 'v2.2'
+              });
+
+            };
+
+              // Load the SDK asynchronously
+              (function(d){
+              var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+              if (d.getElementById(id)) {return;}
+              js = d.createElement('script'); js.id = id; js.async = true;
+              js.src = "//connect.facebook.net/en_US/all.js";
+              ref.parentNode.insertBefore(js, ref);
+              }(document));
+
+              function loginfb() {
+                  FB.login(function(response) {
+                        // login başarılı
+                    $('#page2').removeClass('hide');
+                    $('#page1').addClass('hide');
+                  }, {scope: 'user_photos,publish_actions'});            
+              }
+
+
+              var scrollCustom = function(){
+            setTimeout(function(){
+                $('#fb-img-holder').mCustomScrollbar({
+                  scrollButtons:{
+                    enable:true
+                  }
+                });
+            },1000);
+        };
+
+        
+
+            
+            function appendHtml(el, str) {
+              var div = document.createElement('div');
+              div.innerHTML = str;
+              while (div.children.length > 0) {
+                el.appendChild(div.children[0]);
+              }
+            }
+
+        function getAlbums(){
+            
+            FB.api('/me/albums',  function(resp) {
+                for (var i=0, l=resp.data.length; i<l; i++){
+                    var album = resp.data[i];
+
+                    if(album.name == "Profile Pictures")
+                    {
+
+
+    
+                        FB.api("/"+album.id+"/photos?fields=images", function(response) {
+
+
+                            for (j = 0; j < response.data.length; j++) { 
+                                var html =  "<div class='item'><a href='javascript:void(0)'><div class='mask'></div><img src='"+response.data[j].images[0].source+"' /></a></div>";
+
+                                appendHtml(document.getElementById("fb-img-holder"), html)
+            
+                            }
+
+                            scrollCustom();
+
+                            $('.item').click(function(){
+                                $('.item').removeClass('active');
+                                $(this).addClass('active');
+                            });
+                         
+                        });
+                    }
+                }
+
+            });
+        };
+
+
+        function UploadPicture(imgservisUrl) {
+            flag = false;
+
+            var imgURL = imgservisUrl;
+
+            FB.ui({
+              method: 'feed',
+              picture : imgURL,
+              caption: 'GÜCÜN AFİŞİ | VODAFONE FREEZONE',
+            }, function(response){
+              console.info(response);
+                  if (!response || response.error) {
+                      console.info(response.error)
+                      return flag;
+                  }
+            });
+        };
+
+
+
+        function UploadPictureFB(){
+            imgservisUrl = $('#page5').find('.finaly-img').attr('src');
+            UploadPicture(imgservisUrl);
+        };
+
+
+              function logout() {
+                  FB.logout(function(response) {
+                    
+                  });
+              }
+
+              var status = FB.getLoginStatus();
+
+
+
+          </script>
+    <div id="wrap" class="wrap">
+            <div class="last-page"><a href="fb-profile-photo.html">Next Page</a></div>
+        <div class="all-content">
+            <div class="head">
+                <div class="logo">
+                    <a href="#"></a>
+                </div>
+            </div>
+            <div onMouseMove="On_MouseMove" id="page1" class="page page1">
+              <div class="stars"></div>
+                <div class="container">
+                    <div class="row">
+                        <img src="dist/img/starwars-logo2.png" alt="" class="rogue-logo">
+                        <img src="dist/img/ltdw.png" alt="" class="ltd-logo">
+                        <p class="h1">
+                            <span>Vodafone FreeZone</span>, </br>
+                            Star Wars heyecanını Facebook’a taşıyor.</br> Hemen fotoğrafını yükle,</br>
+                            <span>film afişi gibi fotoğrafın olsun.</span>
+                        </p>
+                        <a href="javascript:void(0);" ontouchstart="javascript:loginfb();" onclick="javascript:loginfb();" id="connect-with-fb" class="button fb-button">FACEBOOK İLE BAĞLAN</a>
+                    </div>
+                </div>
+            </div> <!-- page.page1 -->
+            <div id="page2" class="page page2 hide">
+                <div class="container">
+                    <div class="row">
+                        <img src="dist/img/starwars-logo2.png" alt="" class="rogue-logo">
+                        <img src="dist/img/ltdw.png" alt="" class="ltd-logo">
+                        <div class="img-example">
+                            <img src="dist/img/false.png" alt="" class="false desktop">
+                            <img src="dist/img/true.png" alt="" class="true desktop">
+                            <img src="dist/img/falsem.png" alt="" class="false mobile">
+                            <img src="dist/img/truem.png" alt="" class="true mobile">
+                        </div>
+                        <p class="h1 noVhSupport">
+                            Fotoğrafını yükle,</br> 
+                            <span>yüzün net bir şekilde</span> görünsün yeter.
+                        </p>
+                        <p class="h1">
+                            Fotoğrafını ister yükle ister çek,</br> 
+                            <span>yüzün net bir şekilde</span> görünsün yeter.
+                        </p>
+                        <div class="button-holder">
+                            <input type="file" name="pic" id="upload" onchange="readURL(this);" class="button upload" accept="image/*">
+                            <canvas id="upload-canvas"></canvas>
+                            <a href="javascript:void(0);" id="select-your-photo" ontouchstart="document.getElementById('upload').click()" onclick="document.getElementById('upload').click()" class="button mobile webcam">FOTOĞRAFINI YÜKLE</a>
+                            <a href="javascript:void(0);" id="use-web-cam" class="button desktop webcam">KAMERAYI KULLAN</a>
+                            <a href="javascript:void(0);" id="fb-profil-photos"  ontouchstart="javascript:getAlbums();" onclick="javascript:getAlbums();" class="button fb-button ">FACEBOOK'TAN AKTAR</a>
+                            <a href="javascript:void(0);" id="select-your-photo" ontouchstart="document.getElementById('upload').click()" onclick="document.getElementById('upload').click()" class="button desktop upload">BİLGİSAYARINDAN SEÇ</a>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- page.page1 -->
+            <div id="page4" class="page page4 hide">
+                <div class="container">
+                    <div class="row">
+                        <img src="dist/img/starwars-logo2.png" alt="" class="rogue-logo">
+                        <img src="dist/img/ltdw.png" alt="" class="ltd-logo">
+                        <div id="go-back" class="go-back"><span class="left-w-icon"></span>GERİ DÖN</div>                                
+                        <div class="take-photo-holder">
+                            <div class="take-holder active">
+                                <div class="cam-content">
+                                   <video id="video" width="100%" height="100%" autoplay></video>
+                                </div>
+                                <!--<img src="../img/img.jpg" class="take" alt="">-->
+                                <div class="mask-cam"></div>
+                                <div id="snap" class="take-photo"><span class="icon-take"></span></div>
+                            </div> <!-- take-holder -->
+                            <div class="edit-holder ">
+                                <div class="phtoto-edit-bar"></div>
+                                <div id="crop-img">
+                                    <div id="img-holder" class="img-holder">
+                                        <canvas id="canvas" width="772" height="597" class="take" ></canvas>
+                                    </div>
+                                </div>
+                                <div class="button-holder">
+                                    <a id="againTake" class="button upload" href="javascript:void(0);">YENİDEN ÇEK</a>
+                                    <a id="done" class="button webcam" href="javascript:void(0);">DEVAM ET</a>
+                                </div>
+                            </div> <!-- edit-holder -->
+                        </div> <!-- BOX-HOLDER -->
+                    </div>
+                </div>
+            </div> <!-- page.page1 -->
+            <div id="page-loading" class="page page-error loading hide">
+                <div class="container">
+                    <div class="row">
+                        <img src="dist/img/starwars-logo2.png" alt="" class="rogue-logo">
+                        <img src="dist/img/ltdw.png" alt="" class="ltd-logo">
+                        <div class="box-holder">
+                            <div class="loader">
+                            </div>
+                            <p class="loading-text"><b class="percentage"></b></p>
+                            <p class="h1">
+                                YÜKLENİYOR </br>
+                                ...
+                            </p>
+                        </div> <!-- BOX-HOLDER -->
+                    </div>
+                </div>
+            </div> <!-- page.page1 -->
+            <div id="page3" class="page page3 hide">
+                <div class="container">
+                    <div class="row">
+                        <img src="dist/img/starwars-logo2.png" alt="" class="rogue-logo">
+                        <img src="dist/img/ltdw.png" alt="" class="ltd-logo">
+                        <p class="h1">Facebook Profil Fotoğraflari </p>
+                        <div id="fb-img-holder" class="fb-img-holder">
+                            
+                        </div>
+                        <div id="fb-img-button" class="fb-img-button"></div>
+                        <a href="javascript:void(0);" id="select-photo" class="button webcam">SEÇ</a>
+                    </div>
+                </div>
+            </div> <!-- page.page1 -->
+            <div id="page4-fb" class="page page4 hide">
+                <div class="container">
+                    <div class="row">
+                        <img src="dist/img/starwars-logo2.png" alt="" class="rogue-logo">
+                        <img src="dist/img/ltdw.png" alt="" class="ltd-logo">
+                        <div class="take-photo-holder">
+                            <div class="edit-holder active">
+                                <div class="phtoto-edit-bar"></div>
+                                <div id="crop-img-fb">
+                                    <div id="img-holder-fb" class="img-holder">
+                                    </div>
+                                </div>
+                                <div class="button-holder">
+                                    <a id="againSelect" class="button upload fb-select"  href="javascript:void(0);">YENİDEN SEÇ</a>
+                                    <a id="againSelect-pc" class="button upload pc-select" ontouchstart="document.getElementById('upload').click()" onclick="document.getElementById('upload').click()" href="javascript:void(0);">YENİDEN SEÇ</a>
+                                    <a id="done-fb" class="button webcam" href="javascript:void(0);">DEVAM ET</a>
+                                </div>
+                            </div> <!-- edit-holder -->
+                        </div> <!-- BOX-HOLDER -->
+                    </div>
+                </div>
+            </div> <!-- page.page1 -->
+            <div id="page-error" class="page page-error hide">
+                <div class="container">
+                    <div class="row">
+                        <img src="dist/img/starwars-logo2.png" alt="" class="rogue-logo">
+                        <img src="dist/img/ltdw.png" alt="" class="ltd-logo">
+                        <div class="box-holder">
+                            <div class="error-icon"></div>
+                            <p class="h2">OOPS...</p>
+                            <p class="h1">
+                                Yüzünü tam algılayamadık. </br>
+                                <span>Yeni bi’ fotoğraf seç ve tekrar dene.</span>
+                            </p>
+                            <a href="javascript:void(0);" id="error-page-back" class="button upload">TAMAM DEVAM</a>
+                        </div> <!-- BOX-HOLDER -->
+                    </div>
+                </div>
+            </div> <!-- page.page1 -->
+            <div id="page5" class="page page5 hide">
+                <div class="container">
+                    <div class="row">
+                        <div class="finaly-img-content">
+                            <img src="" alt="" class="finaly-img">
+                        </div> <!-- finaly-img-content -->
+                        <div class="button-holder finaly-button-holder">
+                            <a href="javascript:void(0)" ontouchstart="javascript:UploadPictureFB();" onclick="javascript:UploadPictureFB();" class="button fb-button">FACEBOOK'TA PAYLAŞ</a>
+                        </div>
+                        <a href="javascript:void(0);" target="_blank" class="button down">BİLGİSAYARINA İNDİR <span class="icon-down"></span></a>
+                        <a href="javascript:void(0);" target="_blank" class="button down down-mobile">TELEFONUNA İNDİR <span class="icon-down"></span></a>
+                        <div data-id="starwars-finish-side" class="scroll-down">
+                            <p>GALAKTİK PAKETLERİ İNCELE</p>
+                            <div class="icon-scroll-down"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- page.page1 -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <nav>
+                            <ul>
+                                <li href-id="kullanim-kosullari"><a href="javascript:void(0);">Esaslar</a></li>
+                                <!--<li href-id="gizlilik"><a href="javascript:void(0);">Gizlilik Şartları</a></li>-->
+                                <li href-id="sss"><a href="javascript:void(0);">SSS</a></li>
+                            </ul>
+                        </nav>
+                        <p>Vodafone FreeZone tüm hakları saklıdır.</p>
+                        <div class="sociol">
+                            <ul>
+                                <li><a target="_blank" href="https://www.facebook.com/VFreeZone"><span class="icon icon-facebook"></span></a></li>
+                                <li><a target="_blank" href="https://twitter.com/VFreeZone"><span class="icon icon-twitter"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div> <!-- all-contebt -->
+        <div id="starwars-finish-side" class="starwars-finish-side">
+            <div id="step1" class="step1">
+                <div class="container">
+                    <div class="row">
+                        <img src="dist/img/starwars-logo.png" alt="" class="logo2">
+                        <div class="date">
+                            <p class="h1">14 ARALIK'TA</p>
+                            <p class="h2">SİNEMALARDA</p>
+                        </div>
+                        <div class="ltd">
+                            <img src="dist/img/ltdm.png" alt="">
+                        </div>
+                        <p class="h3"><span>Galaktik Paketlerle</span> gücün hiç tükenmesin</p>
+                        <div id="slider-holder">
+                            <div class="package-box-holder">
+                                <div class="item">
+                                    <p class="h4">GALAKTİK S</p>
+                                    <ul>
+                                        <li>
+                                            <img src="dist/img/icon1.png" alt="">
+                                            <p>500 MB</p>
+                                        </li>
+                                        <li >
+                                            <span class="line"></span>
+                                        </li>
+                                        <!--<li>
+                                            <p><span></span></p>
+                                        </li>-->
+                                        <li>
+                                            <img src="dist/img/icon4.png" alt="">
+                                            <p>1 Çekiliş Hakkı</p>
+                                        </li>
+                                    </ul>
+                                    <p class="h5">5 TL</p>
+                                </div>
+                                <div class="item">
+                                    <p class="h4">GALAKTİK M</p>
+                                    <ul>
+                                        <li>
+                                            <img src="dist/img/icon1.png" alt="">
+                                            <p>1 GB</p>
+                                        </li>
+                                        <li>
+                                            <img src="dist/img/icon2.png" alt="">
+                                            <p>1 Sinema </br>Bileti</p>
+                                        </li>
+                                        <!--<li>
+                                            <img src="dist/img/icon3.png" alt="">
+                                            <p>Oyunda 20 TL'lik </br>Ekstra Can HAkkı</p>
+                                        </li>-->
+                                        <li>
+                                            <img src="dist/img/icon4.png" alt="">
+                                            <p>3 Çekiliş Hakkı</p>
+                                        </li>
+                                    </ul>
+                                    <p class="h5">9 TL</p>
+                                </div>
+                                <div class="item">
+                                    <p class="h4">GALAKTİK L</p>
+                                    <ul>
+                                        <li>
+                                            <img src="dist/img/icon1.png" alt="">
+                                            <p>2 GB</p>
+                                        </li>
+                                        <li>
+                                            <img src="dist/img/icon2.png" alt="">
+                                            <p>1 Sinema </br>Bileti</p>
+                                        </li>
+                                        <!--<li>
+                                            <img src="dist/img/icon3.png" alt="">
+                                            <p>Ön Gösterime </br>3 Çekiliş Hakkı</p>
+                                        </li>-->
+                                        <li>
+                                            <img src="dist/img/icon4.png" alt="">
+                                            <p>5 Çekiliş Hakkı</p>
+                                        </li>
+                                        <p class="ps">Star Wars partisine giriş hakkı</p>
+                                    </ul>
+                                    <p class="h5">15 TL</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="ps-mobile">Star Wars partisine giriş hakkı</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sms">
+                <div class="content">
+                    <p>GALAKTIK S / M / L</p>
+                    <p><span>=</span></p>
+                    <img src="dist/img/icon5.png" alt="">
+                    <p><span>=</span></p>
+                    <p>3636</p>
+                </br></br>
+                    <p>FATURALI GALAKTIK S / M / L</p>
+                    <p><span>=</span></p>
+                    <img src="dist/img/icon5.png" alt="">
+                    <p><span>=</span></p>
+                    <p>3636</p>
+                </div>
+            </div>
+            <div id="step2" class="step2">
+                <div class="container">
+                    <div class="row">
+                        <p class="h1">HEDİYE ÇEKİLİŞİ</p>
+                        <p class="mobile">Galaktik paketleri yükleyen FreeZone’lular, birbirinden güzel hediyeler için </br>çekiliş hakkı kazanıyor.</p>
+                        <p class="mobile"><span>Galaktik </span> yazıp <span>7000</span>’e SMS gönder,</br> senin de ne internetin ne gücün hiç tükenmesin.</p>
+                        <p class="desktop">Galaktik paketleri yükleyen FreeZone’lular, birbirinden güzel hediyeler için çekiliş hakkı kazanıyor. <span>Galaktik</span> yazıp <span>3636</span>’e SMS gönder, senin de ne internetin ne gücün hiç tükenmesin.</p>
+                        <div class="content">
+                            <img src="dist/img/studio.png" alt="" class="studios">
+                            <img class="mobile" src="dist/img/studiom.png" alt="" class="studios">
+                            <div class="text-holder">
+                                <p class="h2">Çift Kişilik</p>
+                                <p class="h3">ORLANDO </br>SEYAHATİ</p>
+                            </div>
+                        </div>
+                        <div class="awards-list">
+                            <ul>
+                                <li>
+                                    <p><span>10</span>Playstation 4</p><img src="dist/img/icon6.png" alt="">
+                                </li>
+                                <li>
+                                    <p><span>500</span>Powerbank</p><img src="dist/img/icon7.png" alt="">
+                                </li>
+                                <li>
+                                    <p><span>1000</span>Usb</p><img src="dist/img/icon8.png" alt="">
+                                </li>
+                                <li>
+                                    <p><span>5000</span>Telefon Kılıfı</p><img src="dist/img/icon9.png" alt="">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="button">
+                            <div class="bg"></div>
+                            <a target="_blank" href="http://www.vodafonefreezone.com/bi-sen-eksiksin" class="freezone"><span class="text">V</span><span class="text">o</span><span class="text">d</span><span class="text">a</span><span class="text">f</span><span class="text">o</span><span class="text">n</span><span class="text">e</span> <span class="text">F</span><span class="text">r</span><span class="text">e</span><span class="text">e</span><span class="text">Z</span><span class="text">o</span><span class="text">n</span><span class="text">e</span><span class="text">'</span><span class="text">l</span><span class="text">ı</span> <span class="text">O</span><span class="text">l</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="step3" class="step3">
+                <div class="container">
+                    <div class="row">
+                        <div id="video-yt" class="video">
+                            <div class="mask2"></div>
+                            <div class="mask">
+                                <div class="content">
+                                    <img src="dist/img/play.png" alt="">
+                                    <p>FRAGMANI İZLE</p>
+                                </div>
+                            </div>
+                            <div id="player"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="popup" class="popup ">
+        <div class="container">
+            <div class="close-icon"></div>
+            <div class="kullanim-kosullari popup-holder ">
+                <p class="h1">ESASLAR</p>
+                <div class="row">
+                    <p>
+                        Faturalı  ve faturasız <strong>Galaktik</strong> pakleri alabilmek için hattın aktif konumda ve belirtilen kriterlere uygun olması gerekmektedir. </br></br>
+                        •22 Kasım 2016 - 22 Şubat 2016 arasında geçerlidir.</br></br>
+                        <strong>•Paket sunulacak kitle kriterleri ve koşulları</strong></br></br>
+                        Paktelerin alınabileceği tariffeler; </br></br>
+                        Faturasız müşteriler için; Ekstra Esnek 2GB, Esnek Fırsat 2GB,Ekstra Esnek 3GB, Faturasız Esnek XS, Faturasız Esnek S, Faturasız Esnek M, Esnek 1GB, Yeni Esnek Tarife, Esnek 2GB, Esnek Super 2 GB, Esnek MEGA UCLU, Esnek Super 3 GB, Esnek Super, Esnek 3 GB, Faturasiz Esnek 1 GB, Faturasiz Esnek 2 GB, Faturasiz Esnek 3 GB, Faturasiz Esnek Mini, Faturasiz Esnek Midi, Faturasiz Esnek Maksi, Esnek Spotify Ekstra, 
+                        Faturalı müşteriler için; Esnek Tarife, Esnek Ekstra Tarife, Faturalı Esnek Super, Faturalı Esnek XL, Faturalı Esnek S, Faturalı Esnek M, Faturalı Esnek L, Faturalı Esnek L 5GB </br></br>
+                        <strong>•Faturasız Vodafone FreeZone’lular; </strong>Galaktik S, Galaktik M ya da Galaktik L yazıp 3636’ya göndererek, <strong>faturalı Vodafone FreeZone’lular;</strong> Faturalı Galaktik S, Faturalı Galaktik M ya da Faturalı Galaktik L yazıp 3636’ya göndererek Galaktik Small, Galaktik Medium ya da Galaktik Large paketlerine ilgili paket ücretleri karşılığında üye olabilirler.</br></br>
+                        Faturasız Galaktik S paketi, Faturasız Galaktik M ve Faturasız Galaktik L ek paketleri ile birlikte alınamaz. 
+                        Paket Vodafone’dan gelen onay mesajının ardından devreye girer.</br></br>
+
+                        Paketin ücreti  Galaktik S için 5TL, Galaktik M için 9 TL ve Galaktik L için 15TL’dir. Paket faturalı abonelerin faturasına yansımaktadır. Ek paket ücreti ve faydaları gün sayısına göre orantılanmaz. </br></br>
+
+                        Galaktik S için 500MB, Galaktik M için 1GB ve Galaktik L için 2GB cepten internet sunmakta olup müşteri paketten cıkmadıkca yenilenmeye devam eder. Yurtdışındaki data kullanımı GPRS uluslararası dolaşım tarifesi üzerinden ücretlendirilir.</br></br>  
+                        Paketlere dahil olan internete ek olarak Galaktik S için 1, Galaktik M için 2 ve Galaktik K için 3 çekiliş şifresi müşteriye verilmektedir. Kampanya bitiş tarihine kadar her ay paket dahilindeki şifre adedi devreder. </br></br>
+                        Ayrıca Galaktik M ve Galaktik L paketlerinde 1 adet sinema bileti müşteri paketi aldıktan sonra FILM yazıp 6666’ya gönderdiği takdirde telefonuna kod olarak gönderilir. </br></br>
+
+                        Geçerli gençlik faturasız tarifelerdeki abonelerimiz, Galaktik pakelerden birine kampanya koşullarındaki kanallar aracılığı ile kayıt olduktan sonra; </br></br>
+                        Tarife içerikleri yüklenmiş ise (Geçerli tarifeler, belirli bir ücret karşılığında aylık olarak müşterilere Ses, SMS, Data içerikleri yüklenen tarifelerimizdir.</br></br> Geçerli tarifenin içeriğinin yüklenmesi, tarife paketi ücretinin çekilerek müşterilere tarife içeriğinin yüklenmesi demektir. Örnek: Esnek Mini tarifemizin içeriği 22 TL karşılığında 500 dk + 5000 SMS + 1GB dır. Bu tarifenin içeriğinin yüklenmesi , müşteriden 22 TL lik bakiyenin düşülerek, müşteriye 500 dk + 1000 SMS + 1GB içeriğinin verilmesi demektir.) </br></br>
+                        Tarife içeriği yüklenmiş ve ek paket için yeterli bakiye bulunuyor, ancak ek paket için yeterli bakiye koşulu sağlanmışsa, ek paket içeriği, geçerli tarifenin bir dahaki ilk yüklenmesinde, yine geçerli koşullar sağlandığı takdirde yüklenecektir. </br></br>
+                        Paket, iptal edilmezse, abonenin tarifesinin içeriği yenilendikçe Faturasız müşterilerde Faturasız Galaktik paketi için yeterli bakiye bulunduğu sürece, Faturalı müşterilerde ise paket iptal edilmediği sürece paket ücreti karşılığında yenilenmeye devam edecektir ve her yenilenmesinde paket ücreti karşılığındaki içerik, tarife içeriğinin bitiş tarihine kadar geçerli olacaktir. </br></br>
+                        Paket, müşteri geçerli tarifelerde bulundugu sürece kampanya koşullarında yenilenmeye devam edecektir. </br></br>
+                        Geçerli tarifelerden çıkılması durumunda, paket sona erecektir (içerikler paket geçerlilik dönemi sonuna kadar kullanılmaya devam edecektir). </br></br>
+                        Pakete giriş anlık olup,iptal talebi alındıktan sonra cıkışlar dönem sonu itibariyle gercekleşir.Abone dönem sonuna kadar haklarını kullanabilir. </br></br>
+                        Bir abone en fazla 3 adet faturasız hattı ile bu avantajlardan faydalanabilir. </br></br>
+                        Paket geçerlilik tarihi içerisinde kullanılmayan içerikler silinir ; bir sonraki aya devretmez. </br></br>
+                        Paket içerikleri yüklendikten sonraki paket geçerlilik dönemleri arasında, kampanyaya katılan aboneler kampanyaya katıldıktan sonra kayıt iptali ; sebeke içi ve şebekeler arası geçiş (MNT ,ön ödemeli hattan faturalı hatta ya da faturalı hattan ön ödemeli hatta geçiş dahil ) veya devir, dondurma işlemi yaparsa ilgili haklarını kaybedeceklerdir. </br></br>
+                        Paket geçerlilik tarihi içerisinde kullanılmayan içerikler silinir ; bir sonraki aya devretmez. </br></br>
+                        Ön ödemeli hat aboneleri, kampanyadan kazandıkları ve harcayabilecekleri kullanım bakiyelerini bakiyelerini 7000 OZET servisinden ögrenebileceklerdir. </br></br>
+                        FCT içinde kullanımına ve konferans cagrıya izin verilmez.Kullanımı tespit edilen abonelerin hattı için; tek taraflı kısıtlanma hakkı bakiidir. </br></br>
+                        İlgili paketi satın alan abonelerin 3G ve 4.5G servisi otomatik olarak açılır.Paket kullanıldığı sürece 3G ve 4.5G servisi kapatılmaz. 
+                        Paket, cihazın ve simkartın 4.5G uyumlu, 4.5G servisiniz açık ve 4.5G kapsama alanındaysa, 4.5G hızında kullanabilir. </br></br>
+                        İnternet Paketinden, cihaz 3G destekliyorsa 3G hızında, desteklemiyorsa 2G/Edge hızında faydalanabilir. Vodafone 3G ve 4,5G kapsaması coğrafi koşullara bağlı olarak değişiklik gösterebilir. </br></br>
+                        Vodafone kampanya şartlarında değişiklik yapma ve gerekli gördüğü zaman BTK ya yasal kurallar cercevesinde bildirerek kampanyayı sonlandırma hakkını saklı tutar.</br></br> 
+                        Kampanya kodları aynı zamanda aşağıda detayları verilen Galaktik Paket çekiliş Kampanyasına da katılım hakkı sağlayacaktır. Bu kampanya Vodafone Telekomünikasyon A.Ş. tarafından Milli Piyango İdaresi Genel Müdürlüğü’nün 21.11.2016 tarihli ve 58259698-255.01.02/2910-8670 sayılı izni ile gerçekleştirilecektir</br></br>
+                        Çekilişte 1 kişi 27.681,47 TL değerinde çift kişilik Amerika Seyahati (12.04.2017-17.04.2017 tarihleri arasında 5 gece 6 günlük iki kişilik ABD Orlando seyahati, 10 kişi 1.100,00 TL değerinde PlayStation 4 500 GB Oyun Konsolu ikramiyesi kazanacaktır. Ayrıca Milli Piyango İdaresi kapsamı dışında yapılacak çekilişle 500 kişi taşınabilir pil, 100 kişi USB bellek ve 5000 kişi telefon kılıfı ikramiyesi kazanacaktır.  Çekiliş 16.02.2017 tarihinde, saat 11.00’da Yeni Markera Çekiliş Org. Ve Pro. Hiz. Tic. Ltd. Şti. Kuştepe Mah. Mesut Cemil Sok. No: 30/1 Şişli/İstanbul adresinde bulunan konferans salonunda, noter huzurunda ve isteyen herkesin katılımına açık olarak gerçekleştirilecektir. Kazanan talihliler 21.02.2017 tarihli Milliyet Gazetesi Türkiye baskısında duyurulacaktır.</br></br>                                                                           
+                        *Fiyatlara KDV ve ÖİV dahildir. Ayrıntılı bilgi: <a href="http://www.vodafone.com.tr/">vodafone.com.tr</a>
+
+                    </p>
+                </div>
+            </div>
+            <div class="sss popup-holder">
+                <p class="h1">SSS</p>
+                <div class="row">
+                    <p><strong><span>Galaktik</span> Paketlerinden yararlanabilmem için gerekli şartlar nelerdir ? </strong></p>
+                    <p>
+                        1- Geçerli tarifeden birinde olmanız ve paketlere kayıt olmuş olmanız</br>
+                        2- Tarife içeriğinizin yüklenmiş olması </br>
+                        4- Bakiyenizde en az 5 TL olması </br>
+                    </p></br>
+                    <p><strong><span>Galaktik</span> Paketine kayıt oldum ve paketim yenilendi ama <span>Galaktik</span> paketi için yeterli bakiyem yok, <span>Galaktik</span> Paketim iptal olur mu?</strong></p>
+                    <p>Hayır. Tarife içeriğiniz yenilendikten sonra yeterli bakiyeye ulaştığınız anda, <span>Galaktik</span> Paketiniz yenilenir.</p>
+                    </br></br>
+                    <p><strong>Tarife içeriğim yenilendiğinde bakiyemde Cep Lira yoktu. 1 hafta sonra yükleme yaptım. <span>Galaktik</span> Paketim yenilenir mi ?</strong></p>
+                    <p>Evet. Tarife içeriğinizin yenilenmesinden sonra <span>Galaktik</span> paketi için yeterli bakiyeye ulaştığınız anda paketiniz yenilenir.</br></p>
+                    </br>
+                    <p><strong>Tarife yenilenmesinden 1 hafta sonra yaptığım Cep Lira yüklemesi ile içeriği yüklenen <span>Galaktik</span> paketinin geçerlilik tarihi nedir ? </strong></p>
+                    <p><span>Galaktik</span> paketlerin geçerlilik tarihi, tarifenin içeriğinin geçerlilik tarihi olarak belirlenir (<span>Galaktik</span> Paketinin yüklendiği tarihten bağımsız olarak).</p>
+                    </br>
+                    <p><strong><span>Galaktik</span> paketim yüklendikten sonra, geçerli tarifelerin dışındaki bir tarifeye geçiş yaptım. Paketime ne olur ? </strong></p>
+                    <p><span>Galaktik</span> Paketleri, geçerli tarifeler dışına çıkıldığında otomatik olarak sonlanır. Paketten kalan internet, dönem sonuna kadar kullanılmaya devam edilir. </p>
+                    </br>
+                    <p><strong><span>Galaktik</span> paketim yüklendikten sonra, geçerli tarifelerin dahilindeki bir tarifeye geçiş yaptım. Paketime ne olur ? </strong></p>
+                    <p><span>Galaktik</span> Paketleri, geçerli tarifeler içerisinde geçiş yapılırsa sonlanmaz. <span>Galaktik</span> Paketi yenilenirken, yeni geçilen tarife içeriğinin bitiş tarihine kadar yüklenmeye başlar ve yeni tarifenin yaşam döngüsünde devam eder. </p>
+                    </br>
+                    <p><strong><span>Galaktik</span> paketlerinde, pakete ayın ortasında girilirse, paket ücretinin tamamı mı yansıtılır? </strong></p>
+                    <p>Evet paket içeriklerinin yüklendiği günden bağımsız olarak, paket ücreti bakiyenizden düşülür.</p>
+                    </br>
+                    <p><strong><span>Galaktik</span> paketlerinde internet paketlerinin ücretlendirme periyodları nedir ? </strong></p>
+                    <p>Internet paketinin ücretlendirme periyodu 1 KB dır. </p>
+                    </br>
+                    <p><strong>Paket kapsamındaki faydalar diğer aya devreder mi ?</strong></p>
+                    <p>Hayır. Dönem sonunda kullanılmayan internet faydaları bir dahaki aya devretmez. </p>
+                    </br>
+                    <p><strong>Paket kapsamındaki faydalar başka bir aboneye transfer edilebilir mi ? </strong></p>
+                    <p>Hayır. </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>   

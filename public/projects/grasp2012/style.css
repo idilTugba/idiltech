@@ -1,0 +1,533 @@
+* {margin:0px; padding:0px;  outline:none; border:none; text-decoration:none;}
+body {font:12px Trebuchet MS,Helvetica,sans-serif; background:#fff; color:#2d2d2d;  }
+
+/* CLEAR İÇİN */
+.clear:before,
+.clear:after {content:"."; display:block; height:0; overflow:hidden;}
+.clear:after {clear:both;}
+.clear {zoom:1;}
+input { width: 300px; height:34px; background:url('../image/input_bg2.gif') repeat-x #FFF !important; border-radius:4px; border: 1px solid rgb(56, 50, 43); display:block; margin-top:5px;}
+textarea { width:400px; height:64px; background:url('../image/input_bg2.gif') repeat-x #FFF !important; border-radius:4px; border: 1px solid rgb(56, 50, 43); margin-top:5px;}
+a {color:#fff;}
+p {line-height:120%;margin: 7px 0px 0px 24px;}
+
+/* ÜST KISIM*/
+
+#ust_kisim {
+color:#fff;
+background:url('images/bg.png') no-repeat top center;
+height: 425px;
+width:100%;
+}
+#ust_kisim0 {
+width:100%;
+color:fff;
+background:url('images/bg0.png') no-repeat top center;
+height: 168px;
+}
+#ust_kisim0 .page_name {
+width:960px;
+color:#fff;
+margin:0px auto;
+}
+#ust_kisim0 .page_name h1{
+    font-size: 35px;
+    margin-top: 50px;
+    width: 83%;
+    float: left;
+}
+#ust_kisim0 .page_name h5{
+    font-size: 13px;
+    float: right;
+    margin-top: 70px;
+}
+
+.header {
+width:100%;
+background:url(images/ust_kisim.png) repeat;
+height: 60px;
+}
+.within {
+margin:0px auto;
+width:960px;
+}
+.header .within .logo {
+padding:17px 0px 0px 0px;
+float:left;
+margin:0px;
+}
+.header .within .satinal a{
+width:120px;
+height:40px;
+float:right;
+background:url('images/satinal.png') no-repeat;
+color:#c74537;
+margin:10px 5px 0px 0px;
+}
+.header .within .satinal a p {
+padding: 10px 24px 0px 0px;
+float: right;
+margin: 0px;
+}
+.header .within .satinal a:hover {
+background:url(images/satinalh.png) no-repeat;
+}
+.header .within .fb {
+width:50px;
+height:40px;
+margin:0px;
+padding:10px 0px 0px 0px;
+float:right;
+}
+.header .within .link0 {
+float:right;
+margin:0px; 
+padding:22px 8px 0px 0px;
+}
+.header .within .link0 li {
+float:left;
+margin-left:22px;
+list-style-type:none;
+}
+#ust_kisim .ust_orta {
+width:100%;
+height: 315px;
+margin:0px;
+}
+#ust_kisim .ust_orta .within {
+width:960px;
+margin:0px auto;
+}
+#ust_kisim .ust_orta .within .sorun {
+background:url('images/sorun.png') no-repeat;
+margin-top:80px;
+float: left;
+width: 960px;
+}
+#ust_kisim .ust_orta .within .sorun p {
+font-family: Gotham Narrow;
+margin:0px;
+padding: 5px;
+font-size: 23px;
+float: left;
+height: 36px;
+}
+#ust_kisim .ust_orta .within .msorun {
+background:url('images/mutlaksorun.png') no-repeat;
+margin-top:5px;
+float: left;
+width: 960px;
+}
+#ust_kisim .ust_orta .within .msorun p{
+font-family: Gotham Narrow;
+margin:0px;
+padding: 7px 5px;
+font-size: 21px;
+float: left;
+height: 36px;
+color: rgba(255, 255, 255, 0.66);
+}
+#ust_kisim .ust_orta .within .gicerik {
+float:left;
+margin: 10px 0px 0px 0px;
+width: 548px;
+color:#fff;
+line-height: 120%;
+}
+#ust_kisim .sinav {
+width:100%;
+margin:0px;
+background:url('images/sinav.png') repeat;
+height: 50px;
+}
+#ust_kisim .sinav .sinavlar{
+width:960px;
+margin:0px auto;
+}
+
+/*UST KISIM SON*/
+
+
+/*ORTA KISIM*/
+
+#orta_kisim {
+width:100%;
+margin: 0px;
+}
+.within .left{
+width:39%;
+margin:0px;
+padding:0px;
+float:left;
+}
+.within .left img {
+float: left;
+margin-left: 50px;
+}
+.within .right{
+width:61%;
+margin:0px;
+padding:0px;
+float:right;
+}
+.within .right h1{
+margin: 20px 0px 14px 0px;
+font-size: 35px;
+}
+.within .right ul{
+margin-left: 18px;
+line-height: 160%;
+width: 91%;
+}
+#orta_kisim .about {
+width:100%;
+background:url('images/hakkimizda.png') no-repeat top center;
+height: 630px;
+}
+.within .about_top {
+width:100%;
+height:320px;
+margin:0px;
+}
+.within .about_top .left{
+width:63%;
+height:100%;
+float:left;
+margin:0px;
+}
+.within .about_bottom {
+width:100%;
+height:260px;
+margin:0px;
+}
+.within .about_bottom .right{
+width:59%;
+float:right;
+height:100%;
+margin:0px;
+}
+.about h2 {
+    font-size: 35px;
+    margin: 40px 0px 0px 0px;
+}
+.about p{
+    margin: 20px 0px 0px 0px;
+    line-height: 120%;
+    width: 100%;
+}
+.about ul{
+    margin: 12px 0px 20px 0px;
+}
+
+.within .sss{
+height:70px; 
+width:100%;
+margin:0px 0px 0px 10px;
+float:left;
+}
+#orta_kisim .within .bg {
+background:url('images/bg_sss.png') no-repeat top center;
+width:100%;
+height:740px;
+margin:20px 0px 0px 0px;
+float:left;
+}
+#orta_kisim  .within .bg .box {
+width:100%;
+height:50px;
+float:left;
+margin:0px;
+}
+#orta_kisim  .within .bg .box .number{
+float:left;
+width:50px;
+margin-top: 5px;
+position: relative;
+right: 9px;
+}
+#orta_kisim  .within .bg .box .text0{
+float:right;
+width:94%;
+}
+#orta_kisim  .within .bg .box .text0 h5{
+font-size: 15px;
+margin-top: 20px;
+}
+#orta_kisim  .within .bg .box .text0 p{
+margin-top:4px;
+}
+#orta_kisim  .bg_satis {
+width:100%;
+height:550px;
+background:url('images/bg_satis.png') no-repeat top center;
+margin:20px 0px;
+}
+.bg_satis .within .left {
+width: 44%;
+height:550px;
+float:left;
+}
+.bg_satis .within .left .center1{
+margin: 50px 0px 0px 0px;
+width:100%;
+height: 100%;
+}
+.bg_satis .within .left .center1 h3{
+font-size: 26px;
+float: left;
+width: 100%;
+margin: 20px 0px 5px 0px;
+}
+.bg_satis .within .left .center1 p{
+    float: left;
+    width: 100%;
+    margin: 5px 0px 0px 0px;
+}
+.bg_satis .within .left .center1 .kargo img{
+width:380px;
+height:95px;
+float:left;
+margin: 30px 0px 0px 0px;
+}
+.bg_satis .within .right {
+width: 490px;
+height:550px;
+float:right;
+}
+.bg_satis .within .right .satis_formu {
+float:left;
+background: url('images/satis_formu.png') repeat;
+margin:0px;
+width: 100%;
+}
+.bg_satis .within .right .satis_formu .center0{
+margin:15px 0px;
+width:100%;
+}
+.bg_satis .within .right .satis_formu .center0 h3{
+font-size: 15px;
+margin: 8px 0px 0px 15px;
+float:left;
+color: #fff;
+}
+.bg_satis .within .right .satis_formu .center0 .kilit{
+float:right;
+margin: 1px 15px 0px 0px;
+}
+.within .video_within {
+width:100%;
+background:url('images/bg_video_dersler.png') no-repeat;
+height:681px;
+margin: 45px 0px;
+}
+.within .video_within .video_left{
+float:left;
+width: 25%;
+height: 570px;
+margin: 22px 0px 0px 0px;
+position:relative;
+right: 21px;
+background:url('images/video_tür.png') no-repeat;
+}
+.within .video_within .video_left .title0{
+width:100%;
+height:40px;
+text-aling:center;
+margin:0px 0px 0px 15px;
+}
+.within .video_within .video_left .title0 h4{
+color:#fff;
+font-size: 15px;
+margin: 12px 0px 0px -4px;
+}
+.within .video_within .video_left .box1 {
+width:100%;
+margin: 20px 0px 7px 20px;
+height:120px;
+}
+.within .video_within .video_left .box1  h4{
+padding: 12px 12px;
+color:#fff;
+}
+.within .video_within .video_left  .box2 h4{
+padding: 8px 0px 0px 5px;
+color:#fff;
+}
+.within .video_within .video_left  .box3 h4{
+margin:0px;
+color:#fff;
+padding: 10px 0px 0px 5px;
+}
+.within .video_within .video_left p{
+color:#fff;
+}
+.within .video_within .video_left .box2 {
+width:100%;
+height: 35px;
+padding: 0px 20px;
+}
+.within .video_within .video_left .box3 {
+width:100%;
+height: 40px;
+padding: 0px 20px;
+}
+.within .video_within .video_right{
+float: left;
+width: 70%;
+}
+.within .video_within .video_right .video_header {
+background:url('images/video_header.png') no-repeat;
+margin: 20px 0px 0px 5px;
+float:left;
+width:698px;
+height:59px;
+}
+.within .video_within .video_right .video_header h3{
+color:#fff;
+margin: 16px;
+font-size: 18px;
+}
+.within .video_within .video_right .video_big {
+margin: 20px 0px 0px 18px;
+float:left;
+}
+.video_right p{
+margin: 18px 0px 0px 20px;
+float:left;
+width:100%;
+}
+/*ORTA KISIM SON*/
+
+/*ALT KISIM*/
+
+#alt_kisim {
+width:100%;
+height: 400px;
+background:url('images/alt_kisim0.png') no-repeat top center;
+}
+#alt_kisim .within .alt_ust{
+height: 60px;
+color:#fff;
+width: 950px;
+margin: 0px;
+float:right;
+background:url('images/alt_ust.png') repeat;
+}
+#alt_kisim .within .alt_ust h3{
+width: 69%;
+margin: 19px 0px 0px 35px;
+float: left;
+}
+#alt_kisim .within .alt_ust .satinal {
+float:right;
+width: 25%;
+margin: 0px;
+margin-top: 7px;
+}
+#alt_kisim .within .alt_ust .satinal0 {
+width:120px;
+height: 40px;
+background:url('images/satinal.png') no-repeat;
+margin: 10px 60px 0px 0px;
+float: right;
+}
+#alt_kisim .within .alt_ust a .satinal0 {
+color:#c74537;
+width:120px;
+height:40px;
+}
+#alt_kisim .within .alt_ust .satinal0 p{
+float:right;
+padding: 10px 24px 0px 0px;
+}
+#alt_kisim .within .genel{
+width:940px;
+margin:0px 0px 0px 5px;
+float:left;
+}
+#alt_kisim .within .genel .left {
+width:50%;
+float:left;
+margin:0px;
+}
+#alt_kisim .within .genel .left h1{
+font-size:40px;
+float:left;
+margin:100px 0px 0px 0px;
+width:100%;
+}
+#alt_kisim .within .genel .left p{
+    line-height: 120%;
+
+}
+#alt_kisim .within .genel .right {
+width:50%;
+float:right;
+margin:0px;
+text-aling:center;
+}
+#alt_kisim .within .genel .right img{
+margin:20px 0px 0px 0px;
+width:460px;
+float:right;
+height:300px;
+}
+
+#about_alt {
+width:100%;
+background:url('images/about_alt.png') no-repeat top center;
+height:480px;
+}
+#about_alt p{
+width: 95%;
+margin: 0px 0px 15px 0px;
+}
+#about_alt h2 {
+width:100%;
+font-size: 35px;
+margin: 20px 0px 20px 0px;
+}
+#about_alt h5 {
+width:100%;
+font-size: 15px;
+margin: 0px 0px 0px 0px;
+}
+
+/*ALT KISIM*/
+
+#alt_logo {
+width:348px;
+height:30px;
+margin:10px auto;
+}
+
+#tum_hakki {
+width:100%;
+background:url('images/2012.png') repeat;
+font-size:11px;
+}
+#tum_hakki .within {
+width:960px;
+margin:0px auto;
+height:35px;
+
+}
+#tum_hakki .within .grasphak{
+float:left;
+color:#a1a1a1;
+margin:10px 0px 0px 10px;
+}
+#tum_hakki .within .link1 {
+float:right;
+margin:10px 10px 0px 0px;
+}
+#tum_hakki .within .link1 li {
+float:left;
+margin-left:15px;
+list-style-type:none;
+}
+#tum_hakki .within .link1 li a{
+color:#a1a1a1;
+}
+
+

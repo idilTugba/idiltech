@@ -1,0 +1,28 @@
+.loader { background: #e61d2b;position:fixed;left: 0;right: 0;top: 0;bottom: 0;z-index: 99999999999999999999;}
+.loaderWrapper {  display:table; width:100%; height: 100%; margin: 0 auto; position:relative;}
+.loaderDiv { position:absolute;width: 100%;height: 75vh;top: 22.22vh;}
+.loaderBallContainer { width: 10.8vw; height: 20vw; position:relative; left: 50%; transform: translateX(-50%); }
+
+.ld-wrap { width:10.89vw; position:absolute; margin-left: 1.48vw; margin-top: 1.4vw; transform-origin: bottom; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: block;}
+.ld-wrap img { width:10.89vw;backface-visibility: hidden; -webkit-backface-visibility: hidden; display: block; }
+.loaderBallShadow { width:10.8vw; position:absolute; margin-left: 2.44vw; transform-origin: bottom; }
+.transformOriginBottom { transform-origin: bottom !important; }
+.LB_shadow { width: 100%; position:absolute; left: 1.5vw; bottom: 0; opacity:0.2 }
+
+.loaderText { top: 26vw; position:absolute; text-align:center; width:100%; }
+.relativeDiv { position:relative; }
+.loaderText p {  color: #fff; font-size: 1.56vw;font-family:'Gotham Book'; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0; }
+.loaderText p strong { font-family:'Gotham Bold';  }
+
+@media (max-width: 800px) {
+	.loaderBallContainer { width:27.6vw; height: 30vw; }
+ 	.loaderBall { width:20vw; margin-left: 3.2vw; }
+ 	.ld-wrap { width:20vw; margin-left: 4vw; }
+ 	.ld-wrap img {  width: 20vw; margin-left: 0; }
+	.loaderBallShadow { width: 24vw; }
+ 	.loaderDiv { height: auto; }
+ 	.loaderText { top: 55vw;}
+ 	.loaderText p { font-size: 4.1405vw; }
+}
+
+

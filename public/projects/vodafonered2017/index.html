@@ -1,0 +1,1272 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--
+    App Dowland Link for Mobile
+    <meta name='yandex-verificaıtion' content='668b81a736039683' />
+    <meta name="apple-itunes-app" content="app-id=983886691">
+    <meta name="google-play-app" content="app-id=com.boynergrup.hopi">
+    <meta name="msApplication-ID" content="App" />
+    <meta name="msApplication-PackageFamilyName" content="HuluLLC.HuluPlus_fphbd361v8tya" />
+    <meta name="msApplication-PackageEdgeName" content="9WZDNCRFJ3L1" />
+    -->
+    <!--Call with click to Phone Number for Apple-->
+    <meta name="format-detection" content="telephone=no">
+
+    <title>TITLE</title>
+
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="js/html5shiv.js"></script>
+      <script type="text/javascript" src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <![endif]-->
+
+    <link href="dist/img/favicon/favicon.png" rel="Shortcut icon">
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <!--<link rel="stylesheet" href="dist/css/jquery.smartbanner.css" />-->
+    <style type="css"></style>
+
+    <script type="text/javascript" src="dist/js/all.js"></script>
+
+
+<script type="text/javascript">
+    $('document').ready(function () {
+
+        $('img#vodafone-vd-play').click(function(){
+            $('#vodafone-vd-close').addClass('active');
+            $('#vodafone-vd').addClass('active');
+            $('#vodafone-vd').removeAttr('loop').prop('controls', true);
+        });
+       
+        $('#vodafone-vd-close').click(function(){
+            $('#vodafone-vd-close').removeClass('active');
+            $('#vodafone-vd').removeAttr('class');
+            $('#vodafone-vd').prop('loop', true).prop('controls', false);
+        });
+       
+        $('#slider-banner').owlCarousel({
+            items: 1,
+            autoplay: true,
+            autoplayTimeout:4000,
+            autoplaySpeed: 500,
+            margin: 0,
+            singleItem: true,
+            autoWidth: true,
+            mouseDrag: false,
+            touchDrag: true,
+            dotsSpeed: 400,
+            rewindSpeed: 2000,
+            fallbackEasing: 'swing',
+            loop: true,
+            nav: true,
+            slideSpeed : 500,
+            dragEndSpeed: 300,
+            smartSpeed: 200,
+            responsiveClass:true,
+            responsive:{
+                    800:{
+                        autoplaySpeed: 1000,
+                        dotsSpeed: 1100
+                    }
+                }
+        });
+        
+        $('#grid-side').owlCarousel({
+            autoPlay: false,
+            margin: 0,
+            singleItem: true,
+            items: 1,
+            autoWidth: true,
+            mouseDrag: false,
+            touchDrag: true,
+            loop: true,
+            rewindSpeed: 2000,
+            navSpeed: 500,
+            dotsSpeed: 400,
+            nav: true,
+            slideSpeed : 700,
+            dragEndSpeed: 300,
+            smartSpeed: 200,
+            responsiveClass:true,
+            responsive:{
+                    800:{
+                        navSpeed: 1100,
+                        dotsSpeed: 1100
+                    }
+                }
+        });
+        
+        $('#grid-side .owl-prev').click(function(){
+            setTimeout(function(){
+                var gridNo = $('#grid-side .owl-item.active').find('.no').attr('data-id');
+                $('#now').text('0'+gridNo);                    
+            },1000);
+        });
+
+        $('#grid-side .owl-next').click(function(){
+            setTimeout(function(){
+                var gridNo = $('#grid-side .owl-item.active').find('.no').attr('data-id');
+                $('#now').text('0'+gridNo);
+            },1000);
+        });
+
+
+
+        $('#twit-side').owlCarousel({
+            autoplay: true,
+            loop: true,
+            margin: 0,
+            singleItem: true,
+            items: 1,
+            dots: false,
+            mouseDrag: false,
+            touchDrag: false,
+            smartSpeed: 500,
+            animateIn: 'flipInX'
+        });
+
+
+
+        $('#tarife-slider').clone().prependTo(".tarife-holder.home-tarife").addClass('tarife-slider-mobile');
+        $('.tarife-slider-mobile').removeAttr("id");
+        $('.tarife-slider').not('.tarife-slider-mobile').owlCarousel({
+            autoPlay: false,
+            loop: true,
+            margin: 0,
+            singleItem: true,
+            items: 2,
+            dots: false, 
+            mouseDrag: false,
+            touchDrag: true,
+            rewindSpeed: 5000,
+            autoWidth: true,
+            nav: true,
+            smartSpeed: 1000
+        });
+
+        $('.teklifler-slider-holder').clone().appendTo(".teklifler-slider").addClass('teklifler-slider-mobile');
+        $('.teklifler-slider-mobile').owlCarousel({
+            autoPlay: false,
+            loop: true,
+            margin: 0,
+            nav: true,
+            singleItem: true,
+            mouseDrag: false,
+            touchDrag: true,
+            items: 1,
+            smartSpeed: 500
+        });
+
+        //table nav
+
+          $('.tarife-slider-nav .prev').click(function(){
+            var activeTable =  $('.tarife-slider-mobile').find('.tarife-box.active').index();
+            $('.tarife-slider-mobile').find('.tarife-box').eq(activeTable).removeClass('active');
+            if(activeTable==0){
+              activeTable = 4;
+            }else{
+              activeTable = activeTable - 1;
+            }
+            $('.tarife-slider-mobile').find('.tarife-box').eq(activeTable).addClass('active');          
+          });
+
+          $('.tarife-slider-nav .next').click(function(){
+            var activeTable =  $('.tarife-slider-mobile').find('.tarife-box.active').index();
+            $('.tarife-slider-mobile').find('.tarife-box').eq(activeTable).removeClass('active');
+            if(activeTable==4){
+              activeTable = 0;
+            }else{
+              activeTable = activeTable + 1;
+            }
+            $('.tarife-slider-mobile').find('.tarife-box').eq(activeTable).addClass('active');      
+          });  
+
+        //table nav
+    });
+
+</script>
+
+</head>
+<body>
+    <div id="vodafone-vd-close"></div>
+    <div id="how" class="how">
+        <a href="nasil-redli.html"><p>Nasıl Vodafone Red’li Olabilirim? <span class="icon-chevron-thin-right"></span></p></a>
+    </div>
+    <div id="icon-menu" class="icon-menu">
+      <img src="dist/img/open.png" class="open" alt=""><img src="dist/img/close.png" class="close" alt="">
+    </div>
+    <div id="mobile-menu" class="mobile-menu">
+      <div class="container">
+        <div class="row">
+          <div class="rhombus"></div>
+          <ul>
+            <li><a href="tum-nedenler.html">VODAFONE RED'Lİ </br> OLMANIZ İÇİN </br> TÜM NEDENLER</a></li>
+            <li><a href="tarifeler.html">İHTİYACA UYGUN </br> VODAFONE RED </br> TARİFELERİ</a></li>
+            <li><a href="nasil-redli.html">NASIL VODAFONE RED'Lİ </br> OLABİLİRİM?</a></li>
+          </ul>
+          <div class="social">
+            <p>BİZİ TAKİP ET</p>
+            <a href="#"><span class="icon-social-fb"></span></a>
+            <a href="#"><span class="icon-social-tw"></span></a>
+            <a href="#"><span class="icon-play"></span></a>
+            <a href="tumunu-gor.html"><span class="icon-bubbles2"></span></a>
+          </div>
+          <div class="red-logo"><a href="index.html"><img src="dist/img/red-logo2.png" alt=""></a></div>
+        </div>
+      </div>
+    </div>
+    <div id="wrap" class="wrap">
+        <div class="content-holder">
+            <div class="container">
+                <div class="row">
+                    <div class="rhombus">
+                        <a href="index.html"><img src="dist/img/rhombus-logo.png" class="logo" alt=""></a>
+                    </div>
+                    <div id="slider" class="page slider">
+                        <header id="header" class="header">
+                            <div class="container">
+                                <div class="row">
+                                    <ul>
+                                        <li><a href="tumunu-gor">Neden Red'li Olmalıyım?</a></li>
+                                        <li><a href="tarifeler.html">Red Tarifeleri</a></li>
+                                        <li><a href="nasil-redli.html">Nasıl Red'li Olabilirim?</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </header>
+                        <video id="vodafone-vd" loop autoplay>
+                            <source src="dist/red_web_idil.mp4" type="video/mp4">
+                            <source src="dist/red_web_idil.mp4" type="video/ogg">
+                        </video>
+                        <img src="dist/img/pagemobile.jpg" alt="" class="bg mobile">
+                        <div class="text-holder text-holder-home">
+                            <div class="text home-text">
+                                <p class="h1">Vodafone <strong>Red'li</strong></p>
+                                <p class="h2">Olunca Neler Oluyor?</p>
+                                <div class="play-button"><img id="vodafone-vd-play" src="dist/img/play.png" alt=""><p>Cevap Bu Videoda</p></div>
+                            </div>
+                            <div class="red-logo">
+                                <img src="dist/img/red-logo.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="title-side">
+                        <p class="h3"><strong><span>Vodafone Red'li</span> </strong> Olmanız İçin <strong>37 Neden</strong></p>
+                    </div>
+                    <div class="slider-holder">
+                        <div id="grid-side" class="grid-side">
+                            <div data-id="1" class="no no6">
+                                <div class="part part1">
+                                    <div class="item item1">
+                                        <a href="netflix.html">
+                                            <img src="dist/img/1.jpg" alt="">
+                                            <img src="dist/img/1m.jpg" class="mobile" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="item item2">
+                                        <a href="budget.html">
+                                            <img src="dist/img/2.jpg" alt="">
+                                            <img src="dist/img/2m.jpg" class="mobile" alt="">
+                                            <p class="h3">Budget'tan<strong> %50 indirimli</strong> araç kiralama fırsatı Vodafone Red'de</p>
+                                        </a>
+                                    </div>
+                                    <div class="item item3">
+                                        <a href="spotify.html">
+                                            <img src="dist/img/3.jpg" alt="">
+                                            <img src="dist/img/3m.jpg" class="mobile" alt="">
+                                            <p class="h3"><strong>Premium Spotify</strong> üyeliğiyle 30 milyon şarkıyı <strong>ücretsiz</strong> dinleyin</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="part part2">
+                                    <div class="item item4">
+                                        <a href="red-ulkeleri.html">
+                                            <img src="dist/img/4.jpg" alt="">
+                                            <p class="h3">Tarifenizi <strong>yurtdışında da</strong> aynen kullanmaya devam edin</p>
+                                        </a>
+                                    </div>
+                                    <div class="item item5">
+                                        <a href="digiturk-taraftar-paketi.html">
+                                            <img src="dist/img/5.jpg" alt="">
+                                            <img src="dist/img/5m.jpg" class="mobile" alt="">
+                                            <p class="h3">Ücretsiz Digiturk Play <strong>Süper Lig Taraftar Paketi</strong> ile maçlar cebinizde</p>
+                                        </a>
+                                    </div>
+                                    <div class="item item4 mobile">
+                                        <a href="red-ulkeleri.html">
+                                            <img src="dist/img/4m.jpg" class="mobile" alt="">
+                                            <p class="h3">Tarifenizi <strong>yurtdışında da</strong> aynen kullanmaya devam edin</p>
+                                        </a>
+                                    </div>
+                                    <div class="item item5">
+                                        <a href="vodafone-tv.html">
+                                            <img src="dist/img/6.jpg" alt="">
+                                            <img src="dist/img/6m.jpg" class="mobile" alt="">
+                                            <p class="h3">Uygun fiyatlarla <strong>akıllı cihaz</strong> kampanyalarından yaralanın</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-id="2" class="no no6 no4">
+                                <div class="part part1">
+                                    <div class="item item1">
+                                            <a href="sinema.html">
+                                                <img src="dist/img/grid4-1.jpg" alt="">
+                                                <img src="dist/img/grid4-1m.jpg" class="mobile" alt="">
+                                                <p class="h3">Vodafone Red’liler sinemada 1 bilet aldığında <strong>2. bilet hediye</strong></p>
+                                            </a>
+                                    </div>
+                                </div>
+                                <div class="part part2">
+                                    <div class="item item2">
+                                        <a href="ucretsiz-lounge.html">
+                                            <img src="dist/img/grid4-2.jpg" alt="">
+                                            <img src="dist/img/grid4-2m.jpg" class="mobile" alt="">
+                                            <p class="h3">Havaalanlarında<strong> ücretsiz lounge hizmeti</strong></p>
+                                        </a>
+                                    </div>
+                                    <div class="item item3">
+                                        <a href="aile-web.html">
+                                            <img src="dist/img/grid4-3.jpg" alt="">
+                                            <img src="dist/img/grid4-3m.jpg" class="mobile" alt="">
+                                            <p class="h3">Vodafone Red tarifelerinde <strong>aileniz %35 indirimli</strong></p>
+                                        </a>
+                                    </div>
+                                    <div class="item item4">
+                                        <a href="yurtdisi-arama.html">
+                                            <img src="dist/img/grid4-4.jpg" alt="">
+                                            <p class="h3">Yurt dışını <strong>yurt içini arar gibi</strong> arayın</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="part part3">
+                                    <div class="item item4 mobile">
+                                        <a href="yurtdisi-arama.html">
+                                            <img src="dist/img/grid4-4m.jpg" alt="">
+                                            <p class="h3">Yurt dışını <strong>yurt içini arar gibi</strong> arayın</p>
+                                        </a>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number">
+                            <span id="now" class="now">01</span> <span class="slash">/</span> <span id="all">02</span>
+                        </div>
+                        <a class="tumunu-gor-link" href="tumunu-gor.html" target="_blank"><p class="h4"><span class="icon-th-large"></span>Tüm Nedenleri Gör</p></a>
+                    </div>
+                    <div class="title-side">
+                        <p class="h3"><strong><span>İhtiyaca Uygun </span> Vodafone Red Tarifeleri</strong></p>
+                    </div>
+                    <div class="tarife-holder home-tarife">
+                        <div class="tarife-slider" id="tarife-slider">
+                            <div class="tarife-box red">
+                                <div class="red-logo netflix-logo">
+                                    <img src="dist/img/netflix-logo2.png" alt="">
+                                    <p>3 Ay Hediye </p>
+                                </div>
+                                <table>
+                                    <tr class="title">
+                                        <td>
+                                            <p class="h4">4.5G Red 10</p>
+                                            <p>Sınırlı Sayıda</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="h5">10 GB</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kontrat">
+                                            <p class="h5"><span class="icon-turkish-lira"></span>69</p>
+                                            <div class="tooltip tooltip2">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p><strong>12 + 12</strong> ay kalma sözünüze</p>
+                                                </div>
+                                            </div>
+                                            <p class="detail">80 <span class="icon-turkish-lira"></span> Kontratsız</p>
+                                            <span class="plus">+</span>
+                                            <p class="h6"><span class="icon-plus"></span><span>Her Yöne</span></br><strong>2.000 DK</strong></br><strong>1.000 SMS </strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail">
+                                            <p><strong>Vodafone'lular ve Sabit Hatlarla </strong></p>
+                                            <p>Sınırsız Konuşma</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail mini-slider">
+                                            <p><strong>4.5G Servisleri</strong></p>
+                                            <ul class="table-service">
+                                                <li>
+                                                    <a href="vodafone-tv.html">
+                                                        <img src="dist/img/1square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Vodafone TV <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu Tarife ile birlikte<strong> Vodafone TV</strong>'ye <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="call.html">
+                                                        <img src="dist/img/2square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Call+ <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Call+</strong>'a <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-net.html">
+                                                        <img src="dist/img/3square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">GüvenliNet <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>GüvenliNet</strong>'ten <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-depo.html">
+                                                        <img src="dist/img/4square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Güvenli Depo <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Güvenli Depo</strong>'dan <strong>ücretsiz</strong> yaralanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="big2">
+                                                    <img src="dist/img/6square.png" title="service" alt="">
+                                                    <div class="tooltip">
+                                                        <p class="title">Spotify Premium veya Digiturk Play Sinema Paketi <span class="icon-info-circle"></span></p>
+                                                        <div class="tooltip-first">
+                                                            <p>Bu tarifeyle <strong><a class="link2" href="spotify.html" >Spotify Premium</a> veya <a class="link2" href="digiturk-play-sinema.html" >Digiturk Play Sinema Paketi</a></strong>'nden <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="color" href="tarifeler.html#Red101">Bu Tarifede Geçerli Fırsatlar</a>
+                                            <a href="tarifeler.html#Red10">Detaylı İncele</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="tarife-box active red">
+                                <table>
+                                    <tr class="title">
+                                        <td>
+                                            <p class="h4">4.5G Red XS</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="h5">4 GB</p>
+                                            <div class="tooltip tooltip1">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p>Aylık ek paket <strong>1GB/15TL,</strong> ek paket bittiğinde ise her <strong>500MB/5TL</strong></p>
+                                                    <a class="hemen-al" href="nasil-redli.html">Hemen Al</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kontrat">
+                                            <p class="h5"><span class="icon-turkish-lira"></span>49</p>
+                                            <div class="tooltip tooltip2">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p><strong>12 + 12</strong> ay kalma sözünüze</p>
+                                                </div>
+                                            </div>
+                                            <p class="detail">60 <span class="icon-turkish-lira"></span> Kontratsız</p>
+                                            <span class="plus">+</span>
+                                            <p class="h6"><span class="icon-plus"></span><span>Her Yöne</span></br><strong>1.000 DK</strong></br><strong>1.000 SMS </strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail">
+                                            <p><strong>Vodafone'lular ve Sabit Hatlarla </strong></p>
+                                            <p>Sınırsız Konuşma</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail mini-slider">
+                                            <p><strong>4.5G Servisleri</strong></p>
+                                            <ul class="table-service">
+                                                <li>
+                                                    <a href="vodafone-tv.html">
+                                                        <img src="dist/img/1square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Vodafone TV <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu Tarife ile birlikte<strong> Vodafone TV</strong>'ye <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="call.html">
+                                                        <img src="dist/img/2square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Call+ <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Call+</strong>'a <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-net.html">
+                                                        <img src="dist/img/3square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">GüvenliNet <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>GüvenliNet</strong>'ten <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-depo.html">
+                                                        <img src="dist/img/4square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Güvenli Depo <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Güvenli Depo</strong>'dan <strong>ücretsiz</strong> yaralanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="color" href="tarifeler.html#RedXS1">Bu Tarifede Geçerli Fırsatlar</a>
+                                            <a href="tarifeler.html#RedXS">Detaylı İncele</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="tarife-box purple">
+                                <table>
+                                    <tr class="title">
+                                        <td>
+                                            <p class="h4">4.5G Red S</p>
+                                            <p>En Çok Satan Tarife</p>                                    
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="h5">6 GB </p>
+                                            <div class="tooltip tooltip1">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p>Aylık ek paket <strong>1GB/15TL,</strong> ek paket bittiğinde ise her <strong>500MB/5TL</strong></p>
+                                                    <a class="hemen-al" href="nasil-redli.html">Hemen Al</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kontrat">
+                                            <p class="h5"><span class="icon-turkish-lira"></span>59</p>
+                                            <div class="tooltip tooltip2">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p><strong>12 + 12</strong> ay kalma sözünüze</p>
+                                                </div>
+                                            </div>
+                                            <p class="detail">70 <span class="icon-turkish-lira"></span> Kontratsız</p>
+                                            <span class="plus">+</span>
+                                            <p class="h6"><span class="icon-plus"></span><span>Her Yöne</span></br><strong>1.000 DK</strong></br><strong>1.000 SMS </strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail">
+                                            <p><strong>Vodafone'lular ve Sabit Hatlarla </strong></p>
+                                            <p>Sınırsız Konuşma</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail mini-slider">
+                                            <p><strong>4.5G Servisleri</strong></p>
+                                            <ul class="table-service">
+                                                <li>
+                                                    <a href="vodafone-tv.html">
+                                                        <img src="dist/img/1square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Vodafone TV <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu Tarife ile birlikte<strong> Vodafone TV</strong>'ye <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="call.html">
+                                                        <img src="dist/img/2square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Call+ <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Call+</strong>'a <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-net.html">
+                                                        <img src="dist/img/3square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">GüvenliNet <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>GüvenliNet</strong>'ten <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-depo.html">
+                                                        <img src="dist/img/4square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Güvenli Depo <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Güvenli Depo</strong>'dan <strong>ücretsiz</strong> yaralanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="big2">
+                                                    <img src="dist/img/6square.png" title="service" alt="">
+                                                    <div class="tooltip">
+                                                        <p class="title">Spotify Premium veya Digiturk Play Sinema Paketi <span class="icon-info-circle"></span></p>
+                                                        <div class="tooltip-first">
+                                                            <p>Bu tarifeyle <strong><a class="link2" href="spotify.html" >Spotify Premium</a> veya <a class="link2" href="digiturk-play-sinema.html" >Digiturk Play Sinema Paketi</a></strong>'nden <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="color" href="tarifeler.html#RedS1">Bu Tarifede Geçerli Fırsatlar</a>
+                                            <a href="tarifeler.html#RedS">Detaylı İncele</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="tarife-box green">
+                                <table>
+                                    <tr class="title">
+                                        <td>
+                                            <p class="h4">4.5G Red M</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="h5">8 GB  </p>
+                                            <div class="tooltip tooltip1">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p>Aylık ek paket <strong>1GB/15TL,</strong> ek paket bittiğinde ise her <strong>500MB/5TL</strong></p>
+                                                    <a class="hemen-al" href="nasil-redli.html">Hemen Al</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kontrat">
+                                            <p class="h5"><span class="icon-turkish-lira"></span>69</p>
+                                            <div class="tooltip tooltip1">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p><strong>12 + 12</strong> ay kalma sözünüze</p>
+                                                </div>
+                                            </div>
+                                            <p class="detail">80 <span class="icon-turkish-lira"></span> Kontratsız</p>
+                                            <span class="plus">+</span>
+                                            <p class="h6"><span class="icon-plus"></span><span>Her Yöne</span></br><strong>2.000 DK</strong></br><strong>1.000 SMS </strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail">
+                                            <p><strong>Vodafone'lular ve Sabit Hatlarla </strong></p>
+                                            <p>Sınırsız Konuşma</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail mini-slider">
+                                            <p><strong>4.5G Servisleri</strong></p>
+                                            <ul class="table-service">
+                                                <li>
+                                                    <a href="vodafone-tv.html">
+                                                        <img src="dist/img/1square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Vodafone TV <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu Tarife ile birlikte<strong> Vodafone TV</strong>'ye <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="call.html">
+                                                        <img src="dist/img/2square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Call+ <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Call+</strong>'a <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-net.html">
+                                                        <img src="dist/img/3square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">GüvenliNet <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>GüvenliNet</strong>'ten <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-depo.html">
+                                                        <img src="dist/img/4square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Güvenli Depo <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Güvenli Depo</strong>'dan <strong>ücretsiz</strong> yaralanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="big2">
+                                                    <img src="dist/img/6square.png" title="service" alt="">
+                                                    <div class="tooltip">
+                                                        <p class="title">Spotify Premium veya Digiturk Play Sinema Paketi <span class="icon-info-circle"></span></p>
+                                                        <div class="tooltip-first">
+                                                            <p>Bu tarifeyle <strong><a class="link2" href="spotify.html" >Spotify Premium</a> veya <a class="link2" href="digiturk-play-sinema.html" >Digiturk Play Sinema Paketi</a></strong>'nden <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="color" href="tarifeler.html#RedM1">Bu Tarifede Geçerli Fırsatlar</a>
+                                            <a href="tarifeler.html#RedM">Detaylı İncele</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="tarife-box yellow">
+                                <table>
+                                    <tr class="title">
+                                        <td>
+                                            <p class="h4">4.5G Red L</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="h5">12 GB </p>
+                                            <div class="tooltip tooltip1">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p>Aylık ek paket <strong>1GB/15TL,</strong> ek paket bittiğinde ise her <strong>500MB/5TL</strong></p>
+                                                    <a class="hemen-al" href="nasil-redli.html">Hemen Al</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kontrat">
+                                            <p class="h5"><span class="icon-turkish-lira"></span>89</p>
+                                            <div class="tooltip tooltip2">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p><strong>12 + 12</strong> ay kalma sözünüze</p>
+                                                </div>
+                                            </div>
+                                            <p class="detail">100 <span class="icon-turkish-lira"></span> Kontratsız</p>
+                                            <span class="plus">+</span>
+                                            <p class="h6"><span class="icon-plus"></span><span>Her Yöne</span></br><strong>2.000 DK</strong></br><strong>1.000 SMS </strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail">
+                                            <p><strong>Vodafone'lular ve Sabit Hatlarla </strong></p>
+                                            <p>Sınırsız Konuşma</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail mini-slider">
+                                            <p><strong>4.5G Servisleri</strong></p>
+                                            <ul class="table-service">
+                                                <li>
+                                                    <a href="vodafone-tv.html">
+                                                        <img src="dist/img/1square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Vodafone TV <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu Tarife ile birlikte<strong> Vodafone TV</strong>'ye <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="call.html">
+                                                        <img src="dist/img/2square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Call+ <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Call+</strong>'a <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-net.html">
+                                                        <img src="dist/img/3square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">GüvenliNet <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>GüvenliNet</strong>'ten <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-depo.html">
+                                                        <img src="dist/img/4square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Güvenli Depo <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Güvenli Depo</strong>'dan <strong>ücretsiz</strong> yaralanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="spotify">
+                                                    <span>+</span>
+                                                    <a href="spotify.html">
+                                                        <img src="dist/img/7square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Spotify <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Spotify Premium</strong>'dan <strong>ücretsiz</strong> faydalanabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="big big2">
+                                                    <img src="dist/img/5square.png" title="service" alt="">
+                                                    <div class="tooltip">
+                                                        <p class="title">Digiturk Play Sinema Paketi veya Süper Lig Taraftar Paketi  <span class="icon-info-circle"></span></p>
+                                                        <div class="tooltip-first">
+                                                            <p>Bu tarifeyle <strong><a class="link2" href="digiturk-play-sinema.html" >Digiturk Play Sinema Paketi</a> veya <a class="link2" href="digiturk-taraftar-paketi.html" >Digiturk Play Süper Lig Taraftar Paketi</a></strong>'nden <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="color" href="tarifeler.html#RedL1">Bu Tarifede Geçerli Fırsatlar</a>
+                                            <a href="tarifeler.html#RedL">Detaylı İncele</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="tarife-box darkpurple">
+                                <div class="red-logo netflix-logo">
+                                    <img src="dist/img/netflix-logo2.png" alt="">
+                                    <p>3 Ay Hediye </p>
+                                </div>
+                                <table>
+                                    <tr class="title">
+                                        <td>
+                                            <p class="h4">4.5G Red Elite</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="h5">25 GB </p>
+                                            <div class="tooltip tooltip1">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p>Aylık ek paket <strong>1GB/15TL,</strong> ek paket bittiğinde ise her <strong>500MB/5TL</strong></p>
+                                                    <a class="hemen-al" href="nasil-redli.html">Hemen Al</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kontrat">
+                                            <p class="h5"><span class="icon-turkish-lira"></span>159 </p>
+                                            <div class="tooltip tooltip1">
+                                                <span class="icon-info-circle"></span>
+                                                <div class="tooltip-first">
+                                                    <p><strong>12 + 12</strong> ay kalma sözünüze</p>
+                                                </div>
+                                            </div>
+                                            <p class="detail">200 <span class="icon-turkish-lira"></span> Kontratsız</p>
+                                            <span class="plus">+</span>
+                                            <p class="h6"><span class="icon-plus"></span><span>Her Yöne</span></br><strong>10.000 DK</strong></br><strong>1.000 SMS </strong></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail">
+                                            <p><strong>Vodafone'lular ve Sabit Hatlarla </strong></p>
+                                            <p>Sınırsız Konuşma</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detail mini-slider">
+                                            <p><strong>4.5G Servisleri</strong></p>
+                                            <ul class="table-service">
+                                                <li>
+                                                    <a href="vodafone-tv.html">
+                                                        <img src="dist/img/1square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Vodafone TV <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu Tarife ile birlikte<strong> Vodafone TV</strong>'ye <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="call.html">
+                                                        <img src="dist/img/2square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Call+ <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Call+</strong>'a <strong>ücretsiz</strong> sahip olabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-net.html">
+                                                        <img src="dist/img/3square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">GüvenliNet <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>GüvenliNet</strong>'ten <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="guvenli-depo.html">
+                                                        <img src="dist/img/4square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Güvenli Depo <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Güvenli Depo</strong>'dan <strong>ücretsiz</strong> yaralanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="spotify.html">
+                                                        <img src="dist/img/7square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Spotify <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Spotify Premium</strong>'dan <strong>ücretsiz</strong> faydalanabilirsiniz.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="digiturk-taraftar-paketi.html">
+                                                        <img src="dist/img/8square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Digiturk Play Sinema Paketi <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Digiturk Play Sinema Paketi</strong>'nden <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="digiturk-taraftar-paketi.html">
+                                                        <img src="dist/img/9square.png" title="service" alt="">
+                                                        <div class="tooltip">
+                                                            <p class="title">Digiturk Play Süper Lig Taraftar Paketi <span class="icon-info-circle"></span></p>
+                                                            <div class="tooltip-first">
+                                                                <p>Bu tarifeyle <strong>Digiturk Play Süper Lig Taraftar Paketi</strong>'nden <strong>ücretsiz</strong> faydalanabilirsin.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="color" href="tarifeler.html#RedElite1">Bu Tarifede Geçerli Fırsatlar</a>
+                                            <a href="tarifeler.html#RedElite">Detaylı İncele</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tarife-slider-nav">
+                                <div class="slick-prev prev"></div>
+                                <div class="slick-next next"></div>
+                        </div>
+                        <div class="ps">
+                            <table>
+                                <tr>
+                                    <td><p class="h1">Tüm Tarifelerde</p><p>Geçerli Avantajlar</p> </td>
+                                    <td class="list">
+                                        <div class="list">
+                                            <a href="yurtdisi-arama.html"><span class="icon-globe"></span><p>Yurt dışını</br>arama <span class="icon-chevron-thin-right"></span></p></a>
+                                        </div>
+                                        <div class="list">
+                                            <a href="red-ulkeleri.html"><span class="icon-plane"></span><p>Yurt dışında</br>kullanım <span class="icon-chevron-thin-right"></span></p></a>
+                                        </div>
+                                        <div class="list">
+                                            <a href="aile-web.html"><span class="icon-users"></span><p>Aile</br>indirimi <span class="icon-chevron-thin-right"></span></p></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="title-side">
+                                <p class="h3"><strong><span>Tüm Tarifelerde </span> Geçerli Avantajlar</strong></p>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="yurtdisi-arama.html"><span class="icon-globe"></span><p>Yurtdışını arama <span class="icon-chevron-thin-right"></span></p></a>
+                                </li>
+                                <li>
+                                    <a href="yurtdisi-arama.html"><span class="icon-plane"></span><p>Yurtdışında kullanım <span class="icon-chevron-thin-right"></span></p></a>
+                                </li>
+                                <li>
+                                    <a href="aile-web.html"><span class="icon-users"></span><p>Aile indirimi <span class="icon-chevron-thin-right"></span></p></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="banner-side">
+                        <div class="text-holder">
+                            <p class="h4">Akıllı Cihaz Teklifleri</p>
+                            <p>Her ihtiyacınıza uygun akıllı cihazlar, uygun fiyatlara <strong>Vodafone</strong>'da. </p>
+                            <!--<a href="#" class="button">Cihazları İncele</a>-->
+                        </div>
+                        <div class="teklifler-slider">
+                            <ul class="teklifler-slider-holder">
+                                <li>
+                                    <img src="dist/img/akillitelefonlar/iphone.png" alt="">
+                                    <p>iPhone 6s</p>
+                                    <a href="#">Detaylı Bilgi</a>
+                                </li>
+                                <li>
+                                    <img src="dist/img/akillitelefonlar/vodafonesmart.png" alt="">
+                                    <p>Vodafone Smart Pro7</p>
+                                    <a href="#">Detaylı Bilgi</a>
+                                </li>
+                                <li>
+                                    <img src="dist/img/akillitelefonlar/samsungs7.png" alt="">
+                                    <p>Samsung S7 Edge</p>
+                                    <a href="#">Detaylı Bilgi</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="twit-side ">
+                        <div class="title">
+                            <p><span class="icon-social-tw"></span></p>
+                        </div>
+                        <div id="twit-side">
+                            <div class="twit-holder">
+                                <div class="twit-content">
+                                    <div id="twit" class="twit">
+                                        <p>Vodafone Red ve Netflix kampanyası... 10 Numara ★★★★★ hareket.</p>
+                                    </div>
+                                    <div id="person" class="person">
+                                        <img src="dist/img/twperson1.png" alt="" />
+                                        <div class="text">
+                                            <p class="h1">Doğan Öncel</p>
+                                            <p class="h2">@doganoncel</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="twit-holder">
+                                <div class="twit-content">
+                                    <div id="twit" class="twit">
+                                        <p>Vodafone'un, Spotify sonra Netflix'le de anlaşma yapması... Alkışlıyorum. 👏</p>
+                                    </div>
+                                    <div id="person" class="person">
+                                        <img src="dist/img/twperson2.png" alt="" />
+                                        <div class="text">
+                                            <p class="h1">Hasan Altun</p>
+                                            <p class="h2">@hasanaltun</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="twit-holder">
+                                <div class="twit-content">
+                                    <div id="twit" class="twit">
+                                        <p>Vodafone red li iseniz havalimanlarında fast truck hizmetini kulanın arkadaşlar . Çok zevkli😀</p>
+                                    </div>
+                                    <div id="person" class="person">
+                                        <img src="dist/img/twperson3.png" alt="" />
+                                        <div class="text">
+                                            <p class="h1">Hasan Özer</p>
+                                            <p class="h2">@hasanozer2020</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- twit-side -->
+                </div> <!--row-->
+            </div> <!--container-->
+        </div> <!--content-holder-->
+        <div id="vodafone-red-form" class="vodafone-red-form">
+            <div class="container">
+                <div class="row">
+                    <div class="title-side">
+                        <p class="h3"><strong><span>Vodafone Red'li </span> Olmak İstiyorum</strong></p>
+                    </div>
+                    <p class="text">Formu doldurun, <strong>özel ekibimiz size kadar gelsin</strong>, numaranız değişmeden <strong>Vodafone Red</strong>’li olun.</p>
+                    <iframe src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+        <footer id="footer" class="footer">
+            <div class="container">
+                <div class="row">
+                    <ul>
+                        <li class="title"><p>Hakkımızda</p><span></span></li>
+                        <li><a href="#">İnsan Kaynakları</a></li>
+                        <li><a href="#">Basın Odası</a></li>
+                        <li><a href="#">Duyurular</a></li>
+                        <li><a href="#">Reklam Filmleri</a></li>
+                        <li><a href="#">Sponsorluklar</a></li>
+                        <li><a href="#">Vodafone Türkiye Vakfı</a></li>
+                        <li><a href="#">Vodafone Group</a></li>
+                        <li><a href="#">Hukuki Şartlar ve </br>Gizlilik Politikası</a></li>
+                        <li><a href="#">Bilgi Toplumu </br>Hizmetleri</a></li>
+                    </ul>
+                    <ul>
+                        <li class="title"><p>Destek</p><span></span></li>
+                        <li><a href="#">Yardım</a></li>
+                        <li><a href="#">Sıkça Sorulan Sorular</a></li>
+                        <li><a href="#">Bize Ulaşın</a></li>
+                        <li><a href="#">Vodafone Forum</a></li>
+                        <li><a href="#">Cihaz Keşfi</a></li>
+                        <li><a href="#">OnlineSelf Servis</a></li>
+                        <li><a href="#">Vodafone Red Özel</a></li>
+                        <li><a href="#">Satış Ekibi </a></li>
+                        <li><a href="#">Vodafone Aboneliği</a></li>
+                    </ul>
+                    <ul>
+                        <li class="title"><p>Online Satış</p><span></span></li>
+                        <li><a href="#">E-Kılavuzlar</a></li>
+                        <li><a href="#">Cihazları Deneyin</a></li>
+                        <li><a href="#">iPhone 6</a></li>
+                        <li><a href="#">iPhone 6 Plus 16GB</a></li>
+                        <li><a href="#">HTC One (M8)</a></li>
+                        <li><a href="#">Samsung Galaxy Edge</a></li>
+                        <li><a href="#">Samsung Galaxy Note</a></li>
+                        <li><a href="#">HTC One (E8)</a></li>
+                        <li><a href="#">Samsung Galaxy S5</a></li>
+                        <li><a href="#">Tablet ve Mobil Modemler</a></li>
+                    </ul>
+                    <ul>
+                        <li class="title"><p>Tarife, Paketler</br>ve Cihazlar</p><span></span></li>
+                        <li><a href="#">E-Kılavuzlar</a></li>
+                        <li><a href="#">Cihazları Deneyin</a></li>
+                        <li><a href="#">iPhone 6</a></li>
+                        <li><a href="#">iPhone 6 Plus 16GB</a></li>
+                        <li><a href="#">HTC One (M8)</a></li>
+                        <li><a href="#">Samsung Galaxy Edge</a></li>
+                        <li><a href="#">Samsung Galaxy Note</a></li>
+                        <li><a href="#">HTC One (E8)</a></li>
+                        <li><a href="#">Samsung Galaxy S5</a></li>
+                        <li><a href="#">Tablet ve Mobil Modemler</a></li>
+                    </ul>
+                    <ul>
+                        <li class="title"><p>Servisler</p><span></span></li>
+                        <li><a href="#">Vodafone 4.5G</a></li>
+                        <li><a href="#">Arayana Dinlet</a></li>
+                        <li><a href="#">Vodafone TV</a></li>
+                        <li><a href="#">Mobil</a></li>
+                        <li><a href="#">Yardım Engelleri Aşan Servisler</a></li>
+                        <li><a href="#">Vodafone Türkiye Vakfı</a></li>
+                        <li><a href="#">Cep Bağış Cep Nakit</a></li>
+                    </ul>
+                    <ul>
+                        <li class="title"><p>Vodafone Siteleri</p><span></span></li>
+                        <li><a href="#">Vodafone Freezone</a></li>
+                        <li><a href="#">Kamulara Özel Akıl Küpü</a></li>
+                        <li><a href="#">Tarifeler</a></li>
+                        <li><a href="#">Vodafone Cep Sağlık</a></li>
+                        <li><a href="#">Visting Turkey</a></li>
+                        <li><a href="#">Vodafone Çiftçi Kulübü</a></li>
+                        <li><a href="#">Vodafone Red</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="social">
+                            <p>Bizi Takip Edin</p>
+                            <a href="#" target="_blank"><span class="icon-social-fb"></span></a>
+                            <a href="#" target="_blank"><span class="icon-social-tw"></span></a>
+                            <a href="#" target="_blank"><span class="icon-play"></span></a>
+                            <a href="#" target="_blank"><span class="icon-bubbles2"></span></a>
+                        </div>
+                        <span class="mobile">@ 2016 Vodafone Türkiye</span>
+                        <div class="back-top">
+                            <div id="back-top" class="icon"><span></span></div>
+                            <p>Başa Dön</p>
+                            <span>@ 2016 Vodafone Türkiye</span>
+                        </div>
+                        <div class="logo">
+                            <img src="dist/img/red-logo2.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-mobile">
+                <div class="container">
+                    <div class="row">
+                        <p id="back-top2"><strong><span class="icon-chevron-thin-right"></span></strong> Başa Dön</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>   

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="language" content="tr" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta property="og:title" content="">
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:site_name" content="" />
+    <meta name="search_image_url" content="" />
+    <meta name="search_name" content="" />
+    <meta name="search_description" content="" />
+    <meta name="search_category" content="plans" />
+    <meta name="robots" content="index, follow, odp" />
+    <meta name="googlebot" content="index, follow" />
+
+    <?php 
+       //include '../YEDEK/ustmenu/ustmenu_style.php'; 
+       include '../includes/ustmenu/ustmenu_style.php';
+    ?>
+
+    <!--
+    App Dowland Link for Mobile
+    <meta name='yandex-verification' content='' />
+    <meta name="apple-itunes-app" content="">
+    <meta name="google-play-app" content="">
+    <meta name="msApplication-ID" content="" />
+    <meta name="msApplication-PackageFamilyName" content="" />
+    <meta name="msApplication-PackageEdgeName" content="" />
+    -->
+    <!--Call with click to Phone Number for Apple-->
+
+    <meta name="format-detection" content="telephone=no">
+
+    <title>Vodafone Phoenix</title>
+
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="js/html5shiv.js"></script>
+      <script type="text/javascript" src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <![endif]-->
+
+    <link href="dist/img/favicon/favicon.png" rel="Shortcut icon">
+    <link rel="stylesheet" href="dist/css/style.css" />
+
+
+    <style>
+        /*List*/
+        .title li{
+            cursor:pointer;
+        }
+        .box-content{display:none;}
+        .box-content:nth-child(4){display:block;}
+
+        .form-holder{display:none;}
+
+    </style>
+
+    
+
+
+
+
+
+</head>
+<body>
+
+    <?php   
+       //include '../YEDEK/ustmenu/header.php';
+       include '../includes/ustmenu/header.php';
+    ?>
+    <div id="wrap" class="wrap">
+        <div class="rhombus">
+            <img src="dist/img/rhombus.png" alt="">
+        </div>
+        <div class="phoenix-step">
+            <div class="iframe-form-holder">
+                <div class="container">
+                    <div class="row">
+                        <div class="title-side">
+                            <p class="h1"><strong> <span> Hoş Geldin </span></strong></p>
+                        </div>
+                        <p class="text"><strong><span class="name"></span> davet etti</strong> sen de onu kırmadın buralara kadar geldin <strong>hoş geldin. Vodafone 4.5G’li olup</strong> ilk 6 ay bir üst tarifenin internetini kullanmana <strong>çok az kaldı</strong>. Alttaki formu doldurduğunda arkadaşın <strong>Vodafone’lularla 3 gün geçerli 500 hediye dakika kazanacak.</strong></p>
+                        <iframe src="https://lead.vodafone.com.tr/f/digital-netflix" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+          <?php
+             //include '../YEDEK/ustmenu/footer.php';
+                include '../includes/ustmenu/footer.php';
+          ?>    
+   
+   
+    <script type="text/javascript" src="dist/js/all.js"></script>
+    
+    <script>
+        $(window).load(function(){
+
+                link = window.location.href;
+                        
+                linkID = link.substr(61);
+                        
+                console.log(linkID);
+
+
+
+                 $.ajax({
+                    type: 'POST',
+                    crossOrigin: true,
+                    url: 'http://phoenix.csdlabapps.com/LeadForm',
+                    dataType: 'json',
+                    cache :false,
+                    data : {"g":'097086a3-2c05-4eb4-9ca6-4daf0a3455ab'},
+                    success : function (data) {
+                        $('span.name').text(data);
+                    }
+                });
+
+        });  
+        </script>
+
+</body>
+</html>   

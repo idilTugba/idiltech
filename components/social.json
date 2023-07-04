@@ -1,0 +1,23 @@
+
+[
+    {
+        "key": "Youtube",
+        "link": "https://www.youtube.com/channel/UC98-3FgPmNTpQYmbRXqL7qA",
+        "icon": "Youtube"
+    },
+    {
+        "key": "Facebook",
+        "link": "https://www.facebook.com/idillce",
+        "icon": "Facebook"
+    },
+    {
+        "key": "Twitter",
+        "link": "https://twitter.com/idillce",
+        "icon": "Twitter"
+    },
+    {
+        "key": "Instagram",
+        "link": "https://www.instagram.com/idillce/",
+        "icon": "Instagram"
+    }
+]

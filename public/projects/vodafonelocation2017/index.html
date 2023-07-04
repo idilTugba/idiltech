@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="language" content="tr" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta property="og:title" content="">
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:site_name" content="" />
+    <meta name="search_image_url" content="" />
+    <meta name="search_name" content="" />
+    <meta name="search_description" content="" />
+    <meta name="search_category" content="plans" />
+    <meta name="robots" content="index, follow, odp" />
+    <meta name="googlebot" content="index, follow" />
+
+    <title>PROJE TITLE</title>
+
+    <link href="dist/img/favicon/favicon.png" rel="Shortcut icon">
+    <link rel="stylesheet" href="dist/css/style.css" />
+    
+</head>
+<body>
+    <div id="wrap-map" class="wrap-map">
+        <div class="head-holder">
+            <div class="container">
+                <div class="row">
+                    <p class="h1"><strong><span>Kapsama</span></strong> Haritası</p>
+                    <p>Bulunduğunuz yerdeki 4.5G kapsama alanını ve yararlanabileceğiniz 4.5G servislerini <br/>görmek için <strong>lokasyonunuzu belirleyin.</strong></p>
+                    <div class="search-item">
+                        <span class="icon-search"></span>
+                        <input id="pac-input" class="controls" type="text" placeholder="Lütfen bir sokak, cadde, mahalle veya ilçe adı yazın">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop-up-holder"><div class="pop-up"><p>En doğru adresi <br/>işaretlemek için lütfen <br/><strong>ikonu kaydırın.</strong></p></div></div>
+        <div id="map" class="map">
+        </div>
+        <div class="map-holder"></div>
+    </div>
+    <script type="text/javascript" src="dist/js/all.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC48nQ8q1tBlppcRnkkcOPYE7hIqtcbY-Q&libraries=places&callback=initMap" type="text/javascript"></script>
+    <script>
+      
+
+    function initMap() {
+          var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 12,
+              center: new google.maps.LatLng(41.015137, 28.979530),
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              styles:[{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}]
+          });
+
+          var marker, i,
+          image = new google.maps.MarkerImage('dist/img/pin-big.png');
+          var bounds = new google.maps.LatLngBounds();
+          var markers = [];
+
+
+          // Try Geolocation
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                  var pos = {
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude
+                  };
+                  map.setCenter(pos);
+                  marker = new google.maps.Marker({
+                      position: pos,
+                      map: map,
+                      icon: image,
+                      draggable: true
+                  });
+
+                  sendLocation();
+
+                  google.maps.event.addListener(marker, 'drag', function() {
+                      $('.gm-style .gm-style-iw').remove();
+                      $('.pop-up-holder').remove();
+                      //$('.gm-style .gm-style-iw').next().css({'display' : 'none'});
+                  });
+                  google.maps.event.addListener(marker, 'dragend', function() {
+                      sendLocation();
+                      //$('.gm-style .gm-style-iw').css({'display' : 'block'});
+                      //$('.gm-style .gm-style-iw').next().css({'display' : 'block'});
+                  });
+              });
+          } 
+
+          
+
+
+         // SEARCHBOX
+         // Create Searchbox
+         var input = document.getElementById('pac-input');
+         var searchBox = new google.maps.places.SearchBox(input);
+
+         // Listen for the event fired when the user selects a prediction
+         google.maps.event.addListener(searchBox, 'places_changed', function() {
+             if(!marker){
+                 marker = new google.maps.Marker();
+             }
+
+             // Clear Out.
+             searchBox.set('map', null);
+             marker.setMap(null);
+
+             var places = searchBox.getPlaces();
+             var i, place;
+             
+             for (i = 0; place = places[i]; i++) {
+                 (function(place) {
+                     marker = new google.maps.Marker({
+                         position: place.geometry.location,
+                         icon: image,
+                         draggable: true
+                     });
+                     marker.bindTo('map', searchBox, 'map');
+         
+                     google.maps.event.addListener(marker, 'drag', function() {
+                         $('.gm-style .gm-style-iw').css({'display' : 'none'});
+                         $('.gm-style .gm-style-iw').next().css({'display' : 'none'});
+                     });
+                     google.maps.event.addListener(marker, 'dragend', function() {
+                         sendLocation();
+                         $('.gm-style .gm-style-iw').css({'display' : 'block'});
+                         $('.gm-style .gm-style-iw').next().css({'display' : 'block'});
+                     });
+                     google.maps.event.addListener(marker, 'map_changed', function() {
+                         if (!this.getMap()) {
+                             this.unbindAll();
+                         }
+                     });
+                 }(place));
+             }
+
+             sendLocation();
+         });
+
+         function sendLocation(){
+             // Bu kısım entegrasyonda açılıcak.
+             /*$.ajax({
+                 method:"POST",
+                 url:"",
+                 data:{lat:marker.getPosition().lat(), lng:marker.getPosition().lng()}
+             }).done(function(response){
+                 openInfoWindow(response);
+             });*/
+
+             // Bu kısım entegrasyonda silinicek
+             openInfoWindow({a:10, b:71, c:100});
+         }
+
+
+         function openInfoWindow(data){
+             var infowindow = new google.maps.InfoWindow({maxWidth:200});
+                 bounds = new google.maps.LatLngBounds();
+
+                 bounds.extend(marker.position);
+
+                 if(data.a==100){
+                    var star45G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star">';
+                 } else if(data.a > 85){
+                    var star45G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star_half">';
+                 } else if(data.a==85){
+                    var star45G = '<span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 } else if(data.a > 55){
+                    var star45G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star_half"></span> <span class="icon-star-border">';
+                 } else if(data.a==55){
+                    var star45G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 } else if(data.a > 45 ){
+                    var star45G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star_half"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 }  else if(data.a == 45){
+                    var star45G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 } else if(data.a > 35 ){
+                    var star45G = '<span class="icon-star"></span> <span class="icon-star_half"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 } else if(data.a > 0 ){
+                    var star45G = '<span class="icon-star"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 }  else if(data.a == 0){
+                    var star45G = '<span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 }
+
+                 if(data.b==100){
+                    var star3G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star">';
+                 } else if(data.b > 85){
+                    var star3G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star_half">';
+                 } else if(data.b==85){
+                    var star3G = '<span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 } else if(data.b > 55){
+                    var star3G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star_half"></span> <span class="icon-star-border">';
+                 } else if(data.b==55){
+                    var star3G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 } else if(data.b > 45 ){
+                    var star3G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star_half"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 }  else if(data.b == 45){
+                    var star3G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 } else if(data.b > 35 ){
+                    var star3G = '<span class="icon-star"></span> <span class="icon-star_half"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 } else if(data.b > 0 ){
+                    var star3G = '<span class="icon-star"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 }  else if(data.b == 0){
+                    var star3G = '<span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                 }
+
+
+                if(data.c==100){
+                   var star2G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star">';
+                } else if(data.c > 85){
+                   var star2G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star_half">';
+                } else if(data.c==85){
+                   var star2G = '<span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                } else if(data.c > 55){
+                   var star2G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star_half"></span> <span class="icon-star-border">';
+                } else if(data.c==55){
+                   var star2G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                } else if(data.c > 45 ){
+                   var star2G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star_half"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                }  else if(data.c == 45){
+                   var star2G = '<span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                } else if(data.c > 35 ){
+                   var star2G = '<span class="icon-star"></span> <span class="icon-star_half"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                } else if(data.c > 0 ){
+                   var star2G = '<span class="icon-star"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                }  else if(data.c == 0){
+                   var star2G = '<span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border"></span> <span class="icon-star-border">';
+                }
+
+
+              //if(scoreA)
+              
+              infowindow.setContent('<div id="iw-container">' +
+                '<div class="iw-item">' +
+                    '<div class="iw-content">' +
+                      '<div class="iw-subTitle">4.5G <div class="star-holder">' +star45G+ '</div></div>' +
+                      '<div class="iw-subTitle">3G <div class="star-holder">'+ star3G +'</div></div>' +
+                      '<div class="iw-subTitle">2G  <div class="star-holder">' + star2G + '</div></div>' +
+                    '</div>' +
+                    '<div class="iw-text">Bulunduğunuz noktada <strong>sosyal medya, Netflix ve Spotify</strong>’i dilediğiniz gibi kullanabilir, <strong>HD ses kalitesi</strong> ile telefonunuzla konuşabilirsiniz.</div>' +
+                    '<div class="iw-logo"><img src="dist/img/volte.png"><img src="dist/img/spotify.png"><img src="dist/img/netflix.png"></div>' +
+                '</div>' +
+              '</div>');
+              infowindow.open(map, marker);
+              setTimeout(function(){
+                  $('.gm-style-iw').parent().parent().prev().children().addClass('pin-content');
+                  PinLeft = $('.pin-content').css("left");
+                  PinTop = $('.pin-content').css("top");
+                  contentTop = $('.pin-content').parent().next().css("top");
+                  contentLeft = $('.pin-content').parent().next().css("left");
+                  PinLeft = parseInt(PinLeft);
+                  PinTop =  parseInt(PinTop);
+                  $('#iw-container').parent().parent().addClass('iw-wrapper');
+                  $('#iw-container').parent().parent().parent().addClass('iw-width');
+                  $('#iw-container').parent().parent().parent().parent().addClass('iw-position');
+                  contentWidth = $('.iw-wrapper').width();
+                  contentHeight = $('.iw-wrapper').height();
+                  contentLeft = (PinLeft -contentWidth+134);
+                  contentTop = (PinTop -contentHeight/6);
+                  $('.pin-content').parent().next().css('left',contentLeft);
+                  $('.pin-content').parent().next().css('top',contentTop);
+                  $('.pin-content').parent().css('z-index', '99999');
+                  $('#iw-container').parent().removeAttr('style');
+                  $('#iw-container').parent().height(contentHeight);
+                  headHeight = $('.head-holder').height();
+                  $('.pop-up-holder').css('left', PinLeft+140);
+                  $('.pop-up-holder').css('top', PinTop+headHeight+10);
+                  $('.pop-up-holder').addClass('active');
+              },1000);
+
+
+
+            google.maps.event.addListener(infowindow, 'domready', function() {
+
+            // Reference to the DIV that wraps the bottom of infowindow
+            var iwOuter = $('.gm-style-iw');
+
+            /* Since this div is in a position prior to .gm-div style-iw.
+             * We use jQuery and create a iwBackground variable,
+             * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
+            */
+            var iwBackground = iwOuter.prev();
+
+            // Removes background shadow DIV
+            iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+
+            // Removes white background DIV
+            iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+
+            // Moves the infowindow
+            iwOuter.parent().parent().css({left: '-150px', top:'140px'});
+
+            // Moves the shadow of the arrow 76px to the left margin.
+            iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+
+            // Moves the arrow 76px to the left margin.
+            iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+
+            // Changes the desired tail shadow color.
+            iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index' : '1'});
+
+            iwOuter.prev().css({display: 'none'});
+            // Reference to the div that groups the close button elements.
+            var iwCloseBtn = iwOuter.next();
+
+            // Apply the desired effect to the close button
+            iwCloseBtn.css({opacity: '1', right: '58px', top: '3px', border: '7px solid red', 'border-radius': '13px'});
+
+            // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
+            if($('.iw-content').height() < 140){
+              $('.iw-bottom-gradient').css({display: 'none'});
+            }
+
+            // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
+            iwCloseBtn.mouseout(function(){
+              $(this).css({opacity: '1'});
+            });
+        });
+
+        map.fitBounds(bounds);
+        searchBox.set('map', map);
+        map.setZoom(Math.min(map.getZoom(),12));
+    }
+}
+
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            var mobileSize = function(){
+                var windowWidth = $(window).width();
+                if(windowWidth<801){
+                    $('input').click(function(){
+                        $('.head-holder p').slideUp();
+                        $('.head-holder').css('height', '31.38vw')
+                        $('.wrap-map .map').css('height', '520px');
+                    });                
+                }
+            }
+            mobileSize();         
+        });
+        $(window).resize(function() {
+        //  mobileSize();
+        });
+    </script>
+</body>
+</html>   
