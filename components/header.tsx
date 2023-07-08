@@ -10,7 +10,7 @@ interface Links {
 }
 
 export default function Header() {
-    const [links, setLink] = useState<Links>();
+    const [links, setLink] = useState<Links[] | undefined>();
 
     useEffect(() => {
         setLink(data);
@@ -19,7 +19,7 @@ export default function Header() {
     return (
         <header className="bg-[#add8e6] w-full">
             <ul className="list-none">
-                {links && links.map((link:String) =>
+                {links && links.map((link:Links) =>
                     (
                         <li key={link.key} className="pr-2 sm:pr-5 inline-block">
                             <Link className="text-yellow-200 font-bold text-lg" target="_blank" href={link.link}>{link.key}</Link>

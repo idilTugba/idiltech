@@ -1,7 +1,8 @@
 import styles from './styles.module.css';
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { GameContext } from './index';
+import { GameContext, GameArea, GameContextType } from './index';
 import HandleScoreBoard from './handleScoreBoard';
+import {SticksInfo} from './handleGame';
 
 interface BallInformation {
     x: number;
@@ -15,12 +16,11 @@ export interface Score {
     rightPlayer: number;
 }
 
-export default function HandleBall({sticksRef}:{sticksRef:array}){
-    const {gameAreaRef, pauseGame, setPauseGame, restartGame, firstPlay, setFirstPlay} = useContext<any>(GameContext);
-
-    const ballRef = useRef<HTMLDivElement>(null);
-    const castleLeftRef = useRef<HTMLDivElement>(null);
-    const castleRightRef = useRef<HTMLDivElement>(null);
+export default function HandleBall({sticksRef}:{sticksRef:SticksInfo}){
+    const {gameAreaSize, pauseGame, setPauseGame, restartGame, firstPlay, setFirstPlay} = useContext<GameContextType>(GameContext);
+    
+    const castleElement = useRef<HTMLDivElement|null>(null);
+    const [castleHeightElement, setCastleHeightElement] = useState<number|undefined>();
 
     const [ballInformation, setBallInformation] = useState<BallInformation>({x: 100, y: 150, xSpeed: 2, ySpeed: 2});
     const [score, setScore] = useState<Score>({leftPlayer: 0, rightPlayer: 0});
@@ -28,24 +28,37 @@ export default function HandleBall({sticksRef}:{sticksRef:array}){
 
     const handleBall = () => {
         let newBallInformation = {...ballInformation};
-        
+
         //change the way of path by crash lines
         newBallInformation.x = newBallInformation.x + newBallInformation.xSpeed;
         newBallInformation.y = newBallInformation.y + newBallInformation.ySpeed;
 
-        if ( newBallInformation.y < 0 || newBallInformation.y + ballRef.current.offsetHeight + 16 > gameAreaRef.current.offsetHeight) {
-            newBallInformation.ySpeed *= -1;          
-        } 
-        if ( newBallInformation.x < 0 || newBallInformation.x + ballRef.current.offsetWidth + 16 > gameAreaRef.current.offsetWidth) {
-            newBallInformation.xSpeed *= -1;          
-        } 
+        if (
+            newBallInformation.y < 0 ||
+                (newBallInformation.y + 32 > gameAreaSize.y)
+        ) {
+            newBallInformation.ySpeed *= -1;
+        }
+        if (
+            newBallInformation.x < 0 ||
+                (newBallInformation.x + 32 > gameAreaSize.x)
+        ) {
+            newBallInformation.xSpeed *= -1;
+        }
 
-        //Kick the ball
+
+        // Kick the ball
         // border 8px - each stick 4px
-        if(newBallInformation.x <= 21 && newBallInformation.y + 8 < parseInt(sticksRef[0].current.style.top) + sticksRef[0].current.offsetHeight && newBallInformation.y + 8> parseInt(sticksRef[0].current.style.top)){
+        if(
+            newBallInformation.x <= 21 && 
+            newBallInformation.y + 8 < sticksRef.leftStickTop + sticksRef.stickHeight && 
+            newBallInformation.y + 8> sticksRef.leftStickTop){
                 newBallInformation.xSpeed *= -1;          
         } 
-        if(newBallInformation.x + ballRef.current.offsetWidth/2 >= gameAreaRef.current.offsetWidth - 40 && newBallInformation.y + 8 < parseInt(sticksRef[1].current.style.top) + sticksRef[1].current.offsetHeight && newBallInformation.y + 8 > parseInt(sticksRef[1].current.style.top)){
+        if(
+            (newBallInformation.x + 8 >= gameAreaSize.x - 40) && 
+            newBallInformation.y + 8 < sticksRef.rightStickTop + sticksRef.stickHeight && 
+            newBallInformation.y + 8 > sticksRef.rightStickTop){
                 newBallInformation.xSpeed *= -1;          
         } 
 
@@ -53,14 +66,16 @@ export default function HandleBall({sticksRef}:{sticksRef:array}){
         
         //Goal
         //Area of Castles
-        const castleTopPoint = (gameAreaRef.current.offsetHeight - castleLeftRef.current.offsetHeight)/2;
-        const castleBottomPoint = (gameAreaRef.current.offsetHeight - castleLeftRef.current.offsetHeight)/2 + castleLeftRef.current.offsetHeight;
+        const castleTopPoint = castleHeightElement ? (gameAreaSize.y - castleHeightElement) / 2 : 0;
+        const castleBottomPoint =  castleHeightElement ? (gameAreaSize.y - castleHeightElement)/2 + castleHeightElement : 0;
 
-        if(newBallInformation.y < castleBottomPoint && newBallInformation.y > castleTopPoint){
+        if( castleBottomPoint != 0 &&
+            castleTopPoint != 0 &&
+            newBallInformation.y < castleBottomPoint && 
+            newBallInformation.y > castleTopPoint){
             if(newBallInformation.x <= 17) setScore(score => ({...score, rightPlayer:score.rightPlayer+1}))  
-            if(newBallInformation.x + ballRef.current.offsetWidth/2 >= gameAreaRef.current.offsetWidth - 26) setScore(score => ({...score, leftPlayer:score.leftPlayer+1}))   
-            if(newBallInformation.x <= 17 || newBallInformation.x + ballRef.current.offsetWidth/2 >= gameAreaRef.current.offsetWidth - 26){   
-                ballRef.current.style.opacity= 0;
+            if(newBallInformation.x + 8 >= gameAreaSize.x - 26) setScore(score => ({...score, leftPlayer:score.leftPlayer+1}))   
+            if(newBallInformation.x <= 17 || newBallInformation.x + 8 >= gameAreaSize.x - 26){   
                 resetBall();
             } 
         }
@@ -70,11 +85,11 @@ export default function HandleBall({sticksRef}:{sticksRef:array}){
     
     const resetBall = () => {
         let newBallInformation = {...ballInformation};
-        newBallInformation.x = gameAreaRef.current.offsetWidth/2;
-        newBallInformation.y = gameAreaRef.current.offsetHeight/2;
+        newBallInformation.x = gameAreaSize.x/2;
+        newBallInformation.y = gameAreaSize.y/2;
         newBallInformation.xSpeed=2;
         newBallInformation.ySpeed=2;
-        ballRef.current.style.opacity= 1;
+        // ballRef.current.style.opacity= 1;
         
         let randomPathWay = Math.random();
 
@@ -90,6 +105,15 @@ export default function HandleBall({sticksRef}:{sticksRef:array}){
         setBallInformation(newBallInformation);
     }
 
+    //set castle
+    useEffect(() => {
+        if(castleElement.current) {
+            const height = castleElement.current.offsetHeight;
+            setCastleHeightElement(height);
+        }
+        
+    }, [castleElement]);
+
     //check winner to each new score
     useEffect(() => {
         if(score.rightPlayer==5 || score.leftPlayer==5) {
@@ -101,7 +125,7 @@ export default function HandleBall({sticksRef}:{sticksRef:array}){
     //start game
     useEffect(() => {
         handleBall();
-    }, []);
+    },[])
     
     //repeat game
     useEffect(() => {
@@ -127,18 +151,16 @@ export default function HandleBall({sticksRef}:{sticksRef:array}){
     return(
         <>
             <div 
-                ref={ballRef} 
                 style={{top: ballInformation.y+'px' , left: ballInformation.x+'px'}} 
                 className={styles.ball}>
             </div>
             <HandleScoreBoard playersScore={score} />
             <>
                 <div
-                    ref={castleLeftRef} 
+                    ref={castleElement} 
                     className={styles.castle + ' -left-2 bg-[#90ee90]'}>
                 </div>
                 <div 
-                    ref={castleRightRef} 
                     className={styles.castle + ' -right-2 bg-[#90ee90]'}>
                 </div>
             </>

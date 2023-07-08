@@ -7,7 +7,10 @@ export default function Project(){
     
     return (
         <div>
-            <iframe style={{width:'95%', height:'90%', margin: '0 auto'}} src={`/projects/${params.project}/index.html`}></iframe>  
+            <iframe 
+                style={{width:'95%', height:'90%', margin: '0 auto'}} 
+                src={`/projects/${params.project}/index.html`}>
+            </iframe>  
         </div>
     )
 }

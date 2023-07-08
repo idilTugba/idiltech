@@ -1,9 +1,9 @@
 "use client"; 
 import {useState} from 'react';
 
-let savedPowers = null;
+let savedPowers: string[] | null = null;
 const fetchPowers = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     setTimeout(() => {
       savedPowers = ['first', 'second']
       resolve();
@@ -13,7 +13,7 @@ const fetchPowers = () => {
 
 
 export default function PlanetIdil() {
-    const [powers, setPowers] = useState<array>(savedPowers);
+    const [powers, setPowers] = useState<String[] | null>(savedPowers);
     if (!powers) {
       throw fetchPowers();
     }

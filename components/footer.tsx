@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, {Components, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import data from './social.json';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -8,10 +8,11 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import YoutubeIcon from '@mui/icons-material/YouTube';
 
 interface Social {
-    key: String,
-    link: String,
-    icon: String
+    key: string,
+    link: string,
+    icon: string
 }
+
 
 const Icon = ({ linkIcon }: { linkIcon: string }) => {
     switch (linkIcon) {
@@ -29,7 +30,7 @@ const Icon = ({ linkIcon }: { linkIcon: string }) => {
 }
 
 export default function Footer() {
-    const [social, setSocial] = useState<Social>();
+    const [social, setSocial] = useState<Social[] | undefined>();
     
     useEffect(()=>{
         setSocial(data); 
@@ -38,7 +39,7 @@ export default function Footer() {
     return (
         <footer className="w-full py-1 bg-[#dcdcdc]">
             <ul className="list-none leading-3">
-                {social && social.map((link:Object) => {
+                {social && social.map((link:Social) => {
                     return (
                         <li key={link.key} className="pr-2 inline-block">
                             <Link href={link.link} target="_blank" className="pr-2 inline-block">

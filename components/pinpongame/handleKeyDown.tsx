@@ -1,11 +1,15 @@
 import React,{useEffect} from 'react';
 
-const getKeyDown = ({onKeyDown} : {onKeyDown:React.KeyboardEvent}) => {
+interface GetKeyDownProps {
+    onKeyDown: (e: KeyboardEvent) => void;
+  }
+  
+const GetKeyDown = ({ onKeyDown }: GetKeyDownProps) => {
 
     useEffect(()=>{
-        const handleKeyDown = (e: React.KeyboardEvent) => {
+        const handleKeyDown = (e: KeyboardEvent) => {
             onKeyDown(e);
-        }
+          };
         document.addEventListener('keydown', handleKeyDown);
         
             return () => {
@@ -18,4 +22,4 @@ const getKeyDown = ({onKeyDown} : {onKeyDown:React.KeyboardEvent}) => {
     )
 }
 
-export default getKeyDown
+export default GetKeyDown

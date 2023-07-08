@@ -8,10 +8,10 @@ export interface Project {
     projects?: Project[];
   }
 
-const Menu = ({data, listClassName} : {data:Project[], listClassName:String}) => {
-    const [tab, setTab] = useState('false');
+const Menu = ({data, listClassName} : {data:Project[], listClassName:string}) => {
+    const [tab, setTab] = useState<boolean>(false);
     
-    const handleClickLink : React.MouseEventHandler<HTMLIElement> = () => {
+    const handleClickLink : React.MouseEventHandler<HTMLElement> | null = () => {
         setTab(!tab);
     }
 
@@ -21,7 +21,7 @@ const Menu = ({data, listClassName} : {data:Project[], listClassName:String}) =>
             {data && data.map((item: Project, index: number) => (
                 <li 
                     key={item.name}
-                    onClick={item.projects ? handleClickLink : null}
+                    onClick={item.projects ? handleClickLink : undefined}
                     >
                         <Link 
                             href={item.link ? item.link : "#"}

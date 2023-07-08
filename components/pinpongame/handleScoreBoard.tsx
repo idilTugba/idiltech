@@ -1,10 +1,9 @@
 import styles from './styles.module.css';
-import React, { useState, useEffect, useRef } from 'react';
-import {scoreBoard} from './handleBall';
+import {Score} from './handleBall';
 
-export default function HandleScoreBoard({playersScore}:{playersScore:scoreBoard}){
+export default function HandleScoreBoard({playersScore}:{playersScore:Score}){
     return(
-        <div id="scoreboard" className={styles.scoreBoard}>
+        <div className={styles.scoreBoard}>
             <div 
                 className={styles.score+ ' float-left'}
                 >
