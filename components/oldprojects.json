@@ -1,7 +1,11 @@
 [
   {
+    "name": "To Do PWA /*React, TypeScript, NextJS*/ 2023",
+    "link": "/projects/pwa_to_do/index.html"
+  },
+  {
     "name": "Social Project 2020",
-    "link": "/projects/social2020/index.html" 
+    "link": "/projects/social2020/index.html"
   },
   {
     "name": "Vodafone 2017",
@@ -16,44 +20,44 @@
         "link": "/projects/vodafonechat2017/index.html"
       },
       {
-          "name" : "Vodafone StarWars 2",
-          "link" : "/projects/vodafonestarwarsproje2016/index.html"
+        "name": "Vodafone StarWars 2",
+        "link": "/projects/vodafonestarwarsproje2016/index.html"
       },
       {
-          "name" : "Vodafone Location",
-          "link" : "/projects/vodafonelocation2017/index.html"
+        "name": "Vodafone Location",
+        "link": "/projects/vodafonelocation2017/index.html"
       },
       {
-          "name" : "Vodafone Tam Zamani",
-          "link" : "/projects/simditamzamani2017/index.html"
+        "name": "Vodafone Tam Zamani",
+        "link": "/projects/simditamzamani2017/index.html"
       },
       {
-          "name" : "Vodafone StarWars",
-          "link" : "/projects/vodafonestarwarspage2016/index.html"
+        "name": "Vodafone StarWars",
+        "link": "/projects/vodafonestarwarspage2016/index.html"
       },
       {
-          "name" : "Vodafone Galaktik Paket",
-          "link" : "/projects/vodafonegalaktik2017/index.html"
+        "name": "Vodafone Galaktik Paket",
+        "link": "/projects/vodafonegalaktik2017/index.html"
       },
       {
-          "name" : "Vodafone Phonix",
-          "link" : "/projects/vodafonephonix2016/index.html"
+        "name": "Vodafone Phonix",
+        "link": "/projects/vodafonephonix2016/index.html"
       },
       {
-          "name" : "Vodafone Kafana Gore",
-          "link" : "/projects/vodafonekafanagore2017/index.html"
+        "name": "Vodafone Kafana Gore",
+        "link": "/projects/vodafonekafanagore2017/index.html"
       },
       {
-          "name" : "Vodafone Ficipi",
-          "link" : "/projects/vodafoneficipi2017/index.html"
+        "name": "Vodafone Ficipi",
+        "link": "/projects/vodafoneficipi2017/index.html"
       },
       {
-          "name" : "Vodafone Jabbar",
-          "link" : "/projects/vodafonejabbar2016/index.html"
+        "name": "Vodafone Jabbar",
+        "link": "/projects/vodafonejabbar2016/index.html"
       },
       {
-          "name" : "Vodafone Ramazan",
-          "link" : "/projects/vodafoneramazan2017/index.html"
+        "name": "Vodafone Ramazan",
+        "link": "/projects/vodafoneramazan2017/index.html"
       }
     ]
   },
