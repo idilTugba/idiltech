@@ -1,11 +1,13 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config.js} */
+
 module.exports = {
   // purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   // darkMode: false,
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx,html}',
+    './components/**/*.{js,ts,jsx,tsx,mdx,html}',
+    './app/**/*.{js,ts,jsx,tsx,mdx,html}',
+    './index.html',
   ],
   theme: {
     extend: {

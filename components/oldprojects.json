@@ -1,7 +1,15 @@
 [
   {
-    "name": "To Do PWA /*React, TypeScript, NextJS*/ 2023",
-    "link": "/projects/pwa_to_do/index.html"
+    "name": "Mobile Menu Page /* React TypeScript */ 2024",
+    "link": "https://restaurantmenupage.netlify.app/"
+  },
+  {
+    "name": "Nabu */ A Next.js and MongoDB based REST API managing user registration, login, and logout - TypeScript Redux Mongoose */ 2024",
+    "link": "https://kaleidoscopic-tiramisu-a0c386.netlify.app/"
+  },
+  {
+    "name": "Weather App with OpenAI /*React, TypeScript, NextJS14, */ 2023",
+    "link": "https://weatherapp-three-tan.vercel.app/"
   },
   {
     "name": "Social Project 2020",
