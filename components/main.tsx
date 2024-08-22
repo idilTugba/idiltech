@@ -53,7 +53,7 @@ export default function MainContent() {
   ];
 
   return (
-    <ul className="main-menu list-none relative">
+    <ul className="main-menu list-none relative max-w-[800px]">
       {menuItems.map((menuItem, index) => (
         <li
           key={index}
