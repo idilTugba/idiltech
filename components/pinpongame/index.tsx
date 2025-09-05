@@ -1,3 +1,4 @@
+"use client";
 import styles from './styles.module.css';
 import React, { useState, useRef, createContext, useEffect } from 'react';
 import HandleGame from './handleGame';

@@ -1,7 +1,5 @@
 "use client";
 
-
-
 function Portfolio() {
     return (  
     <>
