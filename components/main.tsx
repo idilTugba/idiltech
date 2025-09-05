@@ -5,9 +5,10 @@ import Menu from "./sections/menu";
 import { useState, useEffect } from "react";
 import PinPonGame from "./pinpongame/index";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+import Portfolio from "./portfolio";
 
 export default function MainContent() {
-  const [tab, setTab] = useState<number>(1);
+  const [tab, setTab] = useState<number>(0);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -36,7 +37,11 @@ export default function MainContent() {
 
   const menuItems = [
     {
-      label: "PROJECTS",
+      label: "VIDEO PROJECTS",
+      content: <Portfolio />,
+    },
+    {
+      label: "WEB PROJECTS",
       content: <Menu data={oldProjectsList} listClassName="old-projects" />,
     },
     {
