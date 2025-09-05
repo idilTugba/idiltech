@@ -1,22 +1,17 @@
-"use client"; 
-import {useState} from 'react';
-
-let savedPowers: string[] | null = null;
-const fetchPowers = () => {
-  return new Promise<void>((resolve, reject) => {
-    setTimeout(() => {
-      savedPowers = ['first', 'second']
-      resolve();
-    }, 2000)
-  });
-}
-
+"use client";
+import { useEffect, useState } from "react";
 
 export default function PlanetIdil() {
-    const [powers, setPowers] = useState<String[] | null>(savedPowers);
-    if (!powers) {
-      throw fetchPowers();
-    }
+  const [powers, setPowers] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPowers(["first", "second"]);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const visibility = powers ? "!visible" : "invisible";
 
     return (
         <svg className={`${powers && "!visible "} invisible w-2/5 right-[5vw] top-[10vw] sm:top-2 z-[999999] planetidil absolute animate-[bounce2_1s_ease-in-out_infinite] duration-500`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 425.11 202.05">

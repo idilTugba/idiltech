@@ -33,6 +33,7 @@ const Menu = ({
               <Link
                 href={item.link ? item.link : "#"}
                 target={item.projects ? "_self" : "_blank"}
+                prefetch={false}
                 className="no-underline text-[#4b00ff]"
               >
                 {item.name}
@@ -47,13 +48,13 @@ const Menu = ({
                 >
                   {item.projects.map((subItem: Project) => (
                     <li key={subItem.name}>
-                      <Link
+                      <a
                         href={subItem.link}
                         target="_blank"
                         className="no-underline text-[#4b00ff]"
                       >
                         {subItem.name}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>
