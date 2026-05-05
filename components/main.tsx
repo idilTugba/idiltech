@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import PinPonGame from "./pinpongame/index";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Portfolio from "./portfolio";
+import LatestBlog from "./latest-blog";
 
 export default function MainContent() {
   const [tab, setTab] = useState<number>(0);
@@ -36,6 +37,10 @@ export default function MainContent() {
       /*** Do that it can play with mobil touch LATTER  */
 
   const menuItems = [
+    {
+      label: "BLOG",
+      content: <LatestBlog />,
+    },
     {
       label: "VIDEO PROJECTS",
       content: <Portfolio />,
